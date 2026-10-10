@@ -104,12 +104,12 @@ const STORAGE_KEYS = {
   BOOST: 'glowbuzz_boost_v1',
 };
 
-/** Las fotos de ejemplo viejas eran enlaces externos; las nuevas están en /images. */
-const isLegacyImage = (value: unknown): boolean =>
-  typeof value === 'string' && value.includes('images.unsplash.com');
+/** Foto de demo (enlace o ruta incluida en la app). Las que sube la usuaria son data URLs y no se tocan. */
+const isShippedImage = (value: unknown): boolean =>
+  typeof value === 'string' && value !== '' && !value.startsWith('data:');
 
 /**
- * Datos guardados antes del cambio de fotos: reemplaza solo las imágenes viejas por las de los datos
+ * Datos guardados antes de un cambio de fotos: reemplaza solo las fotos de demo por las de los datos
  * iniciales (mismo id) y conserva todo lo que la usuaria haya editado.
  */
 const refreshLegacyImages = <T extends { id: string }>(stored: T[], initial: T[], fields: (keyof T)[]): T[] =>
@@ -118,7 +118,7 @@ const refreshLegacyImages = <T extends { id: string }>(stored: T[], initial: T[]
     if (!base) return item;
     const patch: Partial<T> = {};
     fields.forEach((field) => {
-      if (isLegacyImage(item[field])) patch[field] = base[field];
+      if (isShippedImage(item[field])) patch[field] = base[field];
     });
     return { ...item, ...patch };
   });
@@ -131,8 +131,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const plan = (stored.plan as string) === 'pro' ? 'boost' : stored.plan;
     const billingCycle = stored.billingCycle === 'annual' ? 'annual' : 'monthly';
     const images = {
-      avatarUrl: isLegacyImage(stored.avatarUrl) ? INITIAL_BUSINESS_PROFILE.avatarUrl : stored.avatarUrl,
-      coverUrl: isLegacyImage(stored.coverUrl) ? INITIAL_BUSINESS_PROFILE.coverUrl : stored.coverUrl,
+      avatarUrl: isShippedImage(stored.avatarUrl) ? INITIAL_BUSINESS_PROFILE.avatarUrl : stored.avatarUrl,
+      coverUrl: isShippedImage(stored.coverUrl) ? INITIAL_BUSINESS_PROFILE.coverUrl : stored.coverUrl,
     };
     return PLANS.some((p) => p.id === plan)
       ? { ...stored, ...images, plan, billingCycle }
