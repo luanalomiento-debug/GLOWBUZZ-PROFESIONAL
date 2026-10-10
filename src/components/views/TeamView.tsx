@@ -176,7 +176,7 @@ export const TeamView: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-1.5 bg-[#FFF8F3] px-2.5 py-1 rounded-xl border border-[#571C31]/10 text-xs font-bold text-[#571C31]">
+                <div className="flex items-center gap-1.5 bg-[#FFF8F9] px-2.5 py-1 rounded-xl border border-[#571C31]/10 text-xs font-bold text-[#571C31]">
                   <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
                   <span>{member.rating}</span>
                   <span className="text-stone-400 font-normal">({member.totalReviews})</span>
@@ -184,7 +184,7 @@ export const TeamView: React.FC = () => {
               </div>
 
               {/* Métricas del miembro */}
-              <div className="grid grid-cols-3 gap-2 p-3 rounded-2xl bg-[#FFF8F3] border border-[#571C31]/10 text-center">
+              <div className="grid grid-cols-3 gap-2 p-3 rounded-2xl bg-[#FFF8F9] border border-[#571C31]/10 text-center">
                 <div>
                   <span className="text-[10px] uppercase font-bold text-[#571C31]/60 block">
                     Reservas

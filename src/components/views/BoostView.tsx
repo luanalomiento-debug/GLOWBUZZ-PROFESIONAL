@@ -197,7 +197,7 @@ export const BoostView: React.FC = () => {
                   onClick={() => setBudget(amount)}
                   className={`p-4 rounded-2xl border-2 text-center transition-all ${
                     budget === amount
-                      ? 'border-[#B82E5F] bg-[#FFF8F3] shadow-xs'
+                      ? 'border-[#B82E5F] bg-[#FFF8F9] shadow-xs'
                       : 'border-[#571C31]/15 bg-white text-[#571C31]/70 hover:border-[#571C31]/30'
                   }`}
                 >
@@ -212,7 +212,7 @@ export const BoostView: React.FC = () => {
             </div>
 
             {/* Estimados de rendimiento */}
-            <div className="p-3.5 rounded-xl bg-[#FFF8F3] border border-[#571C31]/10 flex items-center justify-around text-center text-xs">
+            <div className="p-3.5 rounded-xl bg-[#FFF8F9] border border-[#571C31]/10 flex items-center justify-around text-center text-xs">
               <div>
                 <span className="text-[10px] text-[#571C31]/60 block font-bold">ALCANCE</span>
                 <span className="font-bold text-[#181416]">~{estimates.impressions}</span>
@@ -237,7 +237,7 @@ export const BoostView: React.FC = () => {
 
           {/* Phone frame simulation */}
           <div className="bg-[#181416] p-4 rounded-3xl shadow-xl border-4 border-stone-800 max-w-sm mx-auto">
-            <div className="bg-[#FFF8F3] rounded-2xl overflow-hidden text-[#181416]">
+            <div className="bg-[#FFF8F9] rounded-2xl overflow-hidden text-[#181416]">
               {/* Image Preview with REQUIRED 'Patrocinado' Badge */}
               <div className="relative aspect-4/3 bg-stone-200 overflow-hidden">
                 <img

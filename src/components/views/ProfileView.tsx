@@ -6,7 +6,6 @@ import { Badge } from '../common/Badge';
 import { Modal } from '../common/Modal';
 import { useToast } from '../../context/ToastContext';
 import {
-  Eye,
   Camera,
   MapPin,
   Instagram,
@@ -47,7 +46,6 @@ export const ProfileView: React.FC = () => {
     deleteService,
     toggleServiceStatus,
     team,
-    setPreviewAsClientModalOpen,
   } = useApp();
   const { showToast } = useToast();
 
@@ -203,14 +201,6 @@ export const ProfileView: React.FC = () => {
 
         <div className="flex items-center gap-2.5">
           <Button
-            variant="outline"
-            size="md"
-            onClick={() => setPreviewAsClientModalOpen(true)}
-            leftIcon={<Eye className="w-4 h-4 text-[#B82E5F]" />}
-          >
-            Ver como clienta
-          </Button>
-          <Button
             variant="primary"
             size="md"
             onClick={handleSaveProfile}
@@ -347,7 +337,7 @@ export const ProfileView: React.FC = () => {
                   type="text"
                   value={profileForm.name}
                   onChange={(e) => setProfileForm({ ...profileForm, name: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F9]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
                 />
               </div>
 
@@ -359,7 +349,7 @@ export const ProfileView: React.FC = () => {
                   rows={4}
                   value={profileForm.description}
                   onChange={(e) => setProfileForm({ ...profileForm, description: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm leading-relaxed"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F9]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm leading-relaxed"
                 />
               </div>
 
@@ -371,7 +361,7 @@ export const ProfileView: React.FC = () => {
                   type="text"
                   value={profileForm.specialtiesText}
                   onChange={(e) => setProfileForm({ ...profileForm, specialtiesText: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F9]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
                   placeholder="Ej. Nail Art & Kapping, Soft Gel, Micro-detalle"
                 />
               </div>
@@ -390,7 +380,7 @@ export const ProfileView: React.FC = () => {
                   type="text"
                   value={profileForm.location}
                   onChange={(e) => setProfileForm({ ...profileForm, location: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F9]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
                 />
               </div>
 
@@ -402,7 +392,7 @@ export const ProfileView: React.FC = () => {
                   type="text"
                   value={profileForm.address}
                   onChange={(e) => setProfileForm({ ...profileForm, address: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F9]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
                 />
               </div>
 
@@ -415,7 +405,7 @@ export const ProfileView: React.FC = () => {
                     type="text"
                     value={profileForm.instagram}
                     onChange={(e) => setProfileForm({ ...profileForm, instagram: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F9]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
                     placeholder="@usuario"
                   />
                 </div>
@@ -427,7 +417,7 @@ export const ProfileView: React.FC = () => {
                     type="text"
                     value={profileForm.tiktok}
                     onChange={(e) => setProfileForm({ ...profileForm, tiktok: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F9]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
                     placeholder="@usuario"
                   />
                 </div>

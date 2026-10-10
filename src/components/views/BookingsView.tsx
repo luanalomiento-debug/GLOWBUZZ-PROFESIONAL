@@ -117,7 +117,7 @@ export const BookingsView: React.FC = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-[#571C31]/10 bg-[#FFF8F3]/60 text-[11px] font-bold text-[#571C31] uppercase tracking-wider">
+                <tr className="border-b border-[#571C31]/10 bg-[#FFF8F9]/60 text-[11px] font-bold text-[#571C31] uppercase tracking-wider">
                   <th className="py-3 px-4">Clienta</th>
                   <th className="py-3 px-4">Servicio</th>
                   <th className="py-3 px-4">Profesional</th>
@@ -149,7 +149,7 @@ export const BookingsView: React.FC = () => {
                     <tr
                       key={b.id}
                       onClick={() => setSelectedBooking(b)}
-                      className="hover:bg-[#FFF8F3]/60 transition-colors cursor-pointer"
+                      className="hover:bg-[#FFF8F9]/60 transition-colors cursor-pointer"
                     >
                       <td className="py-3.5 px-4 font-bold text-[#181416]">
                         {b.clientName}
@@ -206,7 +206,7 @@ export const BookingsView: React.FC = () => {
         >
           <div className="space-y-4">
             {/* Header info card */}
-            <div className="p-4 rounded-2xl bg-[#FFF8F3] border border-[#571C31]/10 flex items-center justify-between">
+            <div className="p-4 rounded-2xl bg-[#FFF8F9] border border-[#571C31]/10 flex items-center justify-between">
               <div>
                 <p className=" text-base font-bold text-[#181416]">
                   {selectedBooking.clientName}
@@ -264,7 +264,7 @@ export const BookingsView: React.FC = () => {
 
             {/* Cancelled slot re-publish banner */}
             {selectedBooking.status === 'cancelled' && (
-              <div className="p-4 rounded-xl bg-[#FFF8F3] border border-[#B82E5F]/30 space-y-2">
+              <div className="p-4 rounded-xl bg-[#FFF8F9] border border-[#B82E5F]/30 space-y-2">
                 <div className="flex items-center gap-2">
                   <Radio className="w-4 h-4 text-[#B82E5F]" />
                   <span className="text-xs font-bold text-[#571C31]">

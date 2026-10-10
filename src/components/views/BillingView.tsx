@@ -85,7 +85,7 @@ export const BillingView: React.FC = () => {
             </p>
           </div>
 
-          <div className="p-3.5 rounded-2xl bg-[#FFF8F3] border border-[#571C31]/10 text-xs text-[#571C31]">
+          <div className="p-3.5 rounded-2xl bg-[#FFF8F9] border border-[#571C31]/10 text-xs text-[#571C31]">
             <span className=" font-bold text-[#B82E5F] block text-sm">
               Te quedan {businessProfile.trialDaysLeft} días de prueba gratuita.
             </span>
@@ -150,7 +150,7 @@ export const BillingView: React.FC = () => {
           {/* Card Start */}
           <Card
             className={`p-6 transition-all border-2 flex flex-col justify-between ${
-              !isPro ? 'border-[#B82E5F] shadow-sm bg-[#FFF8F3]/40' : 'border-[#571C31]/10'
+              !isPro ? 'border-[#B82E5F] shadow-sm bg-[#FFF8F9]/40' : 'border-[#571C31]/10'
             }`}
           >
             <div>
@@ -210,7 +210,7 @@ export const BillingView: React.FC = () => {
           {/* Card Pro */}
           <Card
             className={`p-6 transition-all border-2 relative flex flex-col justify-between ${
-              isPro ? 'border-[#B82E5F] shadow-sm bg-[#FFF8F3]/50' : 'border-[#571C31]/10'
+              isPro ? 'border-[#B82E5F] shadow-sm bg-[#FFF8F9]/50' : 'border-[#571C31]/10'
             }`}
           >
             <div className="absolute -top-3 right-5 bg-[#571C31] text-[#FFF8F3] text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-xs">

@@ -131,7 +131,7 @@ export const ReviewsView: React.FC = () => {
               {REPUTATION_TAGS.map((t) => (
                 <div
                   key={t.name}
-                  className="px-3.5 py-2 rounded-xl bg-[#FFF8F3] border border-[#571C31]/10 flex items-center gap-2 text-xs"
+                  className="px-3.5 py-2 rounded-xl bg-[#FFF8F9] border border-[#571C31]/10 flex items-center gap-2 text-xs"
                 >
                   <span className="font-bold text-[#181416]">{t.name}</span>
                   <span className="text-[#B82E5F] font-bold text-[11px] bg-[#F5DCE5] px-1.5 py-0.5 rounded-md">
@@ -241,7 +241,7 @@ export const ReviewsView: React.FC = () => {
                 {rev.tags.map((t) => (
                   <span
                     key={t}
-                    className="text-[10px] font-medium px-2 py-0.5 rounded-md bg-[#FFF8F3] text-[#571C31]/80 border border-[#571C31]/10"
+                    className="text-[10px] font-medium px-2 py-0.5 rounded-md bg-[#FFF8F9] text-[#571C31]/80 border border-[#571C31]/10"
                   >
                     #{t}
                   </span>
@@ -250,7 +250,7 @@ export const ReviewsView: React.FC = () => {
 
               {/* Respuesta del estudio */}
               {rev.reply ? (
-                <div className="p-3 rounded-xl bg-[#FFF8F3] border-l-3 border-[#B82E5F] text-xs text-[#571C31] mt-2">
+                <div className="p-3 rounded-xl bg-[#FFF8F9] border-l-3 border-[#B82E5F] text-xs text-[#571C31] mt-2">
                   <strong className="block text-[#181416] mb-0.5">
                     Respuesta de {businessProfile.name}:
                   </strong>
@@ -330,7 +330,7 @@ export const ReviewsView: React.FC = () => {
             />
           </div>
 
-          <div className="p-3.5 rounded-2xl bg-[#FFF8F3] border border-[#571C31]/10 text-xs text-[#571C31] space-y-1">
+          <div className="p-3.5 rounded-2xl bg-[#FFF8F9] border border-[#571C31]/10 text-xs text-[#571C31] space-y-1">
             <strong>Mensaje de WhatsApp sugerido:</strong>
             <p className="italic text-[#571C31]/80">
               "¡Hola! Gracias por visitarnos en Berna Studio. ¿Nos dejás tu opinión y fotito de tus uñas en Glow Buzz? Nos ayuda un montón a crecer: glowbuzz.uy/r/berna-studio"

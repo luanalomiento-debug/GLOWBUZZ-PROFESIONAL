@@ -164,7 +164,7 @@ export const AgendaView: React.FC = () => {
 
         <div className="flex items-center gap-2.5">
           <Button
-            variant="outline"
+            variant="ghost"
             size="sm"
             onClick={() => setBlockModalOpen(true)}
             leftIcon={<Lock className="w-3.5 h-3.5" />}
@@ -221,7 +221,7 @@ export const AgendaView: React.FC = () => {
               {cancelledBookings.map((cancelled) => (
                 <div
                   key={cancelled.id}
-                  className="p-4 sm:p-5 rounded-2xl bg-[#FFF8F3] border-2 border-dashed border-[#B82E5F]/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+                  className="p-4 sm:p-5 rounded-2xl bg-[#FFF8F9] border-2 border-dashed border-[#B82E5F]/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
                 >
                   <div className="flex items-start gap-3">
                     <div className="p-2 rounded-xl bg-[#F5DCE5] text-[#B82E5F] flex-shrink-0 mt-0.5">
@@ -259,7 +259,7 @@ export const AgendaView: React.FC = () => {
           {/* Calendario Semanal Visual */}
           <Card className="p-0 overflow-hidden">
             {/* Header del calendario */}
-            <div className="p-4 bg-[#FFF8F3] border-b border-[#571C31]/10 flex items-center justify-between">
+            <div className="p-4 bg-[#FFF8F9] border-b border-[#571C31]/10 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <span className=" text-base font-bold text-[#181416]">
                   Semana del 05 al 11 de Octubre, 2026
@@ -302,7 +302,7 @@ export const AgendaView: React.FC = () => {
                       <div className="space-y-2">
                         {dayBookings.map((b) => {
                           const statusStyles = {
-                            confirmed: 'bg-[#FFF8F3] border-[#B82E5F]/30 text-[#181416]',
+                            confirmed: 'bg-[#FFF8F9] border-[#B82E5F]/30 text-[#181416]',
                             pending: 'bg-amber-50 border-amber-200 text-amber-900',
                             completed: 'bg-stone-50 border-stone-200 text-stone-700 opacity-70',
                             cancelled: 'bg-red-50 border-red-200 text-red-700 opacity-60 line-through',
@@ -331,7 +331,7 @@ export const AgendaView: React.FC = () => {
                           <button
                             type="button"
                             onClick={() => handleOpenNewBooking(dayDateStr, '15:00')}
-                            className="w-full py-2 border border-dashed border-[#571C31]/20 hover:border-[#B82E5F] rounded-xl text-[11px] font-semibold text-[#571C31]/50 hover:text-[#B82E5F] hover:bg-[#FFF8F3] transition-colors"
+                            className="w-full py-2 border border-dashed border-[#571C31]/20 hover:border-[#B82E5F] rounded-xl text-[11px] font-semibold text-[#571C31]/50 hover:text-[#B82E5F] hover:bg-[#FFF8F9] transition-colors"
                           >
                             + Turno
                           </button>
@@ -391,7 +391,7 @@ export const AgendaView: React.FC = () => {
                   <div>
                     <div className="flex items-start justify-between gap-3 mb-2">
                       <div className="flex items-center gap-2.5">
-                        <div className="w-10 h-10 rounded-xl bg-[#FFF8F3] border border-[#571C31]/10 flex items-center justify-center font-bold text-sm text-[#B82E5F]">
+                        <div className="w-10 h-10 rounded-xl bg-[#FFF8F9] border border-[#571C31]/10 flex items-center justify-center font-bold text-sm text-[#B82E5F]">
                           {item.name[0]}
                         </div>
                         <div>

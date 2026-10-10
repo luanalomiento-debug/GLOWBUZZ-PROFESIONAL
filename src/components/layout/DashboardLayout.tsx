@@ -6,12 +6,7 @@ import { GlowBuzzLogo } from '../common/GlowBuzzLogo';
 import {
   Menu,
   Eye,
-  RotateCcw,
-  Sparkles,
-  ShieldCheck,
-  CheckCircle2,
 } from 'lucide-react';
-import { useToast } from '../../context/ToastContext';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -19,13 +14,9 @@ interface DashboardLayoutProps {
 
 export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const {
-    businessProfile,
     currentSection,
     setPreviewAsClientModalOpen,
-    restartOnboarding,
-    resetAllDemoData,
   } = useApp();
-  const { showToast } = useToast();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const sectionTitles: Record<string, { title: string; subtitle: string }> = {
@@ -48,13 +39,8 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) =>
     subtitle: 'Glow Buzz Business',
   };
 
-  const handleResetDemo = () => {
-    resetAllDemoData();
-    showToast('Datos reiniciados', 'Se cargaron los datos iniciales de Berna Studio.', 'info');
-  };
-
   return (
-    <div className="min-h-screen bg-[#FFF8F3] flex">
+    <div className="min-h-screen bg-[#FFF8F9] flex">
       {/* Sidebar */}
       <Sidebar
         isOpenMobile={isMobileMenuOpen}
@@ -64,7 +50,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) =>
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Top Header Bar */}
-        <header className="h-16 border-b border-[#571C31]/10 bg-[#FFF8F3]/90 backdrop-blur-xs sticky top-0 z-20 px-4 sm:px-8 flex items-center justify-between gap-4">
+        <header className="h-16 border-b border-[#571C31]/10 bg-[#FFF8F9]/90 backdrop-blur-xs sticky top-0 z-20 px-4 sm:px-8 flex items-center justify-between gap-4">
           {/* Left section: mobile hamburger & page title */}
           <div className="flex items-center gap-3">
             <button
@@ -88,17 +74,6 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) =>
 
           {/* Right section: Plan badge, Ver como clienta, and Demo switches */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* Plan Badge */}
-            <div className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F5DCE5] border border-[#B82E5F]/20 text-[11px] font-bold text-[#571C31]">
-              <Sparkles className="w-3.5 h-3.5 text-[#B82E5F]" />
-              <span>
-                {businessProfile.plan === 'pro' ? 'Glow Pro' : 'Glow Start'}
-              </span>
-              <span className="text-[#571C31]/60 font-normal">
-                · {businessProfile.trialDaysLeft}d de prueba
-              </span>
-            </div>
-
             {/* Ver como clienta CTA */}
             <Button
               variant="outline"
@@ -110,24 +85,6 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) =>
               Ver como clienta
             </Button>
 
-            {/* Quick Demo Utilities for university defense */}
-            <div className="flex items-center gap-1 border-l border-[#571C31]/10 pl-2 sm:pl-3">
-              <button
-                onClick={restartOnboarding}
-                title="Reiniciar Onboarding (para probar el flujo inicial)"
-                className="text-[11px] font-semibold text-[#571C31]/70 hover:text-[#B82E5F] hover:bg-[#F5DCE5]/40 px-2 py-1 rounded-lg transition-colors"
-              >
-                Probar Onboarding
-              </button>
-              <button
-                onClick={handleResetDemo}
-                title="Reiniciar datos demo a Berna Studio"
-                className="p-1.5 text-[#571C31]/50 hover:text-[#571C31] hover:bg-[#F5DCE5]/40 rounded-lg transition-colors"
-                aria-label="Reiniciar datos demo"
-              >
-                <RotateCcw className="w-3.5 h-3.5" />
-              </button>
-            </div>
           </div>
         </header>
 

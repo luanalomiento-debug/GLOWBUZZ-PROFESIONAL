@@ -164,6 +164,16 @@ export const SettingsView: React.FC = () => {
                   Volver al Onboarding
                 </Button>
                 <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    resetAllDemoData();
+                    showToast('Datos reiniciados', 'Se cargaron los datos iniciales de Berna Studio.', 'info');
+                  }}
+                >
+                  Reiniciar datos
+                </Button>
+                <Button
                   variant="danger"
                   size="sm"
                   onClick={() => {

@@ -97,7 +97,7 @@ export const HomeView: React.FC = () => {
                 <div
                   key={booking.id}
                   onClick={() => setCurrentSection('bookings')}
-                  className="p-4 hover:bg-[#FFF8F3]/60 transition-colors cursor-pointer flex items-center justify-between gap-3"
+                  className="p-4 hover:bg-[#FFF8F9]/60 transition-colors cursor-pointer flex items-center justify-between gap-3"
                 >
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 mb-1">
@@ -164,8 +164,8 @@ export const HomeView: React.FC = () => {
                   onClick={() => setCurrentSection(task.targetSection)}
                   className={`w-full flex items-center justify-between p-3 rounded-xl border text-left transition-all ${
                     task.done
-                      ? 'bg-[#FFF8F3]/40 border-[#571C31]/10 text-[#181416]/70'
-                      : 'bg-white border-[#B82E5F]/30 hover:border-[#B82E5F] hover:bg-[#FFF8F3] text-[#181416] shadow-2xs'
+                      ? 'bg-[#FFF8F9]/40 border-[#571C31]/10 text-[#181416]/70'
+                      : 'bg-white border-[#B82E5F]/30 hover:border-[#B82E5F] hover:bg-[#FFF8F9] text-[#181416] shadow-2xs'
                   }`}
                 >
                   <div className="flex items-center gap-3">

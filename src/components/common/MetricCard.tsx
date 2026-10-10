@@ -33,7 +33,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
           {label}
         </span>
         {icon && (
-          <div className="w-8 h-8 rounded-xl bg-[#FFF8F3] text-[#B82E5F] flex items-center justify-center flex-shrink-0">
+          <div className="w-8 h-8 rounded-xl bg-[#FFF8F9] text-[#B82E5F] flex items-center justify-center flex-shrink-0">
             {icon}
           </div>
         )}

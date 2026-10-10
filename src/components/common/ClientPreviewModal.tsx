@@ -69,7 +69,7 @@ export const ClientPreviewModal: React.FC = () => {
       />
 
       {/* Main Container - Styled like mobile/tablet consumer app window */}
-      <div className="relative w-full max-w-2xl bg-[#FFF8F3] rounded-3xl border border-[#571C31]/20 shadow-2xl overflow-hidden z-10 my-4 flex flex-col max-h-[90vh]">
+      <div className="relative w-full max-w-2xl bg-[#FFF8F9] rounded-3xl border border-[#571C31]/20 shadow-2xl overflow-hidden z-10 my-4 flex flex-col max-h-[90vh]">
         {/* Top Simulation Bar */}
         <div className="bg-[#181416] text-white px-4 py-2.5 flex items-center justify-between text-xs font-bold flex-shrink-0">
           <div className="flex items-center gap-2">
@@ -317,7 +317,7 @@ export const ClientPreviewModal: React.FC = () => {
                     "{rev.comment}"
                   </p>
                   {rev.reply && (
-                    <div className="p-2.5 rounded-xl bg-[#FFF8F3] text-[11px] text-[#571C31]">
+                    <div className="p-2.5 rounded-xl bg-[#FFF8F9] text-[11px] text-[#571C31]">
                       <strong>Respuesta del estudio:</strong> {rev.reply}
                     </div>
                   )}
@@ -356,7 +356,7 @@ export const ClientPreviewModal: React.FC = () => {
         {/* Modal Simulado de Reserva si la clienta hace clic en Reservar */}
         {bookingService && (
           <div className="fixed inset-0 z-60 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-            <div className="bg-[#FFF8F3] rounded-3xl border border-[#571C31]/20 p-6 max-w-sm w-full space-y-4 shadow-xl">
+            <div className="bg-[#FFF8F9] rounded-3xl border border-[#571C31]/20 p-6 max-w-sm w-full space-y-4 shadow-xl">
               <div className="flex items-start justify-between">
                 <div>
                   <h3 className=" text-base font-bold text-[#181416]">

@@ -47,10 +47,10 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       <div className="fixed bottom-5 right-5 z-50 flex flex-col gap-2.5 max-w-sm w-full pointer-events-none px-4 sm:px-0">
         {toasts.map((toast) => {
           const typeStyles = {
-            success: 'bg-[#FFF8F3] border-[#B82E5F] text-[#181416]',
-            info: 'bg-[#FFF8F3] border-[#571C31] text-[#181416]',
-            warning: 'bg-[#FFF8F3] border-amber-600 text-[#181416]',
-            error: 'bg-[#FFF8F3] border-red-600 text-[#181416]',
+            success: 'bg-[#FFF8F9] border-[#B82E5F] text-[#181416]',
+            info: 'bg-[#FFF8F9] border-[#571C31] text-[#181416]',
+            warning: 'bg-[#FFF8F9] border-amber-600 text-[#181416]',
+            error: 'bg-[#FFF8F9] border-red-600 text-[#181416]',
           }[toast.type];
 
           const IconComponent = {

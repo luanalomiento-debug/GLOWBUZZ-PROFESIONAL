@@ -121,7 +121,7 @@ export const OnboardingFlow: React.FC = () => {
   const selectedAgendaTool = AGENDA_OPTIONS.find((a) => a.label === formData.currentAgendaTool);
 
   return (
-    <div className="min-h-screen bg-[#FFF8F3] text-[#181416] flex flex-col justify-between p-4 sm:p-8">
+    <div className="min-h-screen bg-[#FFF8F9] text-[#181416] flex flex-col justify-between p-4 sm:p-8">
       {/* Top Header */}
       <header className="max-w-3xl w-full mx-auto flex items-center justify-between pb-6 border-b border-[#571C31]/10">
         <GlowBuzzLogo size="md" />
@@ -205,7 +205,7 @@ export const OnboardingFlow: React.FC = () => {
                     type="text"
                     value={formData.ownerName}
                     onChange={(e) => setFormData({ ...formData, ownerName: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F9]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
                     placeholder="Ej. Berna"
                   />
                 </div>
@@ -217,7 +217,7 @@ export const OnboardingFlow: React.FC = () => {
                     type="text"
                     value={formData.ownerLastName}
                     onChange={(e) => setFormData({ ...formData, ownerLastName: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F9]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
                     placeholder="Ej. Silva"
                   />
                 </div>
@@ -231,7 +231,7 @@ export const OnboardingFlow: React.FC = () => {
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F9]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
                   placeholder="hola@tuestudio.uy"
                 />
               </div>
@@ -244,7 +244,7 @@ export const OnboardingFlow: React.FC = () => {
                   type="tel"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F9]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
                   placeholder="+598 99 123 456"
                 />
               </div>
@@ -257,7 +257,7 @@ export const OnboardingFlow: React.FC = () => {
                   type="password"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F9]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
                   placeholder="Mínimo 6 caracteres"
                 />
               </div>
@@ -315,12 +315,12 @@ export const OnboardingFlow: React.FC = () => {
                 onClick={() => setFormData({ ...formData, businessType: 'independent', teamSize: 'solo' })}
                 className={`p-6 rounded-3xl border-2 transition-all cursor-pointer bg-white flex flex-col justify-between ${
                   formData.businessType === 'independent'
-                    ? 'border-[#B82E5F] shadow-sm bg-[#FFF8F3]/50 ring-2 ring-[#B82E5F]/20'
+                    ? 'border-[#B82E5F] shadow-sm bg-[#FFF8F9]/50 ring-2 ring-[#B82E5F]/20'
                     : 'border-[#571C31]/10 hover:border-[#571C31]/30'
                 }`}
               >
                 <div>
-                  <div className="w-12 h-12 rounded-2xl bg-[#FFF8F3] text-[#B82E5F] flex items-center justify-center mb-4">
+                  <div className="w-12 h-12 rounded-2xl bg-[#FFF8F9] text-[#B82E5F] flex items-center justify-center mb-4">
                     <User className="w-6 h-6" />
                   </div>
                   <h3 className=" text-lg font-bold text-[#181416] mb-2">
@@ -345,12 +345,12 @@ export const OnboardingFlow: React.FC = () => {
                 onClick={() => setFormData({ ...formData, businessType: 'studio' })}
                 className={`p-6 rounded-3xl border-2 transition-all cursor-pointer bg-white flex flex-col justify-between ${
                   formData.businessType === 'studio'
-                    ? 'border-[#B82E5F] shadow-sm bg-[#FFF8F3]/50 ring-2 ring-[#B82E5F]/20'
+                    ? 'border-[#B82E5F] shadow-sm bg-[#FFF8F9]/50 ring-2 ring-[#B82E5F]/20'
                     : 'border-[#571C31]/10 hover:border-[#571C31]/30'
                 }`}
               >
                 <div>
-                  <div className="w-12 h-12 rounded-2xl bg-[#FFF8F3] text-[#571C31] flex items-center justify-center mb-4">
+                  <div className="w-12 h-12 rounded-2xl bg-[#FFF8F9] text-[#571C31] flex items-center justify-center mb-4">
                     <Users className="w-6 h-6" />
                   </div>
                   <h3 className=" text-lg font-bold text-[#181416] mb-2">
@@ -404,7 +404,7 @@ export const OnboardingFlow: React.FC = () => {
                   type="text"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F9]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
                   placeholder="Ej. Berna Studio"
                 />
               </div>
@@ -447,7 +447,7 @@ export const OnboardingFlow: React.FC = () => {
                     type="text"
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                    className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
+                    className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F9]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
                     placeholder="Ej. Pocitos, Montevideo"
                   />
                 </div>
@@ -563,7 +563,7 @@ export const OnboardingFlow: React.FC = () => {
                     onClick={() => setFormData({ ...formData, currentAgendaTool: tool.label })}
                     className={`flex items-center justify-between p-3.5 rounded-xl border cursor-pointer transition-all ${
                       isSelected
-                        ? 'border-[#B82E5F] bg-[#FFF8F3] text-[#181416] font-semibold'
+                        ? 'border-[#B82E5F] bg-[#FFF8F9] text-[#181416] font-semibold'
                         : 'border-[#571C31]/10 hover:border-[#571C31]/25 text-[#571C31]/80'
                     }`}
                   >
@@ -582,7 +582,7 @@ export const OnboardingFlow: React.FC = () => {
 
             {/* Dynamic message based on selection */}
             {selectedAgendaTool && (
-              <div className="p-4 rounded-2xl bg-[#FFF8F3] border border-[#B82E5F]/30 text-xs sm:text-sm text-[#571C31] leading-relaxed mb-8 flex items-start gap-3">
+              <div className="p-4 rounded-2xl bg-[#FFF8F9] border border-[#B82E5F]/30 text-xs sm:text-sm text-[#571C31] leading-relaxed mb-8 flex items-start gap-3">
                 <CalendarCheck className="w-5 h-5 text-[#B82E5F] flex-shrink-0 mt-0.5" />
                 <div>
                   {!selectedAgendaTool.isDigital ? (
@@ -629,7 +629,7 @@ export const OnboardingFlow: React.FC = () => {
                 onClick={() => setFormData({ ...formData, plan: 'start' })}
                 className={`p-6 sm:p-7 rounded-3xl border-2 transition-all cursor-pointer bg-white flex flex-col justify-between ${
                   formData.plan === 'start'
-                    ? 'border-[#B82E5F] shadow-sm bg-[#FFF8F3]/50 ring-2 ring-[#B82E5F]/20'
+                    ? 'border-[#B82E5F] shadow-sm bg-[#FFF8F9]/50 ring-2 ring-[#B82E5F]/20'
                     : 'border-[#571C31]/15 hover:border-[#571C31]/30'
                 }`}
               >
@@ -697,7 +697,7 @@ export const OnboardingFlow: React.FC = () => {
                 onClick={() => setFormData({ ...formData, plan: 'pro' })}
                 className={`p-6 sm:p-7 rounded-3xl border-2 transition-all cursor-pointer bg-white relative flex flex-col justify-between ${
                   formData.plan === 'pro'
-                    ? 'border-[#B82E5F] shadow-sm bg-[#FFF8F3]/60 ring-2 ring-[#B82E5F]/30'
+                    ? 'border-[#B82E5F] shadow-sm bg-[#FFF8F9]/60 ring-2 ring-[#B82E5F]/30'
                     : 'border-[#571C31]/15 hover:border-[#571C31]/30'
                 }`}
               >

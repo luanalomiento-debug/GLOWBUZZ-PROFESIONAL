@@ -16,7 +16,6 @@ import {
   CreditCard,
   Settings,
   X,
-  ExternalLink,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -29,30 +28,27 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpenMobile, onCloseMobile })
     currentSection,
     setCurrentSection,
     businessProfile,
-    setPreviewAsClientModalOpen,
   } = useApp();
 
   const navigationItems: {
     id: DashboardSection;
     label: string;
     icon: React.ReactNode;
-    badge?: string;
   }[] = [
     { id: 'home', label: 'Inicio', icon: <Home className="w-4 h-4" /> },
     { id: 'profile', label: 'Mi perfil', icon: <User className="w-4 h-4" /> },
-    { id: 'content', label: 'Contenido', icon: <ImageIcon className="w-4 h-4" />, badge: 'Feed' },
+    { id: 'content', label: 'Contenido', icon: <ImageIcon className="w-4 h-4" /> },
     { id: 'bookings', label: 'Reservas', icon: <Calendar className="w-4 h-4" /> },
     { id: 'agenda', label: 'Agenda', icon: <Clock className="w-4 h-4" /> },
     { id: 'clients', label: 'Clientas', icon: <Users className="w-4 h-4" /> },
-    { id: 'reviews', label: 'Reseñas', icon: <Star className="w-4 h-4" />, badge: '4.8 ★' },
+    { id: 'reviews', label: 'Reseñas', icon: <Star className="w-4 h-4" /> },
     { id: 'stats', label: 'Estadísticas', icon: <BarChart3 className="w-4 h-4" /> },
     {
       id: 'team',
       label: 'Equipo',
       icon: <UserCheck className="w-4 h-4" />,
-      badge: businessProfile.businessType === 'studio' ? '2' : undefined,
     },
-    { id: 'boost', label: 'Glow Boost', icon: <Zap className="w-4 h-4" />, badge: 'Nuevo' },
+    { id: 'boost', label: 'Glow Boost', icon: <Zap className="w-4 h-4" /> },
     { id: 'billing', label: 'Plan y facturación', icon: <CreditCard className="w-4 h-4" /> },
     { id: 'settings', label: 'Configuración', icon: <Settings className="w-4 h-4" /> },
   ];
@@ -63,7 +59,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpenMobile, onCloseMobile })
   };
 
   const navContent = (
-    <div className="flex flex-col h-full bg-[#FFF8F3] border-r border-[#571C31]/10 w-64 select-none">
+    <div className="flex flex-col h-full bg-[#FFF8F9] border-r border-[#571C31]/10 w-64 select-none">
       {/* Brand Header */}
       <div className="p-5 pb-4 border-b border-[#571C31]/10 flex items-center justify-between">
         <GlowBuzzLogo size="sm" />
@@ -113,40 +109,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpenMobile, onCloseMobile })
                 <span className={isActive ? 'text-white' : 'text-[#571C31]/60'}>{item.icon}</span>
                 <span>{item.label}</span>
               </div>
-              {item.badge && (
-                <span
-                  className={`text-[10px] font-bold px-2 py-0.5 rounded-md ${
-                    isActive
-                      ? 'bg-white/20 text-white'
-                      : 'bg-[#F5DCE5] text-[#571C31]'
-                  }`}
-                >
-                  {item.badge}
-                </span>
-              )}
             </button>
           );
         })}
       </nav>
 
-      {/* Bottom Client Preview CTA */}
-      <div className="p-4 border-t border-[#571C31]/10 bg-[#FFF8F3]/80">
-        <button
-          onClick={() => {
-            setPreviewAsClientModalOpen(true);
-            onCloseMobile();
-          }}
-          className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-white hover:bg-[#F5DCE5]/50 border border-[#B82E5F]/30 text-[#B82E5F] text-xs font-bold transition-all shadow-2xs"
-        >
-          <span>Ver como clienta</span>
-          <ExternalLink className="w-3.5 h-3.5" />
-        </button>
-        <div className="mt-2 text-center">
-          <span className="text-[10px] text-[#571C31]/50">
-            Glow Buzz Business v1.0
-          </span>
-        </div>
-      </div>
     </div>
   );
 

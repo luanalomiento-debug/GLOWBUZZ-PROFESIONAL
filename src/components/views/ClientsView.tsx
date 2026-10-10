@@ -63,7 +63,7 @@ export const ClientsView: React.FC = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-[#571C31]/10 bg-[#FFF8F3]/60 text-[11px] font-bold text-[#571C31] uppercase tracking-wider">
+                <tr className="border-b border-[#571C31]/10 bg-[#FFF8F9]/60 text-[11px] font-bold text-[#571C31] uppercase tracking-wider">
                   <th className="py-3 px-4">Clienta</th>
                   <th className="py-3 px-4">Última visita</th>
                   <th className="py-3 px-4">Reservas</th>
@@ -78,7 +78,7 @@ export const ClientsView: React.FC = () => {
                   <tr
                     key={client.id}
                     onClick={() => setSelectedClient(client)}
-                    className="hover:bg-[#FFF8F3]/60 transition-colors cursor-pointer"
+                    className="hover:bg-[#FFF8F9]/60 transition-colors cursor-pointer"
                   >
                     <td className="py-3.5 px-4">
                       <div className="flex items-center gap-3">
@@ -144,7 +144,7 @@ export const ClientsView: React.FC = () => {
           subtitle={`Perfil de recurrencia en ${selectedClient.name}`}
         >
           <div className="space-y-4">
-            <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#FFF8F3] border border-[#571C31]/10">
+            <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#FFF8F9] border border-[#571C31]/10">
               <img
                 src={selectedClient.avatarUrl}
                 alt={selectedClient.name}
@@ -201,7 +201,7 @@ export const ClientsView: React.FC = () => {
             </div>
 
             {selectedClient.notes && (
-              <div className="p-3.5 rounded-xl bg-[#FFF8F3] border border-[#571C31]/10 text-xs space-y-1">
+              <div className="p-3.5 rounded-xl bg-[#FFF8F9] border border-[#571C31]/10 text-xs space-y-1">
                 <strong className="block text-[#181416]">
                   Notas de atención:
                 </strong>

@@ -201,7 +201,7 @@ export const ContentView: React.FC = () => {
                 <div className="p-5 space-y-3">
                   {/* UGC Review Callout if exists */}
                   {isUgc && (
-                    <div className="p-3.5 rounded-2xl bg-[#FFF8F3] border border-[#571C31]/10 space-y-1.5">
+                    <div className="p-3.5 rounded-2xl bg-[#FFF8F9] border border-[#571C31]/10 space-y-1.5">
                       <div className="flex items-center justify-between">
                         <span className="text-xs font-bold text-[#181416]">
                           {work.clientName}
@@ -237,7 +237,7 @@ export const ContentView: React.FC = () => {
                       {work.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="text-[10px] font-medium px-2 py-0.5 rounded-md bg-[#FFF8F3] text-[#571C31]/80 border border-[#571C31]/10"
+                          className="text-[10px] font-medium px-2 py-0.5 rounded-md bg-[#FFF8F9] text-[#571C31]/80 border border-[#571C31]/10"
                         >
                           #{tag}
                         </span>
@@ -285,7 +285,7 @@ export const ContentView: React.FC = () => {
                             `¡Muchas gracias ${work.clientName?.split(' ')[0] || ''}! Nos alegra que te haya encantado el resultado.`
                           );
                         }}
-                        className="py-2 px-3 rounded-xl text-xs font-semibold bg-[#FFF8F3] hover:bg-[#F5DCE5] text-[#571C31] border border-[#571C31]/15 transition-colors flex items-center gap-1.5"
+                        className="py-2 px-3 rounded-xl text-xs font-semibold bg-[#FFF8F9] hover:bg-[#F5DCE5] text-[#571C31] border border-[#571C31]/15 transition-colors flex items-center gap-1.5"
                       >
                         <MessageSquare className="w-3.5 h-3.5" />
                         <span>Responder</span>
@@ -476,7 +476,7 @@ export const ContentView: React.FC = () => {
           subtitle={`Tu respuesta se mostrará públicamente junto a la foto en tu perfil de Glow Buzz.`}
         >
           <form onSubmit={handleSendReply} className="space-y-4">
-            <div className="p-3.5 rounded-2xl bg-[#FFF8F3] border border-[#571C31]/10 flex items-center gap-3">
+            <div className="p-3.5 rounded-2xl bg-[#FFF8F9] border border-[#571C31]/10 flex items-center gap-3">
               <img
                 src={replyModalWork.imageUrl}
                 alt="Foto"

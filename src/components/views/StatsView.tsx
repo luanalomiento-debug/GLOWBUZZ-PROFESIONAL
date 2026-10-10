@@ -154,7 +154,7 @@ export const StatsView: React.FC = () => {
         <Card className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
             {/* Step 1 */}
-            <div className="p-4 rounded-2xl bg-[#FFF8F3] border border-[#571C31]/10 flex flex-col justify-between">
+            <div className="p-4 rounded-2xl bg-[#FFF8F9] border border-[#571C31]/10 flex flex-col justify-between">
               <div>
                 <span className="text-[10px] font-bold text-[#571C31]/60 uppercase">
                   1. Descubrimiento
@@ -173,7 +173,7 @@ export const StatsView: React.FC = () => {
             </div>
 
             {/* Step 2 */}
-            <div className="p-4 rounded-2xl bg-[#FFF8F3] border border-[#571C31]/10 flex flex-col justify-between">
+            <div className="p-4 rounded-2xl bg-[#FFF8F9] border border-[#571C31]/10 flex flex-col justify-between">
               <div>
                 <span className="text-[10px] font-bold text-[#571C31]/60 uppercase">
                   2. Visitas
@@ -192,7 +192,7 @@ export const StatsView: React.FC = () => {
             </div>
 
             {/* Step 3 */}
-            <div className="p-4 rounded-2xl bg-[#FFF8F3] border border-[#571C31]/10 flex flex-col justify-between">
+            <div className="p-4 rounded-2xl bg-[#FFF8F9] border border-[#571C31]/10 flex flex-col justify-between">
               <div>
                 <span className="text-[10px] font-bold text-[#571C31]/60 uppercase">
                   3. Intención
@@ -306,7 +306,7 @@ export const StatsView: React.FC = () => {
 
       {/* Pro Lock Banner if on Start */}
       {!isPro && (
-        <Card className="p-6 bg-[#FFF8F3] border-[#B82E5F]/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <Card className="p-6 bg-[#FFF8F9] border-[#B82E5F]/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-start gap-3">
             <div className="p-2.5 rounded-xl bg-[#F5DCE5] text-[#B82E5F]">
               <Lock className="w-5 h-5" />
