@@ -597,15 +597,35 @@ export const ProfileView: React.FC<{ initialTab?: 'info' | 'services' | 'hours' 
       {/* TAB 3: HORARIOS DE ATENCIÓN */}
       {activeTab === 'hours' && (
         <Card className="space-y-4">
-          <fieldset disabled={!isEditing} className="space-y-4 min-w-0">
-          <div>
-            <h3 className=" text-base font-bold text-[#181416]">
-              Horarios semanales
-            </h3>
-            <p className="text-xs text-[#571C31]/75">
-              Define los horarios en que tu estudio recibe clientas en Pocitos.
-            </p>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h3 className=" text-base font-bold text-[#181416]">
+                Horarios semanales
+              </h3>
+              <p className="text-xs text-[#571C31]/75">
+                {isEditing
+                  ? 'Activá o desactivá los días y ajustá la hora de apertura y cierre.'
+                  : 'Tocá "Editar horarios" para activar o desactivar días y cambiar las horas.'}
+              </p>
+            </div>
+
+            {isEditing ? (
+              <div className="flex items-center gap-2">
+                <Button variant="ghost" size="sm" onClick={handleCancelEditing}>
+                  Cancelar
+                </Button>
+                <Button variant="primary" size="sm" onClick={handleSaveProfile} leftIcon={<Check className="w-4 h-4" />}>
+                  Guardar horarios
+                </Button>
+              </div>
+            ) : (
+              <Button variant="outline" size="sm" onClick={() => setIsEditing(true)} leftIcon={<Pencil className="w-4 h-4" />}>
+                Editar horarios
+              </Button>
+            )}
           </div>
+
+          <fieldset disabled={!isEditing} className="space-y-4 min-w-0">
 
           <div className="divide-y divide-[#571C31]/10">
             {profileForm.hours.map((hour, idx) => (
