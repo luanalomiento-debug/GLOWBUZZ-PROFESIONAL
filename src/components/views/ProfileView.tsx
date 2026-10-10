@@ -4,6 +4,7 @@ import { Card } from '../common/Card';
 import { Button } from '../common/Button';
 import { Badge } from '../common/Badge';
 import { Modal } from '../common/Modal';
+import { TeamView } from './TeamView';
 import { useToast } from '../../context/ToastContext';
 import {
   Camera,
@@ -37,7 +38,7 @@ const CATEGORY_CHIPS = [
   'Otros',
 ];
 
-export const ProfileView: React.FC = () => {
+export const ProfileView: React.FC<{ initialTab?: 'info' | 'services' | 'hours' | 'team' }> = ({ initialTab = 'info' }) => {
   const {
     businessProfile,
     updateProfile,
@@ -51,7 +52,7 @@ export const ProfileView: React.FC = () => {
   } = useApp();
   const { showToast } = useToast();
 
-  const [activeTab, setActiveTab] = useState<'info' | 'services' | 'hours'>('info');
+  const [activeTab, setActiveTab] = useState<'info' | 'services' | 'hours' | 'team'>(initialTab);
 
   // Form state
   const [profileForm, setProfileForm] = useState({
@@ -256,7 +257,20 @@ export const ProfileView: React.FC = () => {
         >
           Horarios de atención
         </button>
+        <button
+          onClick={() => setActiveTab('team')}
+          className={`py-3 px-4 text-sm font-semibold border-b-2 -mb-px transition-colors ${
+            activeTab === 'team'
+              ? 'border-[#B82E5F] text-[#B82E5F]'
+              : 'border-transparent text-[#571C31]/60 hover:text-[#571C31]'
+          }`}
+        >
+          Equipo
+        </button>
       </div>
+
+      {/* TAB 4: EQUIPO (misma página de siempre) */}
+      {activeTab === 'team' && <TeamView />}
 
       {/* TAB 1: INFORMACIÓN GENERAL */}
       {activeTab === 'info' && (

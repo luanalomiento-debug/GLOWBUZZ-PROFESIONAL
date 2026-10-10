@@ -11,7 +11,6 @@ import {
   Users,
   Star,
   BarChart3,
-  UserCheck,
   Zap,
   Settings,
   X,
@@ -42,11 +41,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpenMobile, onCloseMobile })
     { id: 'clients', label: 'Clientas', icon: <Users className="w-4 h-4" /> },
     { id: 'reviews', label: 'Reseñas', icon: <Star className="w-4 h-4" /> },
     { id: 'stats', label: 'Estadísticas', icon: <BarChart3 className="w-4 h-4" /> },
-    {
-      id: 'team',
-      label: 'Equipo',
-      icon: <UserCheck className="w-4 h-4" />,
-    },
     { id: 'boost', label: 'Glow Boost', icon: <Zap className="w-4 h-4" /> },
     { id: 'settings', label: 'Configuración', icon: <Settings className="w-4 h-4" /> },
   ];
@@ -92,7 +86,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpenMobile, onCloseMobile })
       {/* Navigation List */}
       <nav className="flex-1 px-3 py-1 space-y-1 overflow-y-auto">
         {navigationItems.map((item) => {
-          const isActive = currentSection === item.id;
+          const isActive =
+            currentSection === item.id || (item.id === 'profile' && currentSection === 'team');
           return (
             <button
               key={item.id}

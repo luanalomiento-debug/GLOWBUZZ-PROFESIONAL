@@ -11,7 +11,6 @@ import { AgendaView } from './components/views/AgendaView';
 import { ClientsView } from './components/views/ClientsView';
 import { ReviewsView } from './components/views/ReviewsView';
 import { StatsView } from './components/views/StatsView';
-import { TeamView } from './components/views/TeamView';
 import { BoostView } from './components/views/BoostView';
 import { BillingView } from './components/views/BillingView';
 import { SettingsView } from './components/views/SettingsView';
@@ -45,7 +44,7 @@ const AppContent: React.FC = () => {
       case 'stats':
         return <StatsView />;
       case 'team':
-        return <TeamView />;
+        return <ProfileView initialTab="team" />;
       case 'boost':
         return <BoostView />;
       case 'billing':
