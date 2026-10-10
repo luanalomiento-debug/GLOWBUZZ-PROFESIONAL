@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@theme {
+  --font-logo: "Unbounded", sans-serif;
+  --font-heading: "Space Grotesk", sans-serif;
+  --font-sans: "Manrope", sans-serif;
+
+  --color-cherry: #B82E5F;
+  --color-cherry-hover: #A02450;
+  --color-cherry-light: #FBEAF0;
+  --color-bordo: #571C31;
+  --color-bordo-dark: #3E1222;
+  --color-blush: #F5DCE5;
+  --color-blush-soft: #FCF4F7;
+  --color-crema: #FFF8F3;
+  --color-crema-subtle: #FAF3ED;
+  --color-crema-card: #FFFFFF;
+  --color-negro: #181416;
+}
+
+@layer base {
+  * {
+    border-color: rgba(87, 28, 49, 0.12);
+  }
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-negro);
+    background-color: var(--color-crema);
+  }
+}
+
+/* Custom scrollbar for beauty tech feel */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(87, 28, 49, 0.2);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(184, 46, 95, 0.5);
+}
