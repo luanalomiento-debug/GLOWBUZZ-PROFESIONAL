@@ -153,7 +153,6 @@ export const ReviewsView: React.FC = () => {
                   <h4 className=" text-base font-bold text-[#FFF8F3]">
                     Automatizá las solicitudes de reseñas
                   </h4>
-                  <Badge variant="cherry">Glow Pro</Badge>
                 </div>
                 <p className=" text-xs text-[#F5DCE5]/80 mt-0.5 max-w-md">
                   Envía un mensaje cálido por WhatsApp 3 horas después de finalizado el servicio para pedir una foto y reseña sin esfuerzo.
@@ -165,10 +164,6 @@ export const ReviewsView: React.FC = () => {
               variant="blush"
               size="sm"
               onClick={() => {
-                if (businessProfile.plan !== 'pro') {
-                  switchPlan('pro');
-                  showToast('Glow Pro activado', 'La automatización de reseñas quedó lista para configurar.', 'info');
-                }
                 setAutomationModalOpen(true);
               }}
               className="whitespace-nowrap flex-shrink-0"
@@ -348,12 +343,12 @@ export const ReviewsView: React.FC = () => {
         </form>
       </Modal>
 
-      {/* Modal: Automatización de Reseñas (Pro) */}
+      {/* Modal: Automatización de Reseñas */}
       <Modal
         isOpen={automationModalOpen}
         onClose={() => setAutomationModalOpen(false)}
         title="Automatización de solicitudes"
-        subtitle="Disponible con Glow Pro"
+        subtitle="Pedí reseñas automáticamente después de cada servicio"
       >
         <div className="space-y-4">
           <div className="flex items-center justify-between p-3.5 rounded-xl bg-white border border-[#571C31]/10">

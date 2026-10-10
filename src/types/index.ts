@@ -1,6 +1,6 @@
 export type BusinessType = 'independent' | 'studio';
 
-export type PlanType = 'start' | 'pro';
+export type PlanType = 'start' | 'start_plus' | 'boost';
 
 export interface BusinessProfile {
   id: string;

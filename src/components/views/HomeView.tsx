@@ -2,6 +2,7 @@ import React from 'react';
 import { useApp } from '../../context/AppContext';
 import { MetricCard } from '../common/MetricCard';
 import { Card } from '../common/Card';
+import { getPlan } from '../../data/plans';
 import { Button } from '../common/Button';
 import { Badge } from '../common/Badge';
 import {
@@ -69,7 +70,7 @@ export const HomeView: React.FC = () => {
           label="Generado por Glow Buzz"
           value="$15.840"
           subtitle="En pesos uruguayos (UYU)"
-          trend={{ value: 'ROI 9.4x tu plan', isPositive: true }}
+          trend={{ value: `ROI ${(15840 / getPlan(businessProfile.plan).price).toFixed(1)}x tu plan`, isPositive: true }}
           icon={<TrendingUp className="w-4 h-4" />}
         />
       </div>

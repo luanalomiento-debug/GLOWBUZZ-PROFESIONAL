@@ -1,0 +1,53 @@
+import { PlanType } from '../types';
+
+export interface PlanInfo {
+  id: PlanType;
+  name: string;
+  /** Precio mensual en UYU (provisorio hasta definir precios finales). */
+  price: number;
+  tagline: string;
+  features: string[];
+  /** Resumen corto de lo que se activa al cambiar a este plan. */
+  unlocks: string;
+}
+
+export const PLANS: PlanInfo[] = [
+  {
+    id: 'start',
+    name: 'Glow Start',
+    price: 990,
+    tagline: 'Para empezar a mostrar tu trabajo y conseguir nuevas clientas.',
+    features: ['Perfil con tus trabajos', 'Reseñas de clientas', 'Reservas desde Glow Buzz'],
+    unlocks: 'Plan básico activo con perfil, trabajos, reseñas y reservas.',
+  },
+  {
+    id: 'start_plus',
+    name: 'Glow Start +',
+    price: 1690,
+    tagline: 'Todo lo básico, más una agenda pensada para tu día a día.',
+    features: ['Todo lo de Glow Start', 'Agenda desarrollada por Glow Buzz'],
+    unlocks: 'Se desbloqueó la Glow Agenda semanal.',
+  },
+  {
+    id: 'boost',
+    name: 'Glow Boost',
+    price: 2490,
+    tagline: 'Para destacar tu negocio y crecer con datos reales.',
+    features: [
+      'Todo lo de Glow Start +',
+      'Posicionamiento destacado',
+      'Estadísticas y datos generados en la plataforma',
+    ],
+    unlocks: 'Se desbloqueó el posicionamiento destacado y las estadísticas avanzadas.',
+  },
+];
+
+const RANK: Record<PlanType, number> = { start: 0, start_plus: 1, boost: 2 };
+
+export const getPlan = (id: PlanType): PlanInfo => PLANS.find((p) => p.id === id) ?? PLANS[0];
+
+/** true si `current` incluye todo lo que ofrece `required` (los planes son acumulativos). */
+export const hasPlan = (current: PlanType, required: PlanType): boolean =>
+  RANK[current] >= RANK[required];
+
+export const formatPrice = (price: number): string => `$${price.toLocaleString('es-UY')}`;

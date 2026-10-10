@@ -5,6 +5,7 @@ import { Button } from '../common/Button';
 import { MetricCard } from '../common/MetricCard';
 import { Badge } from '../common/Badge';
 import { useToast } from '../../context/ToastContext';
+import { hasPlan } from '../../data/plans';
 import {
   TrendingUp,
   Eye,
@@ -24,7 +25,7 @@ export const StatsView: React.FC = () => {
   const { showToast } = useToast();
 
   const [timeRange, setTimeRange] = useState<'7d' | '30d' | '3m'>('30d');
-  const isPro = businessProfile.plan === 'pro';
+  const hasAdvancedStats = hasPlan(businessProfile.plan, 'boost');
 
   const statsData = {
     '7d': {
@@ -269,13 +270,13 @@ export const StatsView: React.FC = () => {
             label="Clics en servicios"
             value={statsData.serviceClicks}
             subtitle="Clientas revisando precios"
-            locked={!isPro}
+            locked={!hasAdvancedStats}
           />
           <MetricCard
             label="Clics en botón reservar"
             value={statsData.intentClicks}
             subtitle="Alta intención de compra"
-            locked={!isPro}
+            locked={!hasAdvancedStats}
           />
         </div>
 
@@ -293,19 +294,19 @@ export const StatsView: React.FC = () => {
             label="Clientas nuevas"
             value={statsData.newClients}
             subtitle="Descubrieron tu estudio aquí"
-            locked={!isPro}
+            locked={!hasAdvancedStats}
           />
           <MetricCard
             label="Tasa de conversión global"
             value={statsData.conversionRate}
             subtitle="Por encima de la media (7.2%)"
-            locked={!isPro}
+            locked={!hasAdvancedStats}
           />
         </div>
       </div>
 
-      {/* Pro Lock Banner if on Start */}
-      {!isPro && (
+      {/* Banner de bloqueo si el plan no incluye Glow Boost */}
+      {!hasAdvancedStats && (
         <Card className="p-6 bg-[#FFF8F9] border-[#B82E5F]/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-start gap-3">
             <div className="p-2.5 rounded-xl bg-[#F5DCE5] text-[#B82E5F]">
@@ -313,7 +314,7 @@ export const StatsView: React.FC = () => {
             </div>
             <div>
               <h4 className=" text-base font-bold text-[#181416]">
-                Desbloqueá estadísticas avanzadas con Glow Pro
+                Desbloqueá estadísticas avanzadas con Glow Boost
               </h4>
               <p className="text-xs sm:text-sm text-[#571C31]/75 mt-0.5">
                 Conocé el origen exacto de cada clienta nueva, tasa de recurrencia y clics en cada servicio.
@@ -325,11 +326,11 @@ export const StatsView: React.FC = () => {
             variant="primary"
             size="md"
             onClick={() => {
-              switchPlan('pro');
-              showToast('Glow Pro activado', 'Todas las métricas avanzadas ya están desbloqueadas.', 'success');
+              switchPlan('boost');
+              showToast('Plan cambiado a Glow Boost', 'Todas las métricas avanzadas ya están desbloqueadas.', 'success');
             }}
           >
-            Conocer Glow Pro
+            Pasar a Glow Boost
           </Button>
         </Card>
       )}

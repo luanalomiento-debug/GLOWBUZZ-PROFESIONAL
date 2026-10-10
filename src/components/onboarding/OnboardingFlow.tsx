@@ -3,6 +3,7 @@ import { useApp } from '../../context/AppContext';
 import { GlowBuzzLogo } from '../common/GlowBuzzLogo';
 import { Button } from '../common/Button';
 import { BusinessType, PlanType } from '../../types';
+import { PLANS, formatPrice } from '../../data/plans';
 import {
   Sparkles,
   User,
@@ -70,7 +71,7 @@ export const OnboardingFlow: React.FC = () => {
     modality: businessProfile.modality || ('local' as 'local' | 'domicilio' | 'ambos'),
     teamSize: businessProfile.teamSize || ('2-3' as 'solo' | '2-3' | '4-6' | '7+'),
     currentAgendaTool: businessProfile.currentAgendaTool || 'WhatsApp / mensajes',
-    plan: businessProfile.plan || ('pro' as PlanType),
+    plan: businessProfile.plan || ('boost' as PlanType),
   });
 
   const totalSteps = formData.businessType === 'studio' ? 7 : 6;
@@ -142,7 +143,14 @@ export const OnboardingFlow: React.FC = () => {
       </header>
 
       {/* Main Step Container */}
-      <main className="max-w-2xl w-full mx-auto my-auto py-8">
+      <main
+        className={`w-full mx-auto my-auto py-8 ${
+          (formData.businessType === 'independent' && onboardingStep === 6) ||
+          (formData.businessType === 'studio' && onboardingStep === 7)
+            ? 'max-w-5xl'
+            : 'max-w-2xl'
+        }`}
+      >
         {/* STEP 1: WELCOME */}
         {onboardingStep === 1 && (
           <div className="text-center animate-in fade-in duration-300">
@@ -592,7 +600,7 @@ export const OnboardingFlow: React.FC = () => {
                     </>
                   ) : (
                     <>
-                      <strong>¡Genial!</strong> Podrás conectar tu agenda actual ({selectedAgendaTool.label}) más adelante desde las integraciones de Glow Pro.
+                      <strong>¡Genial!</strong> Podrás conectar tu agenda actual ({selectedAgendaTool.label}) más adelante desde la sección Agenda.
                     </>
                   )}
                 </div>
@@ -623,147 +631,77 @@ export const OnboardingFlow: React.FC = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
-              {/* PLAN 1: GLOW START */}
-              <div
-                onClick={() => setFormData({ ...formData, plan: 'start' })}
-                className={`p-6 sm:p-7 rounded-3xl border-2 transition-all cursor-pointer bg-white flex flex-col justify-between ${
-                  formData.plan === 'start'
-                    ? 'border-[#B82E5F] shadow-sm bg-[#FFF8F9]/50 ring-2 ring-[#B82E5F]/20'
-                    : 'border-[#571C31]/15 hover:border-[#571C31]/30'
-                }`}
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <span className=" text-sm font-extrabold text-[#571C31]">
-                      GLOW START
-                    </span>
-                    <span className="text-[11px] font-bold text-[#B82E5F] bg-[#F5DCE5] px-2.5 py-0.5 rounded-full">
-                      30 días gratis
-                    </span>
-                  </div>
-
-                  <div className="my-3">
-                    <span className=" text-2xl sm:text-3xl font-extrabold text-[#181416]">
-                      $990
-                    </span>
-                    <span className="text-xs text-[#571C31]/70 ml-1.5">
-                      UYU / mes
-                    </span>
-                  </div>
-
-                  <p className=" text-xs text-[#571C31]/80 leading-relaxed mb-6">
-                    Para empezar a mostrar tu trabajo y conseguir nuevas clientas.
-                  </p>
-
-                  <div className="space-y-2.5 pt-4 border-t border-[#571C31]/10 text-xs text-[#181416]">
-                    <div className="flex items-center gap-2">
-                      <Check className="w-4 h-4 text-[#B82E5F] flex-shrink-0" />
-                      <span>Perfil profesional</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Check className="w-4 h-4 text-[#B82E5F] flex-shrink-0" />
-                      <span>Trabajos y reseñas</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Check className="w-4 h-4 text-[#B82E5F] flex-shrink-0" />
-                      <span>Reservas</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Check className="w-4 h-4 text-[#B82E5F] flex-shrink-0" />
-                      <span>Glow Agenda</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-8">
-                  <Button
-                    variant={formData.plan === 'start' ? 'primary' : 'outline'}
-                    size="md"
-                    className="w-full"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setFormData({ ...formData, plan: 'start' });
-                      handleNext();
-                    }}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+              {PLANS.map((plan) => {
+                const isSelected = formData.plan === plan.id;
+                const isTop = plan.id === 'boost';
+                return (
+                  <div
+                    key={plan.id}
+                    onClick={() => setFormData({ ...formData, plan: plan.id })}
+                    className={`p-6 rounded-3xl border-2 transition-all cursor-pointer bg-white relative flex flex-col justify-between ${
+                      isSelected
+                        ? 'border-[#B82E5F] shadow-sm bg-[#FFF8F9]/60 ring-2 ring-[#B82E5F]/20'
+                        : 'border-[#571C31]/15 hover:border-[#571C31]/30'
+                    }`}
                   >
-                    Probar gratis
-                  </Button>
-                </div>
-              </div>
+                    {isTop && (
+                      <div className="absolute -top-3 right-6 bg-[#571C31] text-[#FFF8F3] text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-xs">
+                        Más completo
+                      </div>
+                    )}
 
-              {/* PLAN 2: GLOW PRO */}
-              <div
-                onClick={() => setFormData({ ...formData, plan: 'pro' })}
-                className={`p-6 sm:p-7 rounded-3xl border-2 transition-all cursor-pointer bg-white relative flex flex-col justify-between ${
-                  formData.plan === 'pro'
-                    ? 'border-[#B82E5F] shadow-sm bg-[#FFF8F9]/60 ring-2 ring-[#B82E5F]/30'
-                    : 'border-[#571C31]/15 hover:border-[#571C31]/30'
-                }`}
-              >
-                {/* Badge discreto: Más completo */}
-                <div className="absolute -top-3 right-6 bg-[#571C31] text-[#FFF8F3] text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-xs">
-                  Más completo
-                </div>
+                    <div>
+                      <div className="mb-2">
+                        <span
+                          className={`text-sm font-extrabold uppercase ${
+                            isTop ? 'text-[#B82E5F]' : 'text-[#571C31]'
+                          }`}
+                        >
+                          {plan.name}
+                        </span>
+                      </div>
 
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <span className=" text-sm font-extrabold text-[#B82E5F]">
-                      GLOW PRO
-                    </span>
-                    <span className="text-[11px] font-bold text-[#B82E5F] bg-[#F5DCE5] px-2.5 py-0.5 rounded-full">
-                      30 días gratis
-                    </span>
-                  </div>
+                      <div className="my-3">
+                        <span className="text-2xl sm:text-3xl font-extrabold text-[#181416]">
+                          {formatPrice(plan.price)}
+                        </span>
+                        <span className="text-xs text-[#571C31]/70 ml-1.5">UYU / mes</span>
+                      </div>
 
-                  <div className="my-3">
-                    <span className=" text-2xl sm:text-3xl font-extrabold text-[#181416]">
-                      $1.690
-                    </span>
-                    <span className="text-xs text-[#571C31]/70 ml-1.5">
-                      UYU / mes
-                    </span>
-                  </div>
+                      <span className="inline-block text-[11px] font-bold text-[#B82E5F] bg-[#F5DCE5] px-2.5 py-0.5 rounded-full mb-4">
+                        30 días gratis
+                      </span>
 
-                  <p className=" text-xs text-[#571C31]/80 leading-relaxed mb-6">
-                    Para negocios que quieren medir y potenciar su crecimiento.
-                  </p>
+                      <p className="text-xs text-[#571C31]/80 leading-relaxed mb-6">{plan.tagline}</p>
 
-                  <div className="space-y-2.5 pt-4 border-t border-[#571C31]/10 text-xs text-[#181416]">
-                    <div className="flex items-center gap-2 font-semibold text-[#B82E5F]">
-                      <Check className="w-4 h-4 text-[#B82E5F] flex-shrink-0" />
-                      <span>Todo Glow Start</span>
+                      <div className="space-y-2.5 pt-4 border-t border-[#571C31]/10 text-xs text-[#181416]">
+                        {plan.features.map((feature) => (
+                          <div key={feature} className="flex items-start gap-2">
+                            <Check className="w-4 h-4 text-[#B82E5F] flex-shrink-0" />
+                            <span>{feature}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Check className="w-4 h-4 text-[#B82E5F] flex-shrink-0" />
-                      <span>Integración con agenda externa</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Check className="w-4 h-4 text-[#B82E5F] flex-shrink-0" />
-                      <span>Estadísticas avanzadas</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Check className="w-4 h-4 text-[#B82E5F] flex-shrink-0" />
-                      <span>Herramientas para equipos y crecimiento</span>
+
+                    <div className="mt-8">
+                      <Button
+                        variant={isSelected ? 'primary' : 'outline'}
+                        size="md"
+                        className="w-full"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setFormData({ ...formData, plan: plan.id });
+                          handleNext();
+                        }}
+                      >
+                        Probar gratis
+                      </Button>
                     </div>
                   </div>
-                </div>
-
-                <div className="mt-8">
-                  <Button
-                    variant={formData.plan === 'pro' ? 'primary' : 'outline'}
-                    size="md"
-                    className="w-full"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setFormData({ ...formData, plan: 'pro' });
-                      handleNext();
-                    }}
-                  >
-                    Probar gratis
-                  </Button>
-                </div>
-              </div>
+                );
+              })}
             </div>
 
             <p className="text-center text-xs text-[#571C31]/60 mb-8">

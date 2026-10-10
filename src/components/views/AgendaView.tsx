@@ -6,6 +6,8 @@ import { Button } from '../common/Button';
 import { Badge } from '../common/Badge';
 import { Modal } from '../common/Modal';
 import { useToast } from '../../context/ToastContext';
+import { PlanLock } from '../common/PlanLock';
+import { hasPlan } from '../../data/plans';
 import {
   Calendar,
   Clock,
@@ -43,6 +45,7 @@ export const AgendaView: React.FC = () => {
     switchPlan,
   } = useApp();
   const { showToast } = useToast();
+  const hasGlowAgenda = hasPlan(businessProfile.plan, 'start_plus');
 
   const [activeTab, setActiveTab] = useState<'glow_agenda' | 'integrations'>('glow_agenda');
   const [isConnectingId, setIsConnectingId] = useState<string | null>(null);
@@ -162,6 +165,7 @@ export const AgendaView: React.FC = () => {
           </p>
         </div>
 
+        {hasGlowAgenda && (
         <div className="flex items-center gap-2.5">
           <Button
             variant="ghost"
@@ -180,6 +184,7 @@ export const AgendaView: React.FC = () => {
             Nuevo turno
           </Button>
         </div>
+        )}
       </div>
 
       {/* Tabs: Glow Agenda vs Integración externa */}
@@ -206,14 +211,18 @@ export const AgendaView: React.FC = () => {
         >
           <Link2 className="w-4 h-4" />
           <span>Conectar agenda externa</span>
-          <span className="text-[10px] font-bold bg-[#F5DCE5] text-[#571C31] px-2 py-0.5 rounded-full">
-            Glow Pro
-          </span>
         </button>
       </div>
 
-      {/* A. GLOW AGENDA */}
-      {activeTab === 'glow_agenda' && (
+      {/* A. GLOW AGENDA (Glow Start +) */}
+      {activeTab === 'glow_agenda' && !hasGlowAgenda && (
+        <PlanLock
+          requiredPlan="start_plus"
+          title="La Glow Agenda es parte de Glow Start +"
+          description="Organizá tus turnos con la agenda desarrollada por Glow Buzz. Mientras tanto, podés conectar la agenda que ya usás."
+        />
+      )}
+      {activeTab === 'glow_agenda' && hasGlowAgenda && (
         <div className="space-y-6">
           {/* Banner de turnos cancelados con "Se liberó este horario" */}
           {cancelledBookings.length > 0 && (
@@ -346,7 +355,7 @@ export const AgendaView: React.FC = () => {
         </div>
       )}
 
-      {/* B. INTEGRACIÓN EXTERNA (Glow Pro) */}
+      {/* B. INTEGRACIÓN EXTERNA */}
       {activeTab === 'integrations' && (
         <div className="space-y-6">
           <div className="p-5 rounded-2xl bg-white border border-[#571C31]/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -355,38 +364,22 @@ export const AgendaView: React.FC = () => {
                 <h3 className=" text-lg font-bold text-[#181416]">
                   Conectá tu agenda existente
                 </h3>
-                <Badge variant="cherry">Glow Pro</Badge>
               </div>
               <p className=" text-xs sm:text-sm text-[#571C31]/75 mt-1 max-w-xl leading-relaxed">
                 Si ya usás Google Calendar, Koobing, Agendoro o AgendaPro, podés sincronizar en tiempo real para que tus reservas se actualicen automáticamente sin solapamientos.
               </p>
             </div>
 
-            {businessProfile.plan !== 'pro' && (
-              <Button
-                variant="primary"
-                size="sm"
-                onClick={() => {
-                  switchPlan('pro');
-                  showToast('Plan actualizado a Glow Pro', 'Las integraciones externas quedaron desbloqueadas.', 'success');
-                }}
-              >
-                Activar Glow Pro
-              </Button>
-            )}
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {integrations.map((item) => {
               const isConnecting = isConnectingId === item.id;
-              const isLocked = businessProfile.plan !== 'pro';
 
               return (
                 <Card
                   key={item.id}
-                  className={`p-5 flex flex-col justify-between relative ${
-                    isLocked ? 'opacity-85' : ''
-                  }`}
+                  className="p-5 flex flex-col justify-between relative"
                 >
                   <div>
                     <div className="flex items-start justify-between gap-3 mb-2">
@@ -440,10 +433,6 @@ export const AgendaView: React.FC = () => {
                         size="sm"
                         isLoading={isConnecting}
                         onClick={() => {
-                          if (isLocked) {
-                            switchPlan('pro');
-                            showToast('Glow Pro activado', 'Ahora podés conectar tu agenda.', 'info');
-                          }
                           handleConnectIntegration(item.id);
                         }}
                         className="w-full"

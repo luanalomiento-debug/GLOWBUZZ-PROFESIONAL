@@ -6,9 +6,9 @@ import { Button } from '../common/Button';
 import { Badge } from '../common/Badge';
 import { Modal } from '../common/Modal';
 import { useToast } from '../../context/ToastContext';
+import { PLANS, getPlan, formatPrice } from '../../data/plans';
 import {
   CreditCard,
-  Sparkles,
   Check,
   TrendingUp,
   ShieldCheck,
@@ -30,17 +30,12 @@ export const BillingView: React.FC = () => {
     cvv: '•••',
   });
 
-  const isPro = businessProfile.plan === 'pro';
+  const currentPlan = getPlan(businessProfile.plan);
 
-  const handleTogglePlan = (targetPlan: PlanType) => {
+  const handleChangePlan = (targetPlan: PlanType) => {
+    const target = getPlan(targetPlan);
     switchPlan(targetPlan);
-    showToast(
-      `Plan cambiado a ${targetPlan === 'pro' ? 'Glow Pro' : 'Glow Start'}`,
-      targetPlan === 'pro'
-        ? 'Se desbloquearon integraciones externas y estadísticas avanzadas.'
-        : 'Plan básico activo con Glow Agenda y portfolio.',
-      'success'
-    );
+    showToast(`Plan cambiado a ${target.name}`, target.unlocks, 'success');
   };
 
   const handleSavePaymentMethod = (e: React.FormEvent) => {
@@ -76,12 +71,12 @@ export const BillingView: React.FC = () => {
           <div>
             <div className="flex items-center gap-2.5">
               <span className=" text-xl font-extrabold text-[#181416]">
-                {isPro ? 'Glow Pro' : 'Glow Start'}
+                {currentPlan.name}
               </span>
               <Badge variant="cherry">Prueba gratuita</Badge>
             </div>
             <p className="text-sm font-bold text-[#571C31] mt-1">
-              ${isPro ? '1.690' : '990'} UYU / mes
+              {formatPrice(currentPlan.price)} UYU / mes
             </p>
           </div>
 
@@ -107,7 +102,7 @@ export const BillingView: React.FC = () => {
                 Glow Buzz ya te generó 7 reservas por un valor estimado de $12.400 UYU.
               </p>
               <p className=" text-xs text-[#571C31]/75 mt-0.5">
-                El costo mensual de tu plan ($1.690) se pagó 7.3 veces con clientas nuevas.
+                El costo mensual de tu plan ({formatPrice(currentPlan.price)}) se pagó {(12400 / currentPlan.price).toFixed(1)} veces con clientas nuevas.
               </p>
             </div>
           </div>
@@ -146,130 +141,68 @@ export const BillingView: React.FC = () => {
           Comparar y cambiar de plan
         </h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {/* Card Start */}
-          <Card
-            className={`p-6 transition-all border-2 flex flex-col justify-between ${
-              !isPro ? 'border-[#B82E5F] shadow-sm bg-[#FFF8F9]/40' : 'border-[#571C31]/10'
-            }`}
-          >
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <span className=" text-base font-extrabold text-[#571C31]">
-                  GLOW START
-                </span>
-                {!isPro && <Badge variant="cherry">Tu plan actual</Badge>}
-              </div>
-
-              <div className="my-2">
-                <span className=" text-2xl font-extrabold text-[#181416]">
-                  $990
-                </span>
-                <span className="text-xs text-[#571C31]/70 ml-1">
-                  UYU / mes
-                </span>
-              </div>
-
-              <p className=" text-xs text-[#571C31]/75 mb-4">
-                Para empezar a mostrar tu trabajo y conseguir nuevas clientas.
-              </p>
-
-              <div className="space-y-2 text-xs text-[#181416] pt-3 border-t border-[#571C31]/10">
-                <div className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-[#B82E5F]" />
-                  <span>Perfil profesional completo</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-[#B82E5F]" />
-                  <span>Trabajos y reseñas ilimitadas</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-[#B82E5F]" />
-                  <span>Reservas en el feed de clientas</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-[#B82E5F]" />
-                  <span>Glow Agenda semanal</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-6 pt-4 border-t border-[#571C31]/10">
-              <Button
-                variant={!isPro ? 'outline' : 'primary'}
-                size="md"
-                className="w-full"
-                disabled={!isPro}
-                onClick={() => handleTogglePlan('start')}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {PLANS.map((plan) => {
+            const isCurrent = plan.id === businessProfile.plan;
+            const isTop = plan.id === 'boost';
+            return (
+              <Card
+                key={plan.id}
+                className={`p-6 transition-all border-2 relative flex flex-col justify-between ${
+                  isCurrent ? 'border-[#B82E5F] shadow-sm bg-[#FFF8F9]/50' : 'border-[#571C31]/10'
+                }`}
               >
-                {!isPro ? 'Plan activo' : 'Cambiar a Start'}
-              </Button>
-            </div>
-          </Card>
+                {isTop && (
+                  <div className="absolute -top-3 right-5 bg-[#571C31] text-[#FFF8F3] text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-xs">
+                    Más completo
+                  </div>
+                )}
 
-          {/* Card Pro */}
-          <Card
-            className={`p-6 transition-all border-2 relative flex flex-col justify-between ${
-              isPro ? 'border-[#B82E5F] shadow-sm bg-[#FFF8F9]/50' : 'border-[#571C31]/10'
-            }`}
-          >
-            <div className="absolute -top-3 right-5 bg-[#571C31] text-[#FFF8F3] text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-xs">
-              Más completo
-            </div>
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span
+                      className={`text-base font-extrabold uppercase ${
+                        isTop ? 'text-[#B82E5F]' : 'text-[#571C31]'
+                      }`}
+                    >
+                      {plan.name}
+                    </span>
+                    {isCurrent && <Badge variant="cherry">Tu plan actual</Badge>}
+                  </div>
 
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <span className=" text-base font-extrabold text-[#B82E5F]">
-                  GLOW PRO
-                </span>
-                {isPro && <Badge variant="cherry">Tu plan actual</Badge>}
-              </div>
+                  <div className="my-2">
+                    <span className="text-2xl font-extrabold text-[#181416]">
+                      {formatPrice(plan.price)}
+                    </span>
+                    <span className="text-xs text-[#571C31]/70 ml-1">UYU / mes</span>
+                  </div>
 
-              <div className="my-2">
-                <span className=" text-2xl font-extrabold text-[#181416]">
-                  $1.690
-                </span>
-                <span className="text-xs text-[#571C31]/70 ml-1">
-                  UYU / mes
-                </span>
-              </div>
+                  <p className="text-xs text-[#571C31]/75 mb-4">{plan.tagline}</p>
 
-              <p className=" text-xs text-[#571C31]/75 mb-4">
-                Para negocios que quieren medir y potenciar su crecimiento.
-              </p>
-
-              <div className="space-y-2 text-xs text-[#181416] pt-3 border-t border-[#571C31]/10">
-                <div className="flex items-center gap-2 font-bold text-[#B82E5F]">
-                  <Check className="w-4 h-4 text-[#B82E5F]" />
-                  <span>Todo lo de Glow Start</span>
+                  <div className="space-y-2 text-xs text-[#181416] pt-3 border-t border-[#571C31]/10">
+                    {plan.features.map((feature) => (
+                      <div key={feature} className="flex items-start gap-2">
+                        <Check className="w-4 h-4 text-[#B82E5F] flex-shrink-0" />
+                        <span>{feature}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-[#B82E5F]" />
-                  <span>Integración con agenda externa (Google, Koobing, etc.)</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-[#B82E5F]" />
-                  <span>Estadísticas y funnel de conversión</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-[#B82E5F]" />
-                  <span>Herramientas para equipos y colaboradoras</span>
-                </div>
-              </div>
-            </div>
 
-            <div className="mt-6 pt-4 border-t border-[#571C31]/10">
-              <Button
-                variant={isPro ? 'outline' : 'primary'}
-                size="md"
-                className="w-full"
-                disabled={isPro}
-                onClick={() => handleTogglePlan('pro')}
-              >
-                {isPro ? 'Plan activo' : 'Cambiar a Pro'}
-              </Button>
-            </div>
-          </Card>
+                <div className="mt-6 pt-4 border-t border-[#571C31]/10">
+                  <Button
+                    variant={isCurrent ? 'outline' : 'primary'}
+                    size="md"
+                    className="w-full"
+                    disabled={isCurrent}
+                    onClick={() => handleChangePlan(plan.id)}
+                  >
+                    {isCurrent ? 'Plan activo' : `Cambiar a ${plan.name}`}
+                  </Button>
+                </div>
+              </Card>
+            );
+          })}
         </div>
       </div>
 

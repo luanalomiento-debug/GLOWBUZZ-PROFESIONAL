@@ -24,6 +24,7 @@ import {
   INITIAL_BOOST_CAMPAIGNS,
 } from '../data/initialData';
 import { loadFromStorage, saveToStorage } from '../utils/storage';
+import { PLANS } from '../data/plans';
 
 interface AppContextType {
   // State
@@ -104,9 +105,12 @@ const STORAGE_KEYS = {
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // State initialization with localStorage fallback
-  const [businessProfile, setBusinessProfile] = useState<BusinessProfile>(() =>
-    loadFromStorage(STORAGE_KEYS.PROFILE, INITIAL_BUSINESS_PROFILE)
-  );
+  const [businessProfile, setBusinessProfile] = useState<BusinessProfile>(() => {
+    const stored = loadFromStorage<BusinessProfile>(STORAGE_KEYS.PROFILE, INITIAL_BUSINESS_PROFILE);
+    // Migración: el antiguo plan 'pro' pasa a ser Glow Boost; cualquier valor desconocido vuelve a Glow Start.
+    const plan = (stored.plan as string) === 'pro' ? 'boost' : stored.plan;
+    return PLANS.some((p) => p.id === plan) ? { ...stored, plan } : { ...stored, plan: 'start' };
+  });
 
   const [services, setServices] = useState<Service[]>(() =>
     loadFromStorage(STORAGE_KEYS.SERVICES, INITIAL_SERVICES)

@@ -67,7 +67,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
       {locked && (
         <div className="absolute inset-0 bg-white/85 backdrop-blur-2xs flex flex-col items-center justify-center p-4 text-center">
           <span className="text-xs font-bold text-[#571C31] bg-[#F5DCE5] px-2.5 py-1 rounded-lg">
-            Disponible con Glow Pro
+            Disponible con Glow Boost
           </span>
         </div>
       )}

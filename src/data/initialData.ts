@@ -25,7 +25,7 @@ export const INITIAL_BUSINESS_PROFILE: BusinessProfile = {
   modality: 'local',
   teamSize: '2-3',
   currentAgendaTool: 'WhatsApp / mensajes',
-  plan: 'pro',
+  plan: 'boost',
   trialDaysLeft: 23,
   description:
     'Estudio boutique especializado en manicuría combinada rusa, kapping gel, nail art botánico y diseño de miradas. Cuidamos la salud natural de tus uñas con productos hipoalergénicos y esterilización grado médico.',

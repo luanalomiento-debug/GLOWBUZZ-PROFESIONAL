@@ -4,6 +4,8 @@ import { Card } from '../common/Card';
 import { Button } from '../common/Button';
 import { Badge } from '../common/Badge';
 import { useToast } from '../../context/ToastContext';
+import { PlanLock } from '../common/PlanLock';
+import { hasPlan } from '../../data/plans';
 import {
   Zap,
   Sparkles,
@@ -80,6 +82,24 @@ export const BoostView: React.FC = () => {
       'success'
     );
   };
+
+  if (!hasPlan(businessProfile.plan, 'boost')) {
+    return (
+      <div className="space-y-6 animate-in fade-in duration-200">
+        <div>
+          <h2 className="text-2xl font-bold tracking-tight text-[#181416]">Glow Boost</h2>
+          <p className="text-sm text-[#571C31]/75 mt-0.5">
+            Posicionamiento destacado para llegar a más clientas con alta intención de reserva en tu zona.
+          </p>
+        </div>
+        <PlanLock
+          requiredPlan="boost"
+          title="Promocioná tus trabajos con Glow Boost"
+          description="Destacá tus mejores trabajos, ganá posicionamiento y accedé a las estadísticas y datos que genera la plataforma."
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
