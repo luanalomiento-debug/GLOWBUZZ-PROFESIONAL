@@ -86,12 +86,12 @@ export const BoostView: React.FC = () => {
       {/* Header */}
       <div>
         <div className="flex items-center gap-2">
-          <h2 className="font-['Space_Grotesk'] text-2xl font-bold tracking-tight text-[#181416]">
+          <h2 className=" text-2xl font-bold tracking-tight text-[#181416]">
             Llegá a más personas con Glow Boost
           </h2>
           <Badge variant="sponsored">Patrocinado</Badge>
         </div>
-        <p className="font-['Manrope'] text-sm text-[#571C31]/75 mt-0.5">
+        <p className=" text-sm text-[#571C31]/75 mt-0.5">
           Herramienta nativa para destacar tus mejores trabajos frente a clientas con alta intención de reserva en tu zona.
         </p>
       </div>
@@ -101,7 +101,7 @@ export const BoostView: React.FC = () => {
         <div className="lg:col-span-7 space-y-6">
           {/* 1. Selector de Objetivo */}
           <Card className="space-y-3">
-            <label className="block text-xs font-['Space_Grotesk'] font-bold text-[#571C31] uppercase tracking-wider">
+            <label className="block text-xs font-bold text-[#571C31] uppercase tracking-wider">
               1. ¿Qué querés promocionar?
             </label>
             <div className="grid grid-cols-3 gap-2.5">
@@ -114,7 +114,7 @@ export const BoostView: React.FC = () => {
                   key={opt.id}
                   type="button"
                   onClick={() => setBoostType(opt.id as any)}
-                  className={`p-3 rounded-xl border text-center text-xs font-['Space_Grotesk'] font-bold transition-all ${
+                  className={`p-3 rounded-xl border text-center text-xs font-bold transition-all ${
                     boostType === opt.id
                       ? 'border-[#B82E5F] bg-[#F5DCE5] text-[#571C31] shadow-2xs'
                       : 'border-[#571C31]/15 bg-white text-[#571C31]/70 hover:border-[#571C31]/30'
@@ -128,13 +128,13 @@ export const BoostView: React.FC = () => {
             {/* Select specific item */}
             {boostType === 'work' && (
               <div className="pt-2">
-                <label className="block text-xs text-[#571C31]/80 font-['Manrope'] mb-1">
+                <label className="block text-xs text-[#571C31]/80 mb-1">
                   Elegí el trabajo de tu portfolio:
                 </label>
                 <select
                   value={selectedWorkId}
                   onChange={(e) => setSelectedWorkId(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-xs font-['Manrope']"
+                  className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-xs"
                 >
                   {portfolio.map((w) => (
                     <option key={w.id} value={w.id}>
@@ -147,13 +147,13 @@ export const BoostView: React.FC = () => {
 
             {boostType === 'service' && (
               <div className="pt-2">
-                <label className="block text-xs text-[#571C31]/80 font-['Manrope'] mb-1">
+                <label className="block text-xs text-[#571C31]/80 mb-1">
                   Elegí el servicio a destacar:
                 </label>
                 <select
                   value={selectedServiceId}
                   onChange={(e) => setSelectedServiceId(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-xs font-['Manrope']"
+                  className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-xs"
                 >
                   {services.map((s) => (
                     <option key={s.id} value={s.id}>
@@ -167,7 +167,7 @@ export const BoostView: React.FC = () => {
 
           {/* 2. Ubicación y Segmentación */}
           <Card className="space-y-3">
-            <label className="block text-xs font-['Space_Grotesk'] font-bold text-[#571C31] uppercase tracking-wider">
+            <label className="block text-xs font-bold text-[#571C31] uppercase tracking-wider">
               2. Segmentación geográfica
             </label>
             <div className="relative">
@@ -176,17 +176,17 @@ export const BoostView: React.FC = () => {
                 type="text"
                 value={locationTarget}
                 onChange={(e) => setLocationTarget(e.target.value)}
-                className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-xs font-['Manrope'] focus:outline-none focus:border-[#B82E5F]"
+                className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-xs focus:outline-none focus:border-[#B82E5F]"
               />
             </div>
-            <p className="text-[11px] text-[#571C31]/60 font-['Manrope']">
+            <p className="text-[11px] text-[#571C31]/60">
               Llegarás a clientas que abren la app de Glow Buzz en tu radio de influencia.
             </p>
           </Card>
 
           {/* 3. Presupuesto */}
           <Card className="space-y-3">
-            <label className="block text-xs font-['Space_Grotesk'] font-bold text-[#571C31] uppercase tracking-wider">
+            <label className="block text-xs font-bold text-[#571C31] uppercase tracking-wider">
               3. Presupuesto de visibilidad (pesos uruguayos)
             </label>
             <div className="grid grid-cols-3 gap-3">
@@ -201,10 +201,10 @@ export const BoostView: React.FC = () => {
                       : 'border-[#571C31]/15 bg-white text-[#571C31]/70 hover:border-[#571C31]/30'
                   }`}
                 >
-                  <span className="font-['Space_Grotesk'] text-xl font-extrabold text-[#181416] block">
+                  <span className=" text-xl font-extrabold text-[#181416] block">
                     ${amount}
                   </span>
-                  <span className="text-[10px] text-[#571C31]/60 font-['Manrope']">
+                  <span className="text-[10px] text-[#571C31]/60">
                     {amount === 200 ? '1 fin de semana' : amount === 500 ? '7 días activo' : '15 días impulso'}
                   </span>
                 </button>
@@ -212,7 +212,7 @@ export const BoostView: React.FC = () => {
             </div>
 
             {/* Estimados de rendimiento */}
-            <div className="p-3.5 rounded-xl bg-[#FFF8F3] border border-[#571C31]/10 flex items-center justify-around text-center text-xs font-['Space_Grotesk']">
+            <div className="p-3.5 rounded-xl bg-[#FFF8F3] border border-[#571C31]/10 flex items-center justify-around text-center text-xs">
               <div>
                 <span className="text-[10px] text-[#571C31]/60 block font-bold">ALCANCE</span>
                 <span className="font-bold text-[#181416]">~{estimates.impressions}</span>
@@ -231,7 +231,7 @@ export const BoostView: React.FC = () => {
 
         {/* Columna Derecha: Vista previa en vivo del Feed (5 cols) */}
         <div className="lg:col-span-5 space-y-4">
-          <h3 className="font-['Space_Grotesk'] text-sm font-bold uppercase tracking-wider text-[#571C31]">
+          <h3 className=" text-sm font-bold uppercase tracking-wider text-[#571C31]">
             Vista previa en vivo (Feed de clientas)
           </h3>
 
@@ -253,11 +253,11 @@ export const BoostView: React.FC = () => {
                 />
 
                 {/* SIEMPRE DEBE APARECER 'Patrocinado' */}
-                <div className="absolute top-2.5 left-2.5 bg-black/75 backdrop-blur-xs text-white text-[10px] font-['Space_Grotesk'] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md shadow-xs">
+                <div className="absolute top-2.5 left-2.5 bg-black/75 backdrop-blur-xs text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md shadow-xs">
                   Patrocinado
                 </div>
 
-                <div className="absolute bottom-2.5 right-2.5 bg-white/90 text-[#181416] text-[11px] font-['Space_Grotesk'] font-bold px-2 py-0.5 rounded-md shadow-2xs">
+                <div className="absolute bottom-2.5 right-2.5 bg-white/90 text-[#181416] text-[11px] font-bold px-2 py-0.5 rounded-md shadow-2xs">
                   {boostType === 'work' && selectedWork
                     ? `$${selectedWork.priceUYU}`
                     : boostType === 'service' && selectedService
@@ -275,16 +275,16 @@ export const BoostView: React.FC = () => {
                     className="w-6 h-6 rounded-full object-cover border border-[#B82E5F]/30"
                   />
                   <div>
-                    <p className="text-xs font-['Space_Grotesk'] font-bold leading-none text-[#181416]">
+                    <p className="text-xs font-bold leading-none text-[#181416]">
                       {businessProfile.name}
                     </p>
-                    <span className="text-[10px] text-[#571C31]/60 font-['Manrope']">
+                    <span className="text-[10px] text-[#571C31]/60">
                       {businessProfile.location}
                     </span>
                   </div>
                 </div>
 
-                <p className="font-['Space_Grotesk'] text-sm font-bold text-[#181416] leading-snug">
+                <p className=" text-sm font-bold text-[#181416] leading-snug">
                   {boostType === 'work' && selectedWork
                     ? selectedWork.title
                     : boostType === 'service' && selectedService
@@ -293,10 +293,10 @@ export const BoostView: React.FC = () => {
                 </p>
 
                 <div className="pt-2 flex items-center justify-between border-t border-[#571C31]/10">
-                  <span className="text-[10px] text-[#571C31]/70 font-['Manrope']">
+                  <span className="text-[10px] text-[#571C31]/70">
                     ★ 4.8 (127 reseñas)
                   </span>
-                  <button className="px-3 py-1 bg-[#B82E5F] text-white text-[10px] font-['Space_Grotesk'] font-bold rounded-lg">
+                  <button className="px-3 py-1 bg-[#B82E5F] text-white text-[10px] font-bold rounded-lg">
                     Reservar
                   </button>
                 </div>
@@ -313,7 +313,7 @@ export const BoostView: React.FC = () => {
           >
             Activar Boost (${budget} UYU)
           </Button>
-          <p className="text-[11px] text-center text-[#571C31]/60 font-['Manrope']">
+          <p className="text-[11px] text-center text-[#571C31]/60">
             Modo prueba: no se realizará ningún cobro real a tu medio de pago.
           </p>
         </div>
@@ -322,7 +322,7 @@ export const BoostView: React.FC = () => {
       {/* Campañas Activas */}
       {boostCampaigns.length > 0 && (
         <div className="space-y-3 pt-4 border-t border-[#571C31]/10">
-          <h3 className="font-['Space_Grotesk'] text-base font-bold text-[#181416]">
+          <h3 className=" text-base font-bold text-[#181416]">
             Campañas de Boost activas ({boostCampaigns.length})
           </h3>
 
@@ -337,15 +337,15 @@ export const BoostView: React.FC = () => {
                   />
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="font-['Space_Grotesk'] text-sm font-bold text-[#181416]">
+                      <span className=" text-sm font-bold text-[#181416]">
                         {camp.targetTitle}
                       </span>
                       <Badge variant="sponsored" size="sm">Patrocinado</Badge>
                     </div>
-                    <p className="text-xs text-[#571C31]/70 font-['Manrope']">
+                    <p className="text-xs text-[#571C31]/70">
                       Presupuesto: ${camp.budgetUYU} UYU · {camp.location}
                     </p>
-                    <div className="flex items-center gap-3 text-[11px] font-['Space_Grotesk'] text-[#571C31] mt-1">
+                    <div className="flex items-center gap-3 text-[11px] text-[#571C31] mt-1">
                       <span>{camp.estimatedViews} vistas</span>
                       <span>· {camp.estimatedClicks} clics en reservar</span>
                     </div>

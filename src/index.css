@@ -1,9 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --font-logo: "Unbounded", sans-serif;
-  --font-heading: "Space Grotesk", sans-serif;
-  --font-sans: "Manrope", sans-serif;
+  --font-sans: 'DM Sans', sans-serif;
+  --font-dm: 'DM Sans', sans-serif;
 
   --color-cherry: #B82E5F;
   --color-cherry-hover: #A02450;
@@ -16,6 +15,31 @@
   --color-crema-subtle: #FAF3ED;
   --color-crema-card: #FFFFFF;
   --color-negro: #181416;
+
+  --color-surface: #fff8f9;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #fbf1f4;
+  --color-surface-container: #f5ebee;
+  --color-surface-container-high: #efe6e8;
+  --color-on-surface: #1f1a1c;
+  --color-on-surface-variant: #574145;
+  --color-outline: #8b7075;
+  --color-outline-variant: #debfc4;
+  --color-primary: #971047;
+  --color-secondary: #6c5961;
+  --color-tertiary: #7a384d;
+  --color-error: #ba1a1a;
+  --color-error-container: #ffdad6;
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
 
 @layer base {

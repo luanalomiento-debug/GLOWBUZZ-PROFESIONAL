@@ -88,10 +88,10 @@ export const StatsView: React.FC = () => {
       {/* Header & Temporal Selector */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="font-['Space_Grotesk'] text-2xl font-bold tracking-tight text-[#181416]">
+          <h2 className=" text-2xl font-bold tracking-tight text-[#181416]">
             Estadísticas & Rendimiento
           </h2>
-          <p className="font-['Manrope'] text-sm text-[#571C31]/75 mt-0.5">
+          <p className=" text-sm text-[#571C31]/75 mt-0.5">
             Analizá cómo tu contenido se convierte en visibilidad y reservas reales.
           </p>
         </div>
@@ -102,7 +102,7 @@ export const StatsView: React.FC = () => {
             <button
               key={range}
               onClick={() => setTimeRange(range)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-['Space_Grotesk'] font-bold transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                 timeRange === range
                   ? 'bg-[#B82E5F] text-white shadow-xs'
                   : 'text-[#571C31]/70 hover:text-[#571C31]'
@@ -117,23 +117,23 @@ export const StatsView: React.FC = () => {
       {/* BLOQUE IMPACTO DESTACADO */}
       <div className="p-6 sm:p-8 rounded-3xl bg-[#571C31] text-[#FFF8F3] relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div>
-          <span className="text-[11px] font-['Space_Grotesk'] font-bold uppercase tracking-widest text-[#F5DCE5]/80">
+          <span className="text-[11px] font-bold uppercase tracking-widest text-[#F5DCE5]/80">
             Impacto económico atribuido
           </span>
-          <h3 className="font-['Space_Grotesk'] text-3xl sm:text-4xl font-extrabold text-[#FFF8F3] mt-2">
+          <h3 className=" text-3xl sm:text-4xl font-extrabold text-[#FFF8F3] mt-2">
             Glow Buzz generó {statsData.generatedUYU} este período
           </h3>
-          <p className="font-['Manrope'] text-xs sm:text-sm text-[#F5DCE5]/80 mt-1 max-w-xl">
+          <p className=" text-xs sm:text-sm text-[#F5DCE5]/80 mt-1 max-w-xl">
             Calculado sobre las reservas completadas y confirmadas originadas directamente a través de tu perfil, portfolio y campañas en Glow Buzz.
           </p>
         </div>
 
         <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
           <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-xs text-center min-w-[140px] w-full sm:w-auto">
-            <span className="text-[10px] uppercase font-['Space_Grotesk'] font-bold tracking-wider text-[#F5DCE5] block">
+            <span className="text-[10px] uppercase font-bold tracking-wider text-[#F5DCE5] block">
               Tasa de conversión
             </span>
-            <span className="font-['Space_Grotesk'] text-2xl font-bold text-white block mt-0.5">
+            <span className=" text-2xl font-bold text-white block mt-0.5">
               {statsData.conversionRate}
             </span>
           </div>
@@ -143,10 +143,10 @@ export const StatsView: React.FC = () => {
       {/* FUNNEL DE CONVERSIÓN VISUAL */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="font-['Space_Grotesk'] text-lg font-bold text-[#181416]">
+          <h3 className=" text-lg font-bold text-[#181416]">
             Embudo de descubrimiento a reserva
           </h3>
-          <span className="text-xs font-['Manrope'] text-[#571C31]/70">
+          <span className="text-xs text-[#571C31]/70">
             De cada 100 visitas, ~10 reservan
           </span>
         </div>
@@ -156,17 +156,17 @@ export const StatsView: React.FC = () => {
             {/* Step 1 */}
             <div className="p-4 rounded-2xl bg-[#FFF8F3] border border-[#571C31]/10 flex flex-col justify-between">
               <div>
-                <span className="text-[10px] font-['Space_Grotesk'] font-bold text-[#571C31]/60 uppercase">
+                <span className="text-[10px] font-bold text-[#571C31]/60 uppercase">
                   1. Descubrimiento
                 </span>
-                <p className="font-['Space_Grotesk'] text-2xl font-extrabold text-[#181416] mt-1">
+                <p className=" text-2xl font-extrabold text-[#181416] mt-1">
                   {statsData.funnel.views}
                 </p>
-                <p className="text-xs text-[#571C31]/75 font-['Manrope'] mt-0.5">
+                <p className="text-xs text-[#571C31]/75 mt-0.5">
                   Vistas a tus fotos en el feed
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-[#571C31]/10 text-[11px] text-[#B82E5F] font-['Space_Grotesk'] font-bold flex items-center justify-between">
+              <div className="mt-4 pt-3 border-t border-[#571C31]/10 text-[11px] text-[#B82E5F] font-bold flex items-center justify-between">
                 <span>Pasa al perfil</span>
                 <span>{((statsData.funnel.visits / statsData.funnel.views) * 100).toFixed(0)}%</span>
               </div>
@@ -175,17 +175,17 @@ export const StatsView: React.FC = () => {
             {/* Step 2 */}
             <div className="p-4 rounded-2xl bg-[#FFF8F3] border border-[#571C31]/10 flex flex-col justify-between">
               <div>
-                <span className="text-[10px] font-['Space_Grotesk'] font-bold text-[#571C31]/60 uppercase">
+                <span className="text-[10px] font-bold text-[#571C31]/60 uppercase">
                   2. Visitas
                 </span>
-                <p className="font-['Space_Grotesk'] text-2xl font-extrabold text-[#181416] mt-1">
+                <p className=" text-2xl font-extrabold text-[#181416] mt-1">
                   {statsData.funnel.visits}
                 </p>
-                <p className="text-xs text-[#571C31]/75 font-['Manrope'] mt-0.5">
+                <p className="text-xs text-[#571C31]/75 mt-0.5">
                   Clientas que exploraron tu estudio
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-[#571C31]/10 text-[11px] text-[#B82E5F] font-['Space_Grotesk'] font-bold flex items-center justify-between">
+              <div className="mt-4 pt-3 border-t border-[#571C31]/10 text-[11px] text-[#B82E5F] font-bold flex items-center justify-between">
                 <span>Intención de turno</span>
                 <span>{((statsData.funnel.intent / statsData.funnel.visits) * 100).toFixed(0)}%</span>
               </div>
@@ -194,17 +194,17 @@ export const StatsView: React.FC = () => {
             {/* Step 3 */}
             <div className="p-4 rounded-2xl bg-[#FFF8F3] border border-[#571C31]/10 flex flex-col justify-between">
               <div>
-                <span className="text-[10px] font-['Space_Grotesk'] font-bold text-[#571C31]/60 uppercase">
+                <span className="text-[10px] font-bold text-[#571C31]/60 uppercase">
                   3. Intención
                 </span>
-                <p className="font-['Space_Grotesk'] text-2xl font-extrabold text-[#181416] mt-1">
+                <p className=" text-2xl font-extrabold text-[#181416] mt-1">
                   {statsData.funnel.intent}
                 </p>
-                <p className="text-xs text-[#571C31]/75 font-['Manrope'] mt-0.5">
+                <p className="text-xs text-[#571C31]/75 mt-0.5">
                   Clics en "Reservar cita"
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-[#571C31]/10 text-[11px] text-[#B82E5F] font-['Space_Grotesk'] font-bold flex items-center justify-between">
+              <div className="mt-4 pt-3 border-t border-[#571C31]/10 text-[11px] text-[#B82E5F] font-bold flex items-center justify-between">
                 <span>Confirmación final</span>
                 <span>{((statsData.funnel.bookings / statsData.funnel.intent) * 100).toFixed(0)}%</span>
               </div>
@@ -213,17 +213,17 @@ export const StatsView: React.FC = () => {
             {/* Step 4 */}
             <div className="p-4 rounded-2xl bg-[#F5DCE5] border border-[#B82E5F]/30 flex flex-col justify-between">
               <div>
-                <span className="text-[10px] font-['Space_Grotesk'] font-bold text-[#B82E5F] uppercase">
+                <span className="text-[10px] font-bold text-[#B82E5F] uppercase">
                   4. Reservas efectivas
                 </span>
-                <p className="font-['Space_Grotesk'] text-2xl font-extrabold text-[#B82E5F] mt-1">
+                <p className=" text-2xl font-extrabold text-[#B82E5F] mt-1">
                   {statsData.funnel.bookings}
                 </p>
-                <p className="text-xs text-[#571C31] font-['Manrope'] mt-0.5">
+                <p className="text-xs text-[#571C31] mt-0.5">
                   Turnos confirmados en Pocitos
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-[#B82E5F]/20 text-[11px] text-[#571C31] font-['Space_Grotesk'] font-bold">
+              <div className="mt-4 pt-3 border-t border-[#B82E5F]/20 text-[11px] text-[#571C31] font-bold">
                 ✓ Valor medio: $880 UYU
               </div>
             </div>
@@ -235,7 +235,7 @@ export const StatsView: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* BLOQUE DESCUBRIMIENTO */}
         <div className="space-y-3">
-          <h4 className="font-['Space_Grotesk'] text-sm font-bold uppercase tracking-wider text-[#571C31]">
+          <h4 className=" text-sm font-bold uppercase tracking-wider text-[#571C31]">
             Descubrimiento
           </h4>
           <MetricCard
@@ -257,7 +257,7 @@ export const StatsView: React.FC = () => {
 
         {/* BLOQUE INTERÉS */}
         <div className="space-y-3">
-          <h4 className="font-['Space_Grotesk'] text-sm font-bold uppercase tracking-wider text-[#571C31]">
+          <h4 className=" text-sm font-bold uppercase tracking-wider text-[#571C31]">
             Interés & Deseo
           </h4>
           <MetricCard
@@ -281,7 +281,7 @@ export const StatsView: React.FC = () => {
 
         {/* BLOQUE CONVERSIÓN */}
         <div className="space-y-3">
-          <h4 className="font-['Space_Grotesk'] text-sm font-bold uppercase tracking-wider text-[#571C31]">
+          <h4 className=" text-sm font-bold uppercase tracking-wider text-[#571C31]">
             Conversión & Clientes
           </h4>
           <MetricCard
@@ -312,10 +312,10 @@ export const StatsView: React.FC = () => {
               <Lock className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="font-['Space_Grotesk'] text-base font-bold text-[#181416]">
+              <h4 className=" text-base font-bold text-[#181416]">
                 Desbloqueá estadísticas avanzadas con Glow Pro
               </h4>
-              <p className="text-xs sm:text-sm text-[#571C31]/75 font-['Manrope'] mt-0.5">
+              <p className="text-xs sm:text-sm text-[#571C31]/75 mt-0.5">
                 Conocé el origen exacto de cada clienta nueva, tasa de recurrencia y clics en cada servicio.
               </p>
             </div>

@@ -86,10 +86,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpenMobile, onCloseMobile })
           className="w-9 h-9 rounded-xl object-cover border border-[#B82E5F]/20 flex-shrink-0"
         />
         <div className="min-w-0 flex-1">
-          <p className="font-['Space_Grotesk'] text-xs font-bold text-[#181416] truncate">
+          <p className=" text-xs font-bold text-[#181416] truncate">
             {businessProfile.name}
           </p>
-          <p className="text-[11px] font-['Manrope'] text-[#571C31]/65 truncate">
+          <p className="text-[11px] text-[#571C31]/65 truncate">
             {businessProfile.location}
           </p>
         </div>
@@ -103,7 +103,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpenMobile, onCloseMobile })
             <button
               key={item.id}
               onClick={() => handleNavClick(item.id)}
-              className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs sm:text-sm font-['Space_Grotesk'] font-semibold transition-all duration-150 ${
+              className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-150 ${
                 isActive
                   ? 'bg-[#B82E5F] text-[#FFF8F3] shadow-xs'
                   : 'text-[#571C31]/75 hover:text-[#571C31] hover:bg-[#F5DCE5]/40'
@@ -136,13 +136,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpenMobile, onCloseMobile })
             setPreviewAsClientModalOpen(true);
             onCloseMobile();
           }}
-          className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-white hover:bg-[#F5DCE5]/50 border border-[#B82E5F]/30 text-[#B82E5F] text-xs font-['Space_Grotesk'] font-bold transition-all shadow-2xs"
+          className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-white hover:bg-[#F5DCE5]/50 border border-[#B82E5F]/30 text-[#B82E5F] text-xs font-bold transition-all shadow-2xs"
         >
           <span>Ver como clienta</span>
           <ExternalLink className="w-3.5 h-3.5" />
         </button>
         <div className="mt-2 text-center">
-          <span className="text-[10px] text-[#571C31]/50 font-['Manrope']">
+          <span className="text-[10px] text-[#571C31]/50">
             Glow Buzz Business v1.0
           </span>
         </div>

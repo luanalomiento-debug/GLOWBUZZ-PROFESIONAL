@@ -119,10 +119,10 @@ export const TeamView: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="font-['Space_Grotesk'] text-2xl font-bold tracking-tight text-[#181416]">
+          <h2 className=" text-2xl font-bold tracking-tight text-[#181416]">
             Equipo & Colaboradoras
           </h2>
-          <p className="font-['Manrope'] text-sm text-[#571C31]/75 mt-0.5">
+          <p className=" text-sm text-[#571C31]/75 mt-0.5">
             Cada profesional tiene su propio perfil, especialidad y métricas de desempeño.
           </p>
         </div>
@@ -159,24 +159,24 @@ export const TeamView: React.FC = () => {
                   />
                   <div>
                     <div className="flex items-center gap-2">
-                      <h3 className="font-['Space_Grotesk'] text-lg font-bold text-[#181416]">
+                      <h3 className=" text-lg font-bold text-[#181416]">
                         {member.name}
                       </h3>
                       <Badge variant={member.role === 'Administrador' ? 'bordo' : 'neutral'} size="sm">
                         {member.role}
                       </Badge>
                     </div>
-                    <p className="text-xs font-['Manrope'] text-[#B82E5F] font-semibold mt-0.5">
+                    <p className="text-xs text-[#B82E5F] font-semibold mt-0.5">
                       {member.specialty}
                     </p>
-                    <p className="text-[11px] font-['Space_Grotesk'] text-[#571C31]/60 flex items-center gap-1 mt-1">
+                    <p className="text-[11px] text-[#571C31]/60 flex items-center gap-1 mt-1">
                       <Clock className="w-3 h-3" />
                       <span>{member.schedule}</span>
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-1.5 bg-[#FFF8F3] px-2.5 py-1 rounded-xl border border-[#571C31]/10 text-xs font-['Space_Grotesk'] font-bold text-[#571C31]">
+                <div className="flex items-center gap-1.5 bg-[#FFF8F3] px-2.5 py-1 rounded-xl border border-[#571C31]/10 text-xs font-bold text-[#571C31]">
                   <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
                   <span>{member.rating}</span>
                   <span className="text-stone-400 font-normal">({member.totalReviews})</span>
@@ -186,26 +186,26 @@ export const TeamView: React.FC = () => {
               {/* Métricas del miembro */}
               <div className="grid grid-cols-3 gap-2 p-3 rounded-2xl bg-[#FFF8F3] border border-[#571C31]/10 text-center">
                 <div>
-                  <span className="text-[10px] uppercase font-['Space_Grotesk'] font-bold text-[#571C31]/60 block">
+                  <span className="text-[10px] uppercase font-bold text-[#571C31]/60 block">
                     Reservas
                   </span>
-                  <span className="font-['Space_Grotesk'] text-base font-bold text-[#181416]">
+                  <span className=" text-base font-bold text-[#181416]">
                     {member.totalBookings}
                   </span>
                 </div>
                 <div>
-                  <span className="text-[10px] uppercase font-['Space_Grotesk'] font-bold text-[#571C31]/60 block">
+                  <span className="text-[10px] uppercase font-bold text-[#571C31]/60 block">
                     Trabajos
                   </span>
-                  <span className="font-['Space_Grotesk'] text-base font-bold text-[#181416]">
+                  <span className=" text-base font-bold text-[#181416]">
                     {member.portfolioCount}
                   </span>
                 </div>
                 <div>
-                  <span className="text-[10px] uppercase font-['Space_Grotesk'] font-bold text-[#571C31]/60 block">
+                  <span className="text-[10px] uppercase font-bold text-[#571C31]/60 block">
                     Esta semana
                   </span>
-                  <span className="font-['Space_Grotesk'] text-base font-bold text-[#B82E5F]">
+                  <span className=" text-base font-bold text-[#B82E5F]">
                     {member.activeAppointments} turnos
                   </span>
                 </div>
@@ -213,14 +213,14 @@ export const TeamView: React.FC = () => {
 
               {/* Servicios que atiende */}
               <div>
-                <span className="text-[11px] font-['Space_Grotesk'] font-bold text-[#571C31] uppercase tracking-wider block mb-1.5">
+                <span className="text-[11px] font-bold text-[#571C31] uppercase tracking-wider block mb-1.5">
                   Servicios asignados
                 </span>
                 <div className="flex flex-wrap gap-1.5">
                   {member.services.map((srv) => (
                     <span
                       key={srv}
-                      className="text-xs px-2.5 py-1 rounded-lg bg-white border border-[#571C31]/10 text-[#181416] font-['Manrope']"
+                      className="text-xs px-2.5 py-1 rounded-lg bg-white border border-[#571C31]/10 text-[#181416]"
                     >
                       {srv}
                     </span>
@@ -234,7 +234,7 @@ export const TeamView: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => handleOpenEdit(member)}
-                  className="font-['Space_Grotesk'] font-bold text-[#B82E5F] hover:underline flex items-center gap-1"
+                  className=" font-bold text-[#B82E5F] hover:underline flex items-center gap-1"
                 >
                   <Edit2 className="w-3.5 h-3.5" />
                   <span>Editar datos</span>
@@ -255,7 +255,7 @@ export const TeamView: React.FC = () => {
         <form onSubmit={handleSave} className="space-y-4">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                 Nombre
               </label>
               <input
@@ -263,18 +263,18 @@ export const TeamView: React.FC = () => {
                 required
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="w-full px-3 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm font-['Manrope']"
+                className="w-full px-3 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm"
                 placeholder="Ej. Camila"
               />
             </div>
             <div>
-              <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                 Rol
               </label>
               <select
                 value={form.role}
                 onChange={(e) => setForm({ ...form, role: e.target.value as any })}
-                className="w-full px-3 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm font-['Manrope']"
+                className="w-full px-3 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm"
               >
                 <option value="Profesional">Profesional</option>
                 <option value="Administrador">Administrador</option>
@@ -283,7 +283,7 @@ export const TeamView: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+            <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
               Especialidad principal
             </label>
             <input
@@ -291,27 +291,27 @@ export const TeamView: React.FC = () => {
               required
               value={form.specialty}
               onChange={(e) => setForm({ ...form, specialty: e.target.value })}
-              className="w-full px-3 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm font-['Manrope']"
+              className="w-full px-3 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm"
               placeholder="Ej. Nail Artist & Kapping Specialist"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+            <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
               Horario habitual
             </label>
             <input
               type="text"
               value={form.schedule}
               onChange={(e) => setForm({ ...form, schedule: e.target.value })}
-              className="w-full px-3 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm font-['Manrope']"
+              className="w-full px-3 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm"
               placeholder="Ej. Mar a Sáb · 09:30 - 19:30"
             />
           </div>
 
           {/* Avatar selector */}
           <div>
-            <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+            <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
               Foto de perfil
             </label>
             <div className="flex gap-2">

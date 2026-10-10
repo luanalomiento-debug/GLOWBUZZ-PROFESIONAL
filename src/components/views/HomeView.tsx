@@ -41,10 +41,10 @@ export const HomeView: React.FC = () => {
     <div className="space-y-8 animate-in fade-in duration-200">
       {/* Saludo & Encabezado */}
       <div>
-        <h2 className="font-['Space_Grotesk'] text-2xl sm:text-3xl font-bold tracking-tight text-[#181416]">
+        <h2 className=" text-2xl sm:text-3xl font-bold tracking-tight text-[#181416]">
           Hola, {businessProfile.ownerName}
         </h2>
-        <p className="font-['Manrope'] text-sm sm:text-base text-[#571C31]/75 mt-1">
+        <p className=" text-sm sm:text-base text-[#571C31]/75 mt-1">
           Esto está pasando con tu perfil en Glow Buzz.
         </p>
       </div>
@@ -79,12 +79,12 @@ export const HomeView: React.FC = () => {
         {/* BLOQUE 1: Próximas reservas (5 cols en desktop) */}
         <div className="lg:col-span-5 space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="font-['Space_Grotesk'] text-lg font-bold text-[#181416] tracking-tight">
+            <h3 className=" text-lg font-bold text-[#181416] tracking-tight">
               Próximas reservas
             </h3>
             <button
               onClick={() => setCurrentSection('bookings')}
-              className="text-xs font-['Space_Grotesk'] font-bold text-[#B82E5F] hover:underline flex items-center gap-1"
+              className="text-xs font-bold text-[#B82E5F] hover:underline flex items-center gap-1"
             >
               <span>Ver todas</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -101,14 +101,14 @@ export const HomeView: React.FC = () => {
                 >
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <p className="font-['Space_Grotesk'] text-sm font-bold text-[#181416] truncate">
+                      <p className=" text-sm font-bold text-[#181416] truncate">
                         {booking.clientName}
                       </p>
                       <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-[#F5DCE5] text-[#571C31] font-semibold">
                         {booking.serviceName}
                       </span>
                     </div>
-                    <div className="flex items-center gap-2 text-xs text-[#571C31]/70 font-['Manrope']">
+                    <div className="flex items-center gap-2 text-xs text-[#571C31]/70">
                       <Clock className="w-3 h-3 text-[#B82E5F]" />
                       <span>
                         {booking.date === '2026-10-09'
@@ -122,13 +122,13 @@ export const HomeView: React.FC = () => {
                     </div>
                   </div>
 
-                  <span className="font-['Space_Grotesk'] text-sm font-bold text-[#571C31] flex-shrink-0">
+                  <span className=" text-sm font-bold text-[#571C31] flex-shrink-0">
                     ${booking.priceUYU}
                   </span>
                 </div>
               ))
             ) : (
-              <div className="p-6 text-center text-xs text-[#571C31]/60 font-['Manrope']">
+              <div className="p-6 text-center text-xs text-[#571C31]/60">
                 No tenés reservas pendientes para hoy.
               </div>
             )}
@@ -138,10 +138,10 @@ export const HomeView: React.FC = () => {
         {/* BLOQUE 2: Checklist interactiva "Terminá de preparar tu Glow Buzz" (7 cols) */}
         <div className="lg:col-span-7 space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="font-['Space_Grotesk'] text-lg font-bold text-[#181416] tracking-tight">
+            <h3 className=" text-lg font-bold text-[#181416] tracking-tight">
               Terminá de preparar tu Glow Buzz
             </h3>
-            <span className="text-xs font-['Space_Grotesk'] font-bold text-[#571C31] bg-[#F5DCE5] px-2.5 py-1 rounded-full">
+            <span className="text-xs font-bold text-[#571C31] bg-[#F5DCE5] px-2.5 py-1 rounded-full">
               {checklistProgress.completed} de {checklistProgress.total} completados
             </span>
           </div>
@@ -175,7 +175,7 @@ export const HomeView: React.FC = () => {
                       <Circle className="w-5 h-5 text-[#B82E5F] flex-shrink-0" />
                     )}
                     <span
-                      className={`text-xs sm:text-sm font-['Space_Grotesk'] font-medium ${
+                      className={`text-xs sm:text-sm font-medium ${
                         task.done ? 'line-through text-[#571C31]/50' : 'text-[#181416] font-semibold'
                       }`}
                     >
@@ -184,7 +184,7 @@ export const HomeView: React.FC = () => {
                   </div>
 
                   {!task.done && (
-                    <span className="text-xs font-['Space_Grotesk'] font-bold text-[#B82E5F] flex items-center gap-1">
+                    <span className="text-xs font-bold text-[#B82E5F] flex items-center gap-1">
                       <span>Completar</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </span>
@@ -200,16 +200,16 @@ export const HomeView: React.FC = () => {
       <div className="space-y-4 pt-2">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="font-['Space_Grotesk'] text-lg font-bold text-[#181416] tracking-tight">
+            <h3 className=" text-lg font-bold text-[#181416] tracking-tight">
               Tus trabajos con mejor rendimiento
             </h3>
-            <p className="text-xs text-[#571C31]/70 font-['Manrope'] mt-0.5">
+            <p className="text-xs text-[#571C31]/70 mt-0.5">
               Los contenidos que más descubrimientos y reservas generaron este mes.
             </p>
           </div>
           <button
             onClick={() => setCurrentSection('content')}
-            className="text-xs font-['Space_Grotesk'] font-bold text-[#B82E5F] hover:underline flex items-center gap-1"
+            className="text-xs font-bold text-[#B82E5F] hover:underline flex items-center gap-1"
           >
             <span>Ver portfolio</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -229,21 +229,21 @@ export const HomeView: React.FC = () => {
                   alt={work.title}
                   className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300"
                 />
-                <div className="absolute top-2.5 right-2.5 bg-black/60 backdrop-blur-xs text-white text-[11px] font-['Space_Grotesk'] font-bold px-2 py-0.5 rounded-lg">
+                <div className="absolute top-2.5 right-2.5 bg-black/60 backdrop-blur-xs text-white text-[11px] font-bold px-2 py-0.5 rounded-lg">
                   ${work.priceUYU}
                 </div>
               </div>
 
               <div className="p-4 space-y-2">
-                <h4 className="font-['Space_Grotesk'] text-sm font-bold text-[#181416] truncate">
+                <h4 className=" text-sm font-bold text-[#181416] truncate">
                   {work.title}
                 </h4>
-                <p className="text-xs text-[#571C31]/70 font-['Manrope'] truncate">
+                <p className="text-xs text-[#571C31]/70 truncate">
                   {work.professionalName}
                 </p>
 
                 {/* Métricas destacadas */}
-                <div className="flex items-center justify-between pt-2 border-t border-[#571C31]/10 text-[11px] font-['Space_Grotesk'] text-[#571C31]/80">
+                <div className="flex items-center justify-between pt-2 border-t border-[#571C31]/10 text-[11px] text-[#571C31]/80">
                   <span className="flex items-center gap-1">
                     <Eye className="w-3 h-3 text-[#B82E5F]" />
                     {work.views.toLocaleString()} vistas
@@ -270,10 +270,10 @@ export const HomeView: React.FC = () => {
             <Zap className="w-5 h-5" />
           </div>
           <div>
-            <h4 className="font-['Space_Grotesk'] text-sm sm:text-base font-bold text-[#FFF8F3]">
+            <h4 className=" text-sm sm:text-base font-bold text-[#FFF8F3]">
               ¿Querés acelerar tus reservas este fin de semana?
             </h4>
-            <p className="font-['Manrope'] text-xs sm:text-sm text-[#F5DCE5]/80 mt-0.5 max-w-xl">
+            <p className=" text-xs sm:text-sm text-[#F5DCE5]/80 mt-0.5 max-w-xl">
               Promocioná tu trabajo estrella en Pocitos con Glow Boost desde $200 UYU. Aparece como patrocinado a clientas cercanas con alta intención de reserva.
             </p>
           </div>

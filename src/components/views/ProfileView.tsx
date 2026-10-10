@@ -193,10 +193,10 @@ export const ProfileView: React.FC = () => {
       {/* Top action bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="font-['Space_Grotesk'] text-2xl font-bold tracking-tight text-[#181416]">
+          <h2 className=" text-2xl font-bold tracking-tight text-[#181416]">
             Mi perfil público
           </h2>
-          <p className="font-['Manrope'] text-sm text-[#571C31]/75 mt-0.5">
+          <p className=" text-sm text-[#571C31]/75 mt-0.5">
             Configurá la vitrina con la que te descubren en Glow Buzz.
           </p>
         </div>
@@ -225,7 +225,7 @@ export const ProfileView: React.FC = () => {
       <div className="flex items-center gap-2 border-b border-[#571C31]/10">
         <button
           onClick={() => setActiveTab('info')}
-          className={`py-3 px-4 text-sm font-['Space_Grotesk'] font-semibold border-b-2 -mb-px transition-colors ${
+          className={`py-3 px-4 text-sm font-semibold border-b-2 -mb-px transition-colors ${
             activeTab === 'info'
               ? 'border-[#B82E5F] text-[#B82E5F]'
               : 'border-transparent text-[#571C31]/60 hover:text-[#571C31]'
@@ -235,7 +235,7 @@ export const ProfileView: React.FC = () => {
         </button>
         <button
           onClick={() => setActiveTab('services')}
-          className={`py-3 px-4 text-sm font-['Space_Grotesk'] font-semibold border-b-2 -mb-px transition-colors flex items-center gap-2 ${
+          className={`py-3 px-4 text-sm font-semibold border-b-2 -mb-px transition-colors flex items-center gap-2 ${
             activeTab === 'services'
               ? 'border-[#B82E5F] text-[#B82E5F]'
               : 'border-transparent text-[#571C31]/60 hover:text-[#571C31]'
@@ -248,7 +248,7 @@ export const ProfileView: React.FC = () => {
         </button>
         <button
           onClick={() => setActiveTab('hours')}
-          className={`py-3 px-4 text-sm font-['Space_Grotesk'] font-semibold border-b-2 -mb-px transition-colors ${
+          className={`py-3 px-4 text-sm font-semibold border-b-2 -mb-px transition-colors ${
             activeTab === 'hours'
               ? 'border-[#B82E5F] text-[#B82E5F]'
               : 'border-transparent text-[#571C31]/60 hover:text-[#571C31]'
@@ -281,7 +281,7 @@ export const ProfileView: React.FC = () => {
                         : INITIAL_BUSINESS_PROFILE.coverUrl,
                   }))
                 }
-                className="absolute top-3 right-3 bg-black/60 hover:bg-black/80 text-white text-xs font-['Space_Grotesk'] font-medium px-3 py-1.5 rounded-xl backdrop-blur-xs flex items-center gap-1.5 transition-colors"
+                className="absolute top-3 right-3 bg-black/60 hover:bg-black/80 text-white text-xs font-medium px-3 py-1.5 rounded-xl backdrop-blur-xs flex items-center gap-1.5 transition-colors"
               >
                 <Camera className="w-3.5 h-3.5" />
                 <span>Cambiar portada</span>
@@ -316,10 +316,10 @@ export const ProfileView: React.FC = () => {
                 </div>
 
                 <div className="mb-2">
-                  <h3 className="font-['Space_Grotesk'] text-xl font-bold text-[#181416]">
+                  <h3 className=" text-xl font-bold text-[#181416]">
                     {profileForm.name}
                   </h3>
-                  <p className="text-xs text-[#571C31]/70 font-['Manrope']">
+                  <p className="text-xs text-[#571C31]/70">
                     {profileForm.location}
                   </p>
                 </div>
@@ -335,99 +335,99 @@ export const ProfileView: React.FC = () => {
           {/* Form fields */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card className="space-y-4">
-              <h4 className="font-['Space_Grotesk'] text-base font-bold text-[#181416] border-b border-[#571C31]/10 pb-2">
+              <h4 className=" text-base font-bold text-[#181416] border-b border-[#571C31]/10 pb-2">
                 Datos del estudio
               </h4>
 
               <div>
-                <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                   Nombre comercial
                 </label>
                 <input
                   type="text"
                   value={profileForm.name}
                   onChange={(e) => setProfileForm({ ...profileForm, name: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm font-['Manrope']"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                   Descripción pública (Bio)
                 </label>
                 <textarea
                   rows={4}
                   value={profileForm.description}
                   onChange={(e) => setProfileForm({ ...profileForm, description: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm font-['Manrope'] leading-relaxed"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm leading-relaxed"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                   Especialidades (separadas por coma)
                 </label>
                 <input
                   type="text"
                   value={profileForm.specialtiesText}
                   onChange={(e) => setProfileForm({ ...profileForm, specialtiesText: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm font-['Manrope']"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
                   placeholder="Ej. Nail Art & Kapping, Soft Gel, Micro-detalle"
                 />
               </div>
             </Card>
 
             <Card className="space-y-4">
-              <h4 className="font-['Space_Grotesk'] text-base font-bold text-[#181416] border-b border-[#571C31]/10 pb-2">
+              <h4 className=" text-base font-bold text-[#181416] border-b border-[#571C31]/10 pb-2">
                 Ubicación y Redes
               </h4>
 
               <div>
-                <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                   Barrio o zona
                 </label>
                 <input
                   type="text"
                   value={profileForm.location}
                   onChange={(e) => setProfileForm({ ...profileForm, location: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm font-['Manrope']"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                   Dirección exacta
                 </label>
                 <input
                   type="text"
                   value={profileForm.address}
                   onChange={(e) => setProfileForm({ ...profileForm, address: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm font-['Manrope']"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+                  <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                     Instagram
                   </label>
                   <input
                     type="text"
                     value={profileForm.instagram}
                     onChange={(e) => setProfileForm({ ...profileForm, instagram: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm font-['Manrope']"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
                     placeholder="@usuario"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+                  <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                     TikTok
                   </label>
                   <input
                     type="text"
                     value={profileForm.tiktok}
                     onChange={(e) => setProfileForm({ ...profileForm, tiktok: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm font-['Manrope']"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
                     placeholder="@usuario"
                   />
                 </div>
@@ -437,7 +437,7 @@ export const ProfileView: React.FC = () => {
 
           {/* Categorías chips */}
           <Card className="space-y-3">
-            <h4 className="font-['Space_Grotesk'] text-base font-bold text-[#181416]">
+            <h4 className=" text-base font-bold text-[#181416]">
               Categorías en las que aparecés
             </h4>
             <div className="flex flex-wrap gap-2">
@@ -448,7 +448,7 @@ export const ProfileView: React.FC = () => {
                     key={cat}
                     type="button"
                     onClick={() => toggleCategory(cat)}
-                    className={`text-xs font-['Space_Grotesk'] font-semibold px-3 py-1.5 rounded-xl transition-all border ${
+                    className={`text-xs font-semibold px-3 py-1.5 rounded-xl transition-all border ${
                       isSelected
                         ? 'bg-[#B82E5F] text-white border-[#B82E5F] shadow-xs'
                         : 'bg-white text-[#571C31]/80 border-[#571C31]/20 hover:border-[#B82E5F]/50'
@@ -469,10 +469,10 @@ export const ProfileView: React.FC = () => {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="font-['Space_Grotesk'] text-lg font-bold text-[#181416]">
+              <h3 className=" text-lg font-bold text-[#181416]">
                 Lista de servicios
               </h3>
-              <p className="text-xs text-[#571C31]/75 font-['Manrope']">
+              <p className="text-xs text-[#571C31]/75">
                 Precios transparentes en pesos uruguayos (UYU) y duraciones estimadas.
               </p>
             </div>
@@ -497,30 +497,30 @@ export const ProfileView: React.FC = () => {
                 <div>
                   <div className="flex items-start justify-between gap-3 mb-2">
                     <div>
-                      <h4 className="font-['Space_Grotesk'] text-base font-bold text-[#181416]">
+                      <h4 className=" text-base font-bold text-[#181416]">
                         {service.name}
                       </h4>
-                      <span className="text-xs text-[#B82E5F] font-semibold font-['Space_Grotesk']">
+                      <span className="text-xs text-[#B82E5F] font-semibold">
                         {service.category} · {service.specialty}
                       </span>
                     </div>
 
                     <div className="text-right flex-shrink-0">
-                      <div className="font-['Space_Grotesk'] text-lg font-bold text-[#571C31]">
+                      <div className=" text-lg font-bold text-[#571C31]">
                         {service.pricePrefix && `${service.pricePrefix} `}${service.priceUYU}
                       </div>
-                      <div className="text-[11px] text-[#571C31]/60 font-['Manrope'] flex items-center justify-end gap-1">
+                      <div className="text-[11px] text-[#571C31]/60 flex items-center justify-end gap-1">
                         <Clock className="w-3 h-3" />
                         <span>{service.durationMinutes} min</span>
                       </div>
                     </div>
                   </div>
 
-                  <p className="font-['Manrope'] text-xs text-[#571C31]/75 line-clamp-2 leading-relaxed mb-3">
+                  <p className=" text-xs text-[#571C31]/75 line-clamp-2 leading-relaxed mb-3">
                     {service.description}
                   </p>
 
-                  <div className="text-[11px] font-['Space_Grotesk'] text-[#571C31]/60">
+                  <div className="text-[11px] text-[#571C31]/60">
                     Realizado por: <strong className="text-[#181416]">{service.professionalName || 'Equipo'}</strong>
                   </div>
                 </div>
@@ -529,7 +529,7 @@ export const ProfileView: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => toggleServiceStatus(service.id)}
-                    className={`font-['Space_Grotesk'] font-medium ${
+                    className={` font-medium ${
                       service.active ? 'text-stone-500 hover:text-stone-800' : 'text-emerald-700 font-bold'
                     }`}
                   >
@@ -570,10 +570,10 @@ export const ProfileView: React.FC = () => {
       {activeTab === 'hours' && (
         <Card className="space-y-4">
           <div>
-            <h3 className="font-['Space_Grotesk'] text-base font-bold text-[#181416]">
+            <h3 className=" text-base font-bold text-[#181416]">
               Horarios semanales
             </h3>
-            <p className="text-xs text-[#571C31]/75 font-['Manrope']">
+            <p className="text-xs text-[#571C31]/75">
               Define los horarios en que tu estudio recibe clientas en Pocitos.
             </p>
           </div>
@@ -593,7 +593,7 @@ export const ProfileView: React.FC = () => {
                     className="accent-[#B82E5F] w-4 h-4 rounded"
                   />
                   <span
-                    className={`font-['Space_Grotesk'] text-sm font-semibold ${
+                    className={` text-sm font-semibold ${
                       hour.active ? 'text-[#181416]' : 'text-stone-400'
                     }`}
                   >
@@ -602,7 +602,7 @@ export const ProfileView: React.FC = () => {
                 </div>
 
                 {hour.active ? (
-                  <div className="flex items-center gap-2 text-xs font-['Space_Grotesk']">
+                  <div className="flex items-center gap-2 text-xs">
                     <input
                       type="time"
                       value={hour.open}
@@ -626,7 +626,7 @@ export const ProfileView: React.FC = () => {
                     />
                   </div>
                 ) : (
-                  <span className="text-xs font-['Manrope'] text-stone-400 italic">
+                  <span className="text-xs text-stone-400 italic">
                     Cerrado
                   </span>
                 )}
@@ -651,7 +651,7 @@ export const ProfileView: React.FC = () => {
       >
         <form onSubmit={handleSaveService} className="space-y-4">
           <div>
-            <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+            <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
               Nombre del servicio
             </label>
             <input
@@ -659,20 +659,20 @@ export const ProfileView: React.FC = () => {
               required
               value={serviceForm.name}
               onChange={(e) => setServiceForm({ ...serviceForm, name: e.target.value })}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-white focus:outline-none focus:border-[#B82E5F] text-sm font-['Manrope']"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
               placeholder="Ej. Kapping Gel Fortalecedor"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                 Categoría
               </label>
               <select
                 value={serviceForm.category}
                 onChange={(e) => setServiceForm({ ...serviceForm, category: e.target.value })}
-                className="w-full px-3 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm font-['Manrope']"
+                className="w-full px-3 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm"
               >
                 {CATEGORY_CHIPS.map((c) => (
                   <option key={c} value={c}>
@@ -682,14 +682,14 @@ export const ProfileView: React.FC = () => {
               </select>
             </div>
             <div>
-              <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                 Especialidad
               </label>
               <input
                 type="text"
                 value={serviceForm.specialty}
                 onChange={(e) => setServiceForm({ ...serviceForm, specialty: e.target.value })}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm font-['Manrope']"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm"
                 placeholder="Ej. Manicuría"
               />
             </div>
@@ -697,7 +697,7 @@ export const ProfileView: React.FC = () => {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                 Precio en UYU ($)
               </label>
               <div className="relative">
@@ -709,19 +709,19 @@ export const ProfileView: React.FC = () => {
                   required
                   value={serviceForm.priceUYU}
                   onChange={(e) => setServiceForm({ ...serviceForm, priceUYU: Number(e.target.value) })}
-                  className="w-full pl-7 pr-3 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm font-['Space_Grotesk'] font-bold"
+                  className="w-full pl-7 pr-3 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm font-bold"
                   placeholder="850"
                 />
               </div>
             </div>
             <div>
-              <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                 Duración (minutos)
               </label>
               <select
                 value={serviceForm.durationMinutes}
                 onChange={(e) => setServiceForm({ ...serviceForm, durationMinutes: Number(e.target.value) })}
-                className="w-full px-3 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm font-['Manrope']"
+                className="w-full px-3 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm"
               >
                 <option value={30}>30 min</option>
                 <option value={45}>45 min</option>
@@ -734,13 +734,13 @@ export const ProfileView: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+            <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
               Profesional que lo realiza
             </label>
             <select
               value={serviceForm.professionalId}
               onChange={(e) => setServiceForm({ ...serviceForm, professionalId: e.target.value })}
-              className="w-full px-3 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm font-['Manrope']"
+              className="w-full px-3 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm"
             >
               {team.map((t) => (
                 <option key={t.id} value={t.id}>
@@ -751,14 +751,14 @@ export const ProfileView: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+            <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
               Descripción del servicio
             </label>
             <textarea
               rows={3}
               value={serviceForm.description}
               onChange={(e) => setServiceForm({ ...serviceForm, description: e.target.value })}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm font-['Manrope']"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm"
               placeholder="Detallá los pasos, productos utilizados y qué incluye el servicio."
             />
           </div>

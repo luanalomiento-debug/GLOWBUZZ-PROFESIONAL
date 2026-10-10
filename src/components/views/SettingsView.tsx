@@ -63,10 +63,10 @@ export const SettingsView: React.FC = () => {
     <div className="space-y-6 animate-in fade-in duration-200">
       {/* Header */}
       <div>
-        <h2 className="font-['Space_Grotesk'] text-2xl font-bold tracking-tight text-[#181416]">
+        <h2 className=" text-2xl font-bold tracking-tight text-[#181416]">
           Configuración
         </h2>
-        <p className="font-['Manrope'] text-sm text-[#571C31]/75 mt-0.5">
+        <p className=" text-sm text-[#571C31]/75 mt-0.5">
           Administrá tus accesos, notificaciones y preferencias de seguridad.
         </p>
       </div>
@@ -88,13 +88,13 @@ export const SettingsView: React.FC = () => {
       {activeTab === 'account' && (
         <form onSubmit={handleSaveAccount} className="space-y-6 max-w-2xl">
           <Card className="space-y-4">
-            <h3 className="font-['Space_Grotesk'] text-base font-bold text-[#181416] pb-2 border-b border-[#571C31]/10">
+            <h3 className=" text-base font-bold text-[#181416] pb-2 border-b border-[#571C31]/10">
               Datos personales del titular
             </h3>
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                   Nombre
                 </label>
                 <input
@@ -105,7 +105,7 @@ export const SettingsView: React.FC = () => {
                 />
               </div>
               <div>
-                <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                   Apellido
                 </label>
                 <input
@@ -118,7 +118,7 @@ export const SettingsView: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                 Correo electrónico
               </label>
               <input
@@ -130,7 +130,7 @@ export const SettingsView: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                 Teléfono de contacto
               </label>
               <input
@@ -150,7 +150,7 @@ export const SettingsView: React.FC = () => {
 
           {/* Sesión y Demo Controls */}
           <Card className="p-5 border-red-100 bg-white space-y-4">
-            <h3 className="font-['Space_Grotesk'] text-sm font-bold text-red-900 uppercase tracking-wider">
+            <h3 className=" text-sm font-bold text-red-900 uppercase tracking-wider">
               Acciones de sesión y prototipo
             </h3>
 
@@ -183,11 +183,11 @@ export const SettingsView: React.FC = () => {
       {/* TAB 2: NOTIFICACIONES */}
       {activeTab === 'notifications' && (
         <Card className="space-y-4 max-w-2xl">
-          <h3 className="font-['Space_Grotesk'] text-base font-bold text-[#181416] pb-2 border-b border-[#571C31]/10">
+          <h3 className=" text-base font-bold text-[#181416] pb-2 border-b border-[#571C31]/10">
             Preferencias de avisos
           </h3>
 
-          <div className="space-y-3 divide-y divide-[#571C31]/10 text-xs font-['Manrope']">
+          <div className="space-y-3 divide-y divide-[#571C31]/10 text-xs">
             {[
               { id: 'newBookingPush', label: 'Nueva reserva confirmada (Alerta en pantalla y sonido)', checked: notifications.newBookingPush },
               { id: 'newBookingEmail', label: 'Resumen de citas por correo electrónico', checked: notifications.newBookingEmail },
@@ -217,10 +217,10 @@ export const SettingsView: React.FC = () => {
         <Card className="p-6 max-w-2xl space-y-4">
           <div className="flex items-center justify-between pb-3 border-b border-[#571C31]/10">
             <div>
-              <h3 className="font-['Space_Grotesk'] text-base font-bold text-[#181416]">
+              <h3 className=" text-base font-bold text-[#181416]">
                 Integraciones activas
               </h3>
-              <p className="text-xs text-[#571C31]/70 font-['Manrope']">
+              <p className="text-xs text-[#571C31]/70">
                 Administrá las herramientas conectadas a tu negocio.
               </p>
             </div>
@@ -229,7 +229,7 @@ export const SettingsView: React.FC = () => {
             </Button>
           </div>
 
-          <p className="text-xs text-[#571C31]/80 leading-relaxed font-['Manrope']">
+          <p className="text-xs text-[#571C31]/80 leading-relaxed">
             Podés sincronizar Google Calendar, Koobing, Agendoro o AgendaPro desde la pestaña de Agenda para mantener tus horarios sincronizados en tiempo real.
           </p>
         </Card>
@@ -238,11 +238,11 @@ export const SettingsView: React.FC = () => {
       {/* TAB 4: PRIVACIDAD */}
       {activeTab === 'privacy' && (
         <Card className="p-6 max-w-2xl space-y-4">
-          <h3 className="font-['Space_Grotesk'] text-base font-bold text-[#181416] pb-2 border-b border-[#571C31]/10">
+          <h3 className=" text-base font-bold text-[#181416] pb-2 border-b border-[#571C31]/10">
             Privacidad y datos de clientas
           </h3>
 
-          <div className="space-y-3 text-xs font-['Manrope'] text-[#571C31]/80 leading-relaxed">
+          <div className="space-y-3 text-xs text-[#571C31]/80 leading-relaxed">
             <p>
               ✓ Cumplimiento de la Ley N° 18.331 de Protección de Datos Personales en la República Oriental del Uruguay.
             </p>
@@ -261,10 +261,10 @@ export const SettingsView: React.FC = () => {
         <Card className="p-6 max-w-2xl space-y-4">
           <div className="flex items-center justify-between pb-3 border-b border-[#571C31]/10">
             <div>
-              <h3 className="font-['Space_Grotesk'] text-base font-bold text-[#181416]">
+              <h3 className=" text-base font-bold text-[#181416]">
                 Suscripción actual
               </h3>
-              <p className="text-xs text-[#571C31]/70 font-['Manrope']">
+              <p className="text-xs text-[#571C31]/70">
                 {businessProfile.plan === 'pro' ? 'Glow Pro ($1.690 UYU/mes)' : 'Glow Start ($990 UYU/mes)'}
               </p>
             </div>

@@ -29,7 +29,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
       className={`bg-white rounded-2xl border border-[#571C31]/10 p-5 relative overflow-hidden transition-all duration-200 hover:border-[#B82E5F]/30 ${className}`}
     >
       <div className="flex items-start justify-between gap-3 mb-2.5">
-        <span className="font-['Manrope'] text-xs font-semibold text-[#571C31]/70 uppercase tracking-wider">
+        <span className=" text-xs font-semibold text-[#571C31]/70 uppercase tracking-wider">
           {label}
         </span>
         {icon && (
@@ -40,12 +40,12 @@ export const MetricCard: React.FC<MetricCardProps> = ({
       </div>
 
       <div className="flex items-baseline gap-2.5">
-        <span className="font-['Space_Grotesk'] text-2xl sm:text-3xl font-bold tracking-tight text-[#181416]">
+        <span className=" text-2xl sm:text-3xl font-bold tracking-tight text-[#181416]">
           {value}
         </span>
         {trend && (
           <span
-            className={`text-xs font-['Space_Grotesk'] font-medium ${
+            className={`text-xs font-medium ${
               trend.isPositive ? 'text-emerald-700' : 'text-stone-500'
             }`}
           >
@@ -55,18 +55,18 @@ export const MetricCard: React.FC<MetricCardProps> = ({
       </div>
 
       {subtitle && (
-        <p className="text-xs text-[#571C31]/60 font-['Manrope'] mt-1.5">{subtitle}</p>
+        <p className="text-xs text-[#571C31]/60 mt-1.5">{subtitle}</p>
       )}
 
       {badge && (
-        <span className="inline-block mt-2 text-[10px] font-['Space_Grotesk'] font-semibold text-[#B82E5F] bg-[#F5DCE5]/60 px-2 py-0.5 rounded-md">
+        <span className="inline-block mt-2 text-[10px] font-semibold text-[#B82E5F] bg-[#F5DCE5]/60 px-2 py-0.5 rounded-md">
           {badge}
         </span>
       )}
 
       {locked && (
         <div className="absolute inset-0 bg-white/85 backdrop-blur-2xs flex flex-col items-center justify-center p-4 text-center">
-          <span className="text-xs font-['Space_Grotesk'] font-bold text-[#571C31] bg-[#F5DCE5] px-2.5 py-1 rounded-lg">
+          <span className="text-xs font-bold text-[#571C31] bg-[#F5DCE5] px-2.5 py-1 rounded-lg">
             Disponible con Glow Pro
           </span>
         </div>

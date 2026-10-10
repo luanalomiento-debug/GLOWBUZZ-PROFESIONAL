@@ -133,10 +133,10 @@ export const ContentView: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="font-['Space_Grotesk'] text-2xl font-bold tracking-tight text-[#181416]">
+          <h2 className=" text-2xl font-bold tracking-tight text-[#181416]">
             Contenido & Portfolio
           </h2>
-          <p className="font-['Manrope'] text-sm text-[#571C31]/75 mt-0.5">
+          <p className=" text-sm text-[#571C31]/75 mt-0.5">
             Las clientas en Glow Buzz no compran textos: descubren trabajos visuales y reservan lo que ven.
           </p>
         </div>
@@ -184,13 +184,13 @@ export const ContentView: React.FC = () => {
                   />
 
                   {/* Price Tag */}
-                  <div className="absolute top-3 right-3 bg-black/65 backdrop-blur-xs text-white text-xs font-['Space_Grotesk'] font-bold px-2.5 py-1 rounded-xl">
+                  <div className="absolute top-3 right-3 bg-black/65 backdrop-blur-xs text-white text-xs font-bold px-2.5 py-1 rounded-xl">
                     ${work.priceUYU} UYU
                   </div>
 
                   {/* UGC Badge */}
                   {isUgc && (
-                    <div className="absolute top-3 left-3 bg-[#B82E5F] text-white text-[10px] font-['Space_Grotesk'] font-bold uppercase tracking-wider px-2.5 py-1 rounded-xl flex items-center gap-1 shadow-xs">
+                    <div className="absolute top-3 left-3 bg-[#B82E5F] text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-xl flex items-center gap-1 shadow-xs">
                       <Sparkles className="w-3 h-3" />
                       <span>Subido por clienta</span>
                     </div>
@@ -203,30 +203,30 @@ export const ContentView: React.FC = () => {
                   {isUgc && (
                     <div className="p-3.5 rounded-2xl bg-[#FFF8F3] border border-[#571C31]/10 space-y-1.5">
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-['Space_Grotesk'] font-bold text-[#181416]">
+                        <span className="text-xs font-bold text-[#181416]">
                           {work.clientName}
                         </span>
                         <div className="flex text-amber-500 text-xs">
                           {'★'.repeat(work.reviewRating || 5)}
                         </div>
                       </div>
-                      <p className="text-xs font-['Manrope'] italic text-[#571C31]/80 leading-relaxed">
+                      <p className="text-xs italic text-[#571C31]/80 leading-relaxed">
                         "{work.reviewText || work.description}"
                       </p>
                     </div>
                   )}
 
                   <div>
-                    <h3 className="font-['Space_Grotesk'] text-base font-bold text-[#181416] group-hover:text-[#B82E5F] transition-colors leading-snug">
+                    <h3 className=" text-base font-bold text-[#181416] group-hover:text-[#B82E5F] transition-colors leading-snug">
                       {work.title}
                     </h3>
-                    <p className="text-xs text-[#571C31]/70 font-['Manrope'] mt-0.5">
+                    <p className="text-xs text-[#571C31]/70 mt-0.5">
                       {work.professionalName} · {work.serviceName}
                     </p>
                   </div>
 
                   {!isUgc && (
-                    <p className="text-xs font-['Manrope'] text-[#571C31]/80 leading-relaxed line-clamp-2">
+                    <p className="text-xs text-[#571C31]/80 leading-relaxed line-clamp-2">
                       {work.description}
                     </p>
                   )}
@@ -237,7 +237,7 @@ export const ContentView: React.FC = () => {
                       {work.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="text-[10px] font-['Space_Grotesk'] font-medium px-2 py-0.5 rounded-md bg-[#FFF8F3] text-[#571C31]/80 border border-[#571C31]/10"
+                          className="text-[10px] font-medium px-2 py-0.5 rounded-md bg-[#FFF8F3] text-[#571C31]/80 border border-[#571C31]/10"
                         >
                           #{tag}
                         </span>
@@ -246,7 +246,7 @@ export const ContentView: React.FC = () => {
                   )}
 
                   {/* Métricas: vistas, guardados, reservas */}
-                  <div className="flex items-center justify-between pt-3 border-t border-[#571C31]/10 text-xs font-['Space_Grotesk'] text-[#571C31]/75">
+                  <div className="flex items-center justify-between pt-3 border-t border-[#571C31]/10 text-xs text-[#571C31]/75">
                     <span className="flex items-center gap-1.5" title="Visualizaciones en el feed de clientas">
                       <Eye className="w-3.5 h-3.5 text-[#B82E5F]" />
                       <strong>{work.views.toLocaleString()}</strong> vistas
@@ -267,7 +267,7 @@ export const ContentView: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => handleToggleAddUgc(work)}
-                        className={`flex-1 py-2 px-3 rounded-xl text-xs font-['Space_Grotesk'] font-bold flex items-center justify-center gap-1.5 transition-colors ${
+                        className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-colors ${
                           work.addedToProfile
                             ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
                             : 'bg-[#B82E5F] text-white hover:bg-[#A02450]'
@@ -285,7 +285,7 @@ export const ContentView: React.FC = () => {
                             `¡Muchas gracias ${work.clientName?.split(' ')[0] || ''}! Nos alegra que te haya encantado el resultado.`
                           );
                         }}
-                        className="py-2 px-3 rounded-xl text-xs font-['Space_Grotesk'] font-semibold bg-[#FFF8F3] hover:bg-[#F5DCE5] text-[#571C31] border border-[#571C31]/15 transition-colors flex items-center gap-1.5"
+                        className="py-2 px-3 rounded-xl text-xs font-semibold bg-[#FFF8F3] hover:bg-[#F5DCE5] text-[#571C31] border border-[#571C31]/15 transition-colors flex items-center gap-1.5"
                       >
                         <MessageSquare className="w-3.5 h-3.5" />
                         <span>Responder</span>
@@ -343,7 +343,7 @@ export const ContentView: React.FC = () => {
       >
         <form onSubmit={handleSaveWork} className="space-y-4">
           <div>
-            <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+            <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
               Título del trabajo
             </label>
             <input
@@ -351,20 +351,20 @@ export const ContentView: React.FC = () => {
               required
               value={workForm.title}
               onChange={(e) => setWorkForm({ ...workForm, title: e.target.value })}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-white focus:outline-none focus:border-[#B82E5F] text-sm font-['Manrope']"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
               placeholder="Ej. French Chrome Glazed Nude"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                 Servicio asociado
               </label>
               <select
                 value={workForm.serviceId}
                 onChange={(e) => setWorkForm({ ...workForm, serviceId: e.target.value })}
-                className="w-full px-3 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm font-['Manrope']"
+                className="w-full px-3 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm"
               >
                 {services.map((s) => (
                   <option key={s.id} value={s.id}>
@@ -374,13 +374,13 @@ export const ContentView: React.FC = () => {
               </select>
             </div>
             <div>
-              <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                 Profesional
               </label>
               <select
                 value={workForm.professionalId}
                 onChange={(e) => setWorkForm({ ...workForm, professionalId: e.target.value })}
-                className="w-full px-3 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm font-['Manrope']"
+                className="w-full px-3 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm"
               >
                 {team.map((t) => (
                   <option key={t.id} value={t.id}>
@@ -393,7 +393,7 @@ export const ContentView: React.FC = () => {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                 Precio estimado ($ UYU)
               </label>
               <input
@@ -403,18 +403,18 @@ export const ContentView: React.FC = () => {
                 required
                 value={workForm.priceUYU}
                 onChange={(e) => setWorkForm({ ...workForm, priceUYU: Number(e.target.value) })}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm font-['Space_Grotesk'] font-bold"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm font-bold"
               />
             </div>
             <div>
-              <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                 Etiquetas / Tags
               </label>
               <input
                 type="text"
                 value={workForm.tagsText}
                 onChange={(e) => setWorkForm({ ...workForm, tagsText: e.target.value })}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm font-['Manrope']"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm"
                 placeholder="Separadas por comas"
               />
             </div>
@@ -422,7 +422,7 @@ export const ContentView: React.FC = () => {
 
           {/* Selector visual de foto para el demo */}
           <div>
-            <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+            <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
               Elegir imagen de resultado
             </label>
             <div className="grid grid-cols-4 sm:grid-cols-7 gap-2">
@@ -444,14 +444,14 @@ export const ContentView: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+            <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
               Descripción técnica del trabajo
             </label>
             <textarea
               rows={2}
               value={workForm.description}
               onChange={(e) => setWorkForm({ ...workForm, description: e.target.value })}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm font-['Manrope']"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm"
               placeholder="Explicá qué técnica usaste, qué tonos y cómo cuidarlo."
             />
           </div>
@@ -489,7 +489,7 @@ export const ContentView: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                 Tu respuesta como estudio
               </label>
               <textarea
@@ -497,7 +497,7 @@ export const ContentView: React.FC = () => {
                 required
                 value={replyText}
                 onChange={(e) => setReplyText(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm font-['Manrope']"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm"
               />
             </div>
 

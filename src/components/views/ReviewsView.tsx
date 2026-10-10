@@ -66,10 +66,10 @@ export const ReviewsView: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="font-['Space_Grotesk'] text-2xl font-bold tracking-tight text-[#181416]">
+          <h2 className=" text-2xl font-bold tracking-tight text-[#181416]">
             Reseñas & Reputación
           </h2>
-          <p className="font-['Manrope'] text-sm text-[#571C31]/75 mt-0.5">
+          <p className=" text-sm text-[#571C31]/75 mt-0.5">
             Las opiniones verificadas construyen confianza y disparan la tasa de reserva.
           </p>
         </div>
@@ -89,19 +89,19 @@ export const ReviewsView: React.FC = () => {
         {/* Score Card (4 cols) */}
         <Card className="md:col-span-4 p-6 flex flex-col justify-between text-center bg-white">
           <div>
-            <span className="text-[11px] font-['Space_Grotesk'] font-bold text-[#571C31]/60 uppercase tracking-wider">
+            <span className="text-[11px] font-bold text-[#571C31]/60 uppercase tracking-wider">
               Calificación promedio
             </span>
-            <div className="font-['Space_Grotesk'] text-5xl font-extrabold text-[#181416] my-2">
+            <div className=" text-5xl font-extrabold text-[#181416] my-2">
               4.8 <span className="text-[#B82E5F] text-4xl">★</span>
             </div>
-            <p className="text-xs text-[#571C31]/75 font-['Manrope']">
+            <p className="text-xs text-[#571C31]/75">
               Basado en <strong>127 reseñas verificadas</strong>
             </p>
           </div>
 
           {/* Star Distribution */}
-          <div className="mt-5 space-y-1.5 text-xs font-['Space_Grotesk']">
+          <div className="mt-5 space-y-1.5 text-xs">
             {[
               { stars: '5 ★', pct: 88 },
               { stars: '4 ★', pct: 9 },
@@ -124,14 +124,14 @@ export const ReviewsView: React.FC = () => {
         <div className="md:col-span-8 space-y-5">
           {/* Tags destacados de reputación */}
           <Card className="p-5">
-            <h4 className="font-['Space_Grotesk'] text-xs font-bold text-[#571C31] uppercase tracking-wider mb-3">
+            <h4 className=" text-xs font-bold text-[#571C31] uppercase tracking-wider mb-3">
               Lo que más destacan tus clientas
             </h4>
             <div className="flex flex-wrap gap-2">
               {REPUTATION_TAGS.map((t) => (
                 <div
                   key={t.name}
-                  className="px-3.5 py-2 rounded-xl bg-[#FFF8F3] border border-[#571C31]/10 flex items-center gap-2 text-xs font-['Space_Grotesk']"
+                  className="px-3.5 py-2 rounded-xl bg-[#FFF8F3] border border-[#571C31]/10 flex items-center gap-2 text-xs"
                 >
                   <span className="font-bold text-[#181416]">{t.name}</span>
                   <span className="text-[#B82E5F] font-bold text-[11px] bg-[#F5DCE5] px-1.5 py-0.5 rounded-md">
@@ -150,12 +150,12 @@ export const ReviewsView: React.FC = () => {
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <h4 className="font-['Space_Grotesk'] text-base font-bold text-[#FFF8F3]">
+                  <h4 className=" text-base font-bold text-[#FFF8F3]">
                     Automatizá las solicitudes de reseñas
                   </h4>
                   <Badge variant="cherry">Glow Pro</Badge>
                 </div>
-                <p className="font-['Manrope'] text-xs text-[#F5DCE5]/80 mt-0.5 max-w-md">
+                <p className=" text-xs text-[#F5DCE5]/80 mt-0.5 max-w-md">
                   Envía un mensaje cálido por WhatsApp 3 horas después de finalizado el servicio para pedir una foto y reseña sin esfuerzo.
                 </p>
               </div>
@@ -181,7 +181,7 @@ export const ReviewsView: React.FC = () => {
 
       {/* Listado de Reseñas */}
       <div className="space-y-4">
-        <h3 className="font-['Space_Grotesk'] text-lg font-bold text-[#181416]">
+        <h3 className=" text-lg font-bold text-[#181416]">
           Todas las opiniones ({reviews.length})
         </h3>
 
@@ -197,14 +197,14 @@ export const ReviewsView: React.FC = () => {
                   />
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="font-['Space_Grotesk'] text-sm font-bold text-[#181416]">
+                      <span className=" text-sm font-bold text-[#181416]">
                         {rev.clientName}
                       </span>
-                      <span className="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md font-['Space_Grotesk'] font-bold">
+                      <span className="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md font-bold">
                         Cita verificada
                       </span>
                     </div>
-                    <div className="flex items-center gap-2 text-xs text-[#571C31]/70 font-['Manrope'] mt-0.5">
+                    <div className="flex items-center gap-2 text-xs text-[#571C31]/70 mt-0.5">
                       <span>{rev.serviceName}</span>
                       <span>· Atendió: {rev.professionalName}</span>
                       <span>· {rev.date}</span>
@@ -218,7 +218,7 @@ export const ReviewsView: React.FC = () => {
               </div>
 
               {/* Comentario */}
-              <p className="font-['Manrope'] text-sm text-[#181416] leading-relaxed">
+              <p className=" text-sm text-[#181416] leading-relaxed">
                 "{rev.comment}"
               </p>
 
@@ -230,7 +230,7 @@ export const ReviewsView: React.FC = () => {
                     alt="Foto de la clienta"
                     className="w-16 h-16 rounded-xl object-cover border border-[#571C31]/10 shadow-2xs"
                   />
-                  <span className="text-[11px] text-[#B82E5F] font-['Space_Grotesk'] font-bold">
+                  <span className="text-[11px] text-[#B82E5F] font-bold">
                     + Foto del resultado adjunta
                   </span>
                 </div>
@@ -241,7 +241,7 @@ export const ReviewsView: React.FC = () => {
                 {rev.tags.map((t) => (
                   <span
                     key={t}
-                    className="text-[10px] font-['Space_Grotesk'] font-medium px-2 py-0.5 rounded-md bg-[#FFF8F3] text-[#571C31]/80 border border-[#571C31]/10"
+                    className="text-[10px] font-medium px-2 py-0.5 rounded-md bg-[#FFF8F3] text-[#571C31]/80 border border-[#571C31]/10"
                   >
                     #{t}
                   </span>
@@ -250,8 +250,8 @@ export const ReviewsView: React.FC = () => {
 
               {/* Respuesta del estudio */}
               {rev.reply ? (
-                <div className="p-3 rounded-xl bg-[#FFF8F3] border-l-3 border-[#B82E5F] text-xs font-['Manrope'] text-[#571C31] mt-2">
-                  <strong className="block font-['Space_Grotesk'] text-[#181416] mb-0.5">
+                <div className="p-3 rounded-xl bg-[#FFF8F3] border-l-3 border-[#B82E5F] text-xs text-[#571C31] mt-2">
+                  <strong className="block text-[#181416] mb-0.5">
                     Respuesta de {businessProfile.name}:
                   </strong>
                   {rev.reply}
@@ -263,7 +263,7 @@ export const ReviewsView: React.FC = () => {
                     value={replyDraft}
                     onChange={(e) => setReplyDraft(e.target.value)}
                     placeholder="Escribí tu respuesta cálida..."
-                    className="w-full p-2.5 rounded-xl border border-[#571C31]/20 text-xs font-['Manrope']"
+                    className="w-full p-2.5 rounded-xl border border-[#571C31]/20 text-xs"
                   />
                   <div className="flex justify-end gap-2">
                     <Button variant="ghost" size="sm" onClick={() => setReplyingReviewId(null)}>
@@ -281,7 +281,7 @@ export const ReviewsView: React.FC = () => {
                       setReplyingReviewId(rev.id);
                       setReplyDraft(`¡Muchas gracias ${rev.clientName.split(' ')[0]}! Un placer tenerte en el estudio.`);
                     }}
-                    className="text-xs font-['Space_Grotesk'] font-bold text-[#B82E5F] hover:underline flex items-center gap-1"
+                    className="text-xs font-bold text-[#B82E5F] hover:underline flex items-center gap-1"
                   >
                     <MessageSquare className="w-3.5 h-3.5" />
                     <span>Responder a esta reseña</span>
@@ -302,13 +302,13 @@ export const ReviewsView: React.FC = () => {
       >
         <form onSubmit={handleSendRequest} className="space-y-4">
           <div>
-            <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+            <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
               Seleccionar clienta
             </label>
             <select
               value={selectedClientId}
               onChange={(e) => setSelectedClientId(e.target.value)}
-              className="w-full px-3 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm font-['Manrope']"
+              className="w-full px-3 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm"
             >
               {clients.map((c) => (
                 <option key={c.id} value={c.id}>
@@ -319,18 +319,18 @@ export const ReviewsView: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+            <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
               Servicio recibido
             </label>
             <input
               type="text"
               value={selectedService}
               onChange={(e) => setSelectedService(e.target.value)}
-              className="w-full px-3 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm font-['Manrope']"
+              className="w-full px-3 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm"
             />
           </div>
 
-          <div className="p-3.5 rounded-2xl bg-[#FFF8F3] border border-[#571C31]/10 text-xs font-['Manrope'] text-[#571C31] space-y-1">
+          <div className="p-3.5 rounded-2xl bg-[#FFF8F3] border border-[#571C31]/10 text-xs text-[#571C31] space-y-1">
             <strong>Mensaje de WhatsApp sugerido:</strong>
             <p className="italic text-[#571C31]/80">
               "¡Hola! Gracias por visitarnos en Berna Studio. ¿Nos dejás tu opinión y fotito de tus uñas en Glow Buzz? Nos ayuda un montón a crecer: glowbuzz.uy/r/berna-studio"
@@ -358,7 +358,7 @@ export const ReviewsView: React.FC = () => {
         <div className="space-y-4">
           <div className="flex items-center justify-between p-3.5 rounded-xl bg-white border border-[#571C31]/10">
             <div>
-              <p className="font-['Space_Grotesk'] text-sm font-bold text-[#181416]">
+              <p className=" text-sm font-bold text-[#181416]">
                 Envío automático activo
               </p>
               <p className="text-xs text-[#571C31]/70">
@@ -374,7 +374,7 @@ export const ReviewsView: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+            <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
               Tiempo de espera post-servicio
             </label>
             <select

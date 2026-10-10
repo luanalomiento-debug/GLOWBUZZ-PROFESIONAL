@@ -65,12 +65,12 @@ export const Modal: React.FC<ModalProps> = ({
           <div className="flex items-start justify-between gap-4 mb-5 pb-4 border-b border-[#571C31]/10">
             <div>
               {title && (
-                <h3 className="font-['Space_Grotesk'] text-lg sm:text-xl font-bold text-[#181416] tracking-tight">
+                <h3 className=" text-lg sm:text-xl font-bold text-[#181416] tracking-tight">
                   {title}
                 </h3>
               )}
               {subtitle && (
-                <p className="text-xs sm:text-sm text-[#571C31]/70 mt-1 font-['Manrope']">
+                <p className="text-xs sm:text-sm text-[#571C31]/70 mt-1">
                   {subtitle}
                 </p>
               )}

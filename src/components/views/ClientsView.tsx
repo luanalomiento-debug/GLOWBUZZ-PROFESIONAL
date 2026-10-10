@@ -36,10 +36,10 @@ export const ClientsView: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="font-['Space_Grotesk'] text-2xl font-bold tracking-tight text-[#181416]">
+          <h2 className=" text-2xl font-bold tracking-tight text-[#181416]">
             Directorio de clientas
           </h2>
-          <p className="font-['Manrope'] text-sm text-[#571C31]/75 mt-0.5">
+          <p className=" text-sm text-[#571C31]/75 mt-0.5">
             Historial simplificado de recurrencia y preferencias.
           </p>
         </div>
@@ -52,7 +52,7 @@ export const ClientsView: React.FC = () => {
             placeholder="Buscar por nombre o servicio..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-9 pr-3.5 py-2 rounded-xl border border-[#571C31]/20 bg-white text-xs font-['Manrope'] focus:outline-none focus:border-[#B82E5F]"
+            className="w-full pl-9 pr-3.5 py-2 rounded-xl border border-[#571C31]/20 bg-white text-xs focus:outline-none focus:border-[#B82E5F]"
           />
         </div>
       </div>
@@ -63,7 +63,7 @@ export const ClientsView: React.FC = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-[#571C31]/10 bg-[#FFF8F3]/60 text-[11px] font-['Space_Grotesk'] font-bold text-[#571C31] uppercase tracking-wider">
+                <tr className="border-b border-[#571C31]/10 bg-[#FFF8F3]/60 text-[11px] font-bold text-[#571C31] uppercase tracking-wider">
                   <th className="py-3 px-4">Clienta</th>
                   <th className="py-3 px-4">Última visita</th>
                   <th className="py-3 px-4">Reservas</th>
@@ -73,7 +73,7 @@ export const ClientsView: React.FC = () => {
                   <th className="py-3 px-4 text-right">Detalle</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#571C31]/10 text-xs font-['Manrope']">
+              <tbody className="divide-y divide-[#571C31]/10 text-xs">
                 {filteredClients.map((client) => (
                   <tr
                     key={client.id}
@@ -88,19 +88,19 @@ export const ClientsView: React.FC = () => {
                           className="w-8 h-8 rounded-full object-cover border border-[#B82E5F]/20 flex-shrink-0"
                         />
                         <div>
-                          <p className="font-['Space_Grotesk'] font-bold text-[#181416]">
+                          <p className=" font-bold text-[#181416]">
                             {client.name}
                           </p>
-                          <p className="text-[11px] text-[#571C31]/60 font-['Manrope']">
+                          <p className="text-[11px] text-[#571C31]/60">
                             {client.phone}
                           </p>
                         </div>
                       </div>
                     </td>
-                    <td className="py-3.5 px-4 font-['Space_Grotesk'] font-semibold text-[#571C31]">
+                    <td className="py-3.5 px-4 font-semibold text-[#571C31]">
                       {client.lastVisit}
                     </td>
-                    <td className="py-3.5 px-4 font-['Space_Grotesk'] font-bold text-[#181416]">
+                    <td className="py-3.5 px-4 font-bold text-[#181416]">
                       {client.bookingsCount} citas
                     </td>
                     <td className="py-3.5 px-4 font-medium text-[#181416]">
@@ -109,7 +109,7 @@ export const ClientsView: React.FC = () => {
                     <td className="py-3.5 px-4">
                       <Badge variant="cherry">{client.source}</Badge>
                     </td>
-                    <td className="py-3.5 px-4 font-['Space_Grotesk'] font-bold text-[#571C31]">
+                    <td className="py-3.5 px-4 font-bold text-[#571C31]">
                       ${client.totalSpentUYU.toLocaleString()} UYU
                     </td>
                     <td className="py-3.5 px-4 text-right">
@@ -118,7 +118,7 @@ export const ClientsView: React.FC = () => {
                           e.stopPropagation();
                           setSelectedClient(client);
                         }}
-                        className="text-[#B82E5F] hover:underline font-['Space_Grotesk'] font-bold text-xs"
+                        className="text-[#B82E5F] hover:underline font-bold text-xs"
                       >
                         Ver ficha
                       </button>
@@ -129,7 +129,7 @@ export const ClientsView: React.FC = () => {
             </table>
           </div>
         ) : (
-          <div className="p-8 text-center text-xs text-[#571C31]/60 font-['Manrope']">
+          <div className="p-8 text-center text-xs text-[#571C31]/60">
             No se encontraron clientas con ese criterio.
           </div>
         )}
@@ -151,10 +151,10 @@ export const ClientsView: React.FC = () => {
                 className="w-16 h-16 rounded-2xl object-cover border-2 border-white shadow-xs"
               />
               <div>
-                <h3 className="font-['Space_Grotesk'] text-lg font-bold text-[#181416]">
+                <h3 className=" text-lg font-bold text-[#181416]">
                   {selectedClient.name}
                 </h3>
-                <p className="text-xs text-[#571C31]/80 font-['Manrope']">
+                <p className="text-xs text-[#571C31]/80">
                   {selectedClient.phone} · {selectedClient.email}
                 </p>
                 <div className="mt-1.5 flex items-center gap-2">
@@ -168,41 +168,41 @@ export const ClientsView: React.FC = () => {
 
             <div className="grid grid-cols-3 gap-3 text-center">
               <div className="p-3 rounded-xl bg-white border border-[#571C31]/10">
-                <span className="text-[10px] uppercase font-['Space_Grotesk'] font-bold text-[#571C31]/60 block">
+                <span className="text-[10px] uppercase font-bold text-[#571C31]/60 block">
                   Total citas
                 </span>
-                <span className="font-['Space_Grotesk'] text-xl font-bold text-[#181416]">
+                <span className=" text-xl font-bold text-[#181416]">
                   {selectedClient.bookingsCount}
                 </span>
               </div>
               <div className="p-3 rounded-xl bg-white border border-[#571C31]/10">
-                <span className="text-[10px] uppercase font-['Space_Grotesk'] font-bold text-[#571C31]/60 block">
+                <span className="text-[10px] uppercase font-bold text-[#571C31]/60 block">
                   Última visita
                 </span>
-                <span className="font-['Space_Grotesk'] text-xs font-bold text-[#571C31] mt-1 block">
+                <span className=" text-xs font-bold text-[#571C31] mt-1 block">
                   {selectedClient.lastVisit}
                 </span>
               </div>
               <div className="p-3 rounded-xl bg-white border border-[#571C31]/10">
-                <span className="text-[10px] uppercase font-['Space_Grotesk'] font-bold text-[#571C31]/60 block">
+                <span className="text-[10px] uppercase font-bold text-[#571C31]/60 block">
                   Total invertido
                 </span>
-                <span className="font-['Space_Grotesk'] text-base font-bold text-[#B82E5F]">
+                <span className=" text-base font-bold text-[#B82E5F]">
                   ${selectedClient.totalSpentUYU}
                 </span>
               </div>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-white border border-[#571C31]/10 text-xs font-['Manrope'] space-y-1">
-              <strong className="block text-[#181416] font-['Space_Grotesk']">
+            <div className="p-3.5 rounded-xl bg-white border border-[#571C31]/10 text-xs space-y-1">
+              <strong className="block text-[#181416]">
                 Servicio predilecto:
               </strong>
               <p className="text-[#571C31]">{selectedClient.favoriteService}</p>
             </div>
 
             {selectedClient.notes && (
-              <div className="p-3.5 rounded-xl bg-[#FFF8F3] border border-[#571C31]/10 text-xs font-['Manrope'] space-y-1">
-                <strong className="block text-[#181416] font-['Space_Grotesk']">
+              <div className="p-3.5 rounded-xl bg-[#FFF8F3] border border-[#571C31]/10 text-xs space-y-1">
+                <strong className="block text-[#181416]">
                   Notas de atención:
                 </strong>
                 <p className="italic text-[#571C31]/80">{selectedClient.notes}</p>

@@ -62,10 +62,10 @@ export const BillingView: React.FC = () => {
     <div className="space-y-6 animate-in fade-in duration-200">
       {/* Header */}
       <div>
-        <h2 className="font-['Space_Grotesk'] text-2xl font-bold tracking-tight text-[#181416]">
+        <h2 className=" text-2xl font-bold tracking-tight text-[#181416]">
           Plan y facturación
         </h2>
-        <p className="font-['Manrope'] text-sm text-[#571C31]/75 mt-0.5">
+        <p className=" text-sm text-[#571C31]/75 mt-0.5">
           Gestioná tu suscripción y comprobá el retorno de inversión que genera Glow Buzz.
         </p>
       </div>
@@ -75,18 +75,18 @@ export const BillingView: React.FC = () => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#571C31]/10">
           <div>
             <div className="flex items-center gap-2.5">
-              <span className="font-['Unbounded'] text-xl font-extrabold text-[#181416]">
+              <span className=" text-xl font-extrabold text-[#181416]">
                 {isPro ? 'Glow Pro' : 'Glow Start'}
               </span>
               <Badge variant="cherry">Prueba gratuita</Badge>
             </div>
-            <p className="text-sm font-['Space_Grotesk'] font-bold text-[#571C31] mt-1">
+            <p className="text-sm font-bold text-[#571C31] mt-1">
               ${isPro ? '1.690' : '990'} UYU / mes
             </p>
           </div>
 
-          <div className="p-3.5 rounded-2xl bg-[#FFF8F3] border border-[#571C31]/10 text-xs font-['Manrope'] text-[#571C31]">
-            <span className="font-['Space_Grotesk'] font-bold text-[#B82E5F] block text-sm">
+          <div className="p-3.5 rounded-2xl bg-[#FFF8F3] border border-[#571C31]/10 text-xs text-[#571C31]">
+            <span className=" font-bold text-[#B82E5F] block text-sm">
               Te quedan {businessProfile.trialDaysLeft} días de prueba gratuita.
             </span>
             <span>No se realizará ningún cobro hasta el 01/11/2026.</span>
@@ -100,13 +100,13 @@ export const BillingView: React.FC = () => {
               <TrendingUp className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-[10px] font-['Space_Grotesk'] font-bold uppercase tracking-wider text-[#571C31]/75 block">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#571C31]/75 block">
                 Retorno de inversión medido
               </span>
-              <p className="font-['Space_Grotesk'] text-base sm:text-lg font-bold text-[#181416] mt-0.5">
+              <p className=" text-base sm:text-lg font-bold text-[#181416] mt-0.5">
                 Glow Buzz ya te generó 7 reservas por un valor estimado de $12.400 UYU.
               </p>
-              <p className="font-['Manrope'] text-xs text-[#571C31]/75 mt-0.5">
+              <p className=" text-xs text-[#571C31]/75 mt-0.5">
                 El costo mensual de tu plan ($1.690) se pagó 7.3 veces con clientas nuevas.
               </p>
             </div>
@@ -134,7 +134,7 @@ export const BillingView: React.FC = () => {
             </Button>
           </div>
 
-          <span className="text-xs text-[#571C31]/60 font-['Manrope']">
+          <span className="text-xs text-[#571C31]/60">
             Cancelable en 1 clic sin penalizaciones.
           </span>
         </div>
@@ -142,7 +142,7 @@ export const BillingView: React.FC = () => {
 
       {/* Comparativa Interactiva de Planes */}
       <div className="space-y-4">
-        <h3 className="font-['Space_Grotesk'] text-lg font-bold text-[#181416]">
+        <h3 className=" text-lg font-bold text-[#181416]">
           Comparar y cambiar de plan
         </h3>
 
@@ -155,26 +155,26 @@ export const BillingView: React.FC = () => {
           >
             <div>
               <div className="flex items-center justify-between mb-2">
-                <span className="font-['Unbounded'] text-base font-extrabold text-[#571C31]">
+                <span className=" text-base font-extrabold text-[#571C31]">
                   GLOW START
                 </span>
                 {!isPro && <Badge variant="cherry">Tu plan actual</Badge>}
               </div>
 
               <div className="my-2">
-                <span className="font-['Space_Grotesk'] text-2xl font-extrabold text-[#181416]">
+                <span className=" text-2xl font-extrabold text-[#181416]">
                   $990
                 </span>
-                <span className="text-xs text-[#571C31]/70 font-['Manrope'] ml-1">
+                <span className="text-xs text-[#571C31]/70 ml-1">
                   UYU / mes
                 </span>
               </div>
 
-              <p className="font-['Manrope'] text-xs text-[#571C31]/75 mb-4">
+              <p className=" text-xs text-[#571C31]/75 mb-4">
                 Para empezar a mostrar tu trabajo y conseguir nuevas clientas.
               </p>
 
-              <div className="space-y-2 text-xs font-['Manrope'] text-[#181416] pt-3 border-t border-[#571C31]/10">
+              <div className="space-y-2 text-xs text-[#181416] pt-3 border-t border-[#571C31]/10">
                 <div className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-[#B82E5F]" />
                   <span>Perfil profesional completo</span>
@@ -213,32 +213,32 @@ export const BillingView: React.FC = () => {
               isPro ? 'border-[#B82E5F] shadow-sm bg-[#FFF8F3]/50' : 'border-[#571C31]/10'
             }`}
           >
-            <div className="absolute -top-3 right-5 bg-[#571C31] text-[#FFF8F3] text-[10px] font-['Space_Grotesk'] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-xs">
+            <div className="absolute -top-3 right-5 bg-[#571C31] text-[#FFF8F3] text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-xs">
               Más completo
             </div>
 
             <div>
               <div className="flex items-center justify-between mb-2">
-                <span className="font-['Unbounded'] text-base font-extrabold text-[#B82E5F]">
+                <span className=" text-base font-extrabold text-[#B82E5F]">
                   GLOW PRO
                 </span>
                 {isPro && <Badge variant="cherry">Tu plan actual</Badge>}
               </div>
 
               <div className="my-2">
-                <span className="font-['Space_Grotesk'] text-2xl font-extrabold text-[#181416]">
+                <span className=" text-2xl font-extrabold text-[#181416]">
                   $1.690
                 </span>
-                <span className="text-xs text-[#571C31]/70 font-['Manrope'] ml-1">
+                <span className="text-xs text-[#571C31]/70 ml-1">
                   UYU / mes
                 </span>
               </div>
 
-              <p className="font-['Manrope'] text-xs text-[#571C31]/75 mb-4">
+              <p className=" text-xs text-[#571C31]/75 mb-4">
                 Para negocios que quieren medir y potenciar su crecimiento.
               </p>
 
-              <div className="space-y-2 text-xs font-['Manrope'] text-[#181416] pt-3 border-t border-[#571C31]/10">
+              <div className="space-y-2 text-xs text-[#181416] pt-3 border-t border-[#571C31]/10">
                 <div className="flex items-center gap-2 font-bold text-[#B82E5F]">
                   <Check className="w-4 h-4 text-[#B82E5F]" />
                   <span>Todo lo de Glow Start</span>
@@ -282,38 +282,38 @@ export const BillingView: React.FC = () => {
       >
         <form onSubmit={handleSavePaymentMethod} className="space-y-4">
           <div>
-            <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+            <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
               Número de tarjeta
             </label>
             <input
               type="text"
               value={cardForm.number}
               onChange={(e) => setCardForm({ ...cardForm, number: e.target.value })}
-              className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-sm font-['Space_Grotesk']"
+              className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-sm"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                 Vencimiento
               </label>
               <input
                 type="text"
                 value={cardForm.expiry}
                 onChange={(e) => setCardForm({ ...cardForm, expiry: e.target.value })}
-                className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-sm font-['Space_Grotesk']"
+                className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-sm"
               />
             </div>
             <div>
-              <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                 CVV
               </label>
               <input
                 type="password"
                 value={cardForm.cvv}
                 onChange={(e) => setCardForm({ ...cardForm, cvv: e.target.value })}
-                className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-sm font-['Space_Grotesk']"
+                className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-sm"
               />
             </div>
           </div>
@@ -337,7 +337,7 @@ export const BillingView: React.FC = () => {
         subtitle="Lamentamos que quieras pausar tu plan."
       >
         <div className="space-y-4">
-          <p className="text-xs sm:text-sm text-[#181416] font-['Manrope'] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#181416] leading-relaxed">
             Podés seguir disfrutando de todas las funciones de tu prueba hasta que finalicen los 23 días restantes. Tu perfil y trabajos no se borrarán.
           </p>
 

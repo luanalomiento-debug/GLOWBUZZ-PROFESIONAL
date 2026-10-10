@@ -154,10 +154,10 @@ export const AgendaView: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="font-['Space_Grotesk'] text-2xl font-bold tracking-tight text-[#181416]">
+          <h2 className=" text-2xl font-bold tracking-tight text-[#181416]">
             Agenda & Turnos
           </h2>
-          <p className="font-['Manrope'] text-sm text-[#571C31]/75 mt-0.5">
+          <p className=" text-sm text-[#571C31]/75 mt-0.5">
             Glow Agenda organiza la demanda de tus clientas sin robar protagonismo a tus trabajos.
           </p>
         </div>
@@ -186,7 +186,7 @@ export const AgendaView: React.FC = () => {
       <div className="flex items-center gap-2 border-b border-[#571C31]/10">
         <button
           onClick={() => setActiveTab('glow_agenda')}
-          className={`py-3 px-4 text-sm font-['Space_Grotesk'] font-semibold border-b-2 -mb-px transition-colors flex items-center gap-2 ${
+          className={`py-3 px-4 text-sm font-semibold border-b-2 -mb-px transition-colors flex items-center gap-2 ${
             activeTab === 'glow_agenda'
               ? 'border-[#B82E5F] text-[#B82E5F]'
               : 'border-transparent text-[#571C31]/60 hover:text-[#571C31]'
@@ -198,7 +198,7 @@ export const AgendaView: React.FC = () => {
 
         <button
           onClick={() => setActiveTab('integrations')}
-          className={`py-3 px-4 text-sm font-['Space_Grotesk'] font-semibold border-b-2 -mb-px transition-colors flex items-center gap-2 ${
+          className={`py-3 px-4 text-sm font-semibold border-b-2 -mb-px transition-colors flex items-center gap-2 ${
             activeTab === 'integrations'
               ? 'border-[#B82E5F] text-[#B82E5F]'
               : 'border-transparent text-[#571C31]/60 hover:text-[#571C31]'
@@ -229,14 +229,14 @@ export const AgendaView: React.FC = () => {
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-['Space_Grotesk'] text-sm font-bold text-[#571C31]">
+                        <span className=" text-sm font-bold text-[#571C31]">
                           Se liberó este horario:
                         </span>
                         <Badge variant="cherry">
                           {cancelled.date === '2026-10-09' ? 'Hoy' : cancelled.date} · {cancelled.time} hs
                         </Badge>
                       </div>
-                      <p className="font-['Manrope'] text-xs text-[#571C31]/75 mt-0.5">
+                      <p className=" text-xs text-[#571C31]/75 mt-0.5">
                         Cancelado por {cancelled.clientName} ({cancelled.serviceName} con {cancelled.professionalName}). Publicalo para que otra clienta lo ocupe.
                       </p>
                     </div>
@@ -261,10 +261,10 @@ export const AgendaView: React.FC = () => {
             {/* Header del calendario */}
             <div className="p-4 bg-[#FFF8F3] border-b border-[#571C31]/10 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <span className="font-['Space_Grotesk'] text-base font-bold text-[#181416]">
+                <span className=" text-base font-bold text-[#181416]">
                   Semana del 05 al 11 de Octubre, 2026
                 </span>
-                <span className="text-xs text-[#571C31]/60 font-['Manrope'] hidden sm:inline">
+                <span className="text-xs text-[#571C31]/60 hidden sm:inline">
                   (Pocitos · Horario activo)
                 </span>
               </div>
@@ -290,10 +290,10 @@ export const AgendaView: React.FC = () => {
                     <div>
                       {/* Day Header */}
                       <div className="text-center pb-2.5 mb-2.5 border-b border-[#571C31]/10">
-                        <span className="font-['Space_Grotesk'] text-xs font-bold text-[#571C31] uppercase tracking-wider block">
+                        <span className=" text-xs font-bold text-[#571C31] uppercase tracking-wider block">
                           {dayLabel.split(' ')[0]}
                         </span>
-                        <span className="font-['Space_Grotesk'] text-sm font-extrabold text-[#181416]">
+                        <span className=" text-sm font-extrabold text-[#181416]">
                           {dayLabel.split(' ')[1]}
                         </span>
                       </div>
@@ -314,12 +314,12 @@ export const AgendaView: React.FC = () => {
                               onClick={() => handleOpenNewBooking(b.date, b.time)}
                               className={`p-2.5 rounded-xl border text-left text-xs transition-all hover:shadow-xs cursor-pointer ${statusStyles}`}
                             >
-                              <div className="flex items-center justify-between font-['Space_Grotesk'] font-bold text-[11px] mb-1">
+                              <div className="flex items-center justify-between font-bold text-[11px] mb-1">
                                 <span>{b.time} hs</span>
                                 <span>${b.priceUYU}</span>
                               </div>
                               <p className="font-semibold text-xs truncate text-[#181416]">{b.clientName}</p>
-                              <p className="text-[10px] text-[#571C31]/75 truncate font-['Manrope']">
+                              <p className="text-[10px] text-[#571C31]/75 truncate">
                                 {b.serviceName} ({b.professionalName})
                               </p>
                             </div>
@@ -331,7 +331,7 @@ export const AgendaView: React.FC = () => {
                           <button
                             type="button"
                             onClick={() => handleOpenNewBooking(dayDateStr, '15:00')}
-                            className="w-full py-2 border border-dashed border-[#571C31]/20 hover:border-[#B82E5F] rounded-xl text-[11px] font-['Space_Grotesk'] font-semibold text-[#571C31]/50 hover:text-[#B82E5F] hover:bg-[#FFF8F3] transition-colors"
+                            className="w-full py-2 border border-dashed border-[#571C31]/20 hover:border-[#B82E5F] rounded-xl text-[11px] font-semibold text-[#571C31]/50 hover:text-[#B82E5F] hover:bg-[#FFF8F3] transition-colors"
                           >
                             + Turno
                           </button>
@@ -352,12 +352,12 @@ export const AgendaView: React.FC = () => {
           <div className="p-5 rounded-2xl bg-white border border-[#571C31]/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="font-['Space_Grotesk'] text-lg font-bold text-[#181416]">
+                <h3 className=" text-lg font-bold text-[#181416]">
                   Conectá tu agenda existente
                 </h3>
                 <Badge variant="cherry">Glow Pro</Badge>
               </div>
-              <p className="font-['Manrope'] text-xs sm:text-sm text-[#571C31]/75 mt-1 max-w-xl leading-relaxed">
+              <p className=" text-xs sm:text-sm text-[#571C31]/75 mt-1 max-w-xl leading-relaxed">
                 Si ya usás Google Calendar, Koobing, Agendoro o AgendaPro, podés sincronizar en tiempo real para que tus reservas se actualicen automáticamente sin solapamientos.
               </p>
             </div>
@@ -391,11 +391,11 @@ export const AgendaView: React.FC = () => {
                   <div>
                     <div className="flex items-start justify-between gap-3 mb-2">
                       <div className="flex items-center gap-2.5">
-                        <div className="w-10 h-10 rounded-xl bg-[#FFF8F3] border border-[#571C31]/10 flex items-center justify-center font-['Space_Grotesk'] font-bold text-sm text-[#B82E5F]">
+                        <div className="w-10 h-10 rounded-xl bg-[#FFF8F3] border border-[#571C31]/10 flex items-center justify-center font-bold text-sm text-[#B82E5F]">
                           {item.name[0]}
                         </div>
                         <div>
-                          <h4 className="font-['Space_Grotesk'] text-base font-bold text-[#181416]">
+                          <h4 className=" text-base font-bold text-[#181416]">
                             {item.name}
                           </h4>
                           {item.badge && <Badge variant="blush" size="sm">{item.badge}</Badge>}
@@ -403,18 +403,18 @@ export const AgendaView: React.FC = () => {
                       </div>
 
                       {item.connected && (
-                        <span className="text-xs font-['Space_Grotesk'] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                        <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
                           Conectado ✓
                         </span>
                       )}
                     </div>
 
-                    <p className="font-['Manrope'] text-xs text-[#571C31]/75 mt-2 leading-relaxed">
+                    <p className=" text-xs text-[#571C31]/75 mt-2 leading-relaxed">
                       {item.description}
                     </p>
 
                     {item.connected && item.lastSync && (
-                      <p className="text-[11px] font-['Space_Grotesk'] text-[#571C31]/60 mt-3 flex items-center gap-1.5">
+                      <p className="text-[11px] text-[#571C31]/60 mt-3 flex items-center gap-1.5">
                         <RefreshCw className="w-3 h-3 text-emerald-600" />
                         <span>Última sincronización: {item.lastSync}</span>
                       </p>
@@ -469,7 +469,7 @@ export const AgendaView: React.FC = () => {
         <form onSubmit={handleSaveBooking} className="space-y-4">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                 Clienta
               </label>
               <input
@@ -477,26 +477,26 @@ export const AgendaView: React.FC = () => {
                 required
                 value={bookingForm.clientName}
                 onChange={(e) => setBookingForm({ ...bookingForm, clientName: e.target.value })}
-                className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-sm font-['Manrope']"
+                className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-sm"
                 placeholder="Nombre de clienta"
               />
             </div>
             <div>
-              <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                 WhatsApp
               </label>
               <input
                 type="text"
                 value={bookingForm.clientPhone}
                 onChange={(e) => setBookingForm({ ...bookingForm, clientPhone: e.target.value })}
-                className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-sm font-['Manrope']"
+                className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-sm"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                 Servicio
               </label>
               <select
@@ -510,7 +510,7 @@ export const AgendaView: React.FC = () => {
                     durationMinutes: srv ? srv.durationMinutes : bookingForm.durationMinutes,
                   });
                 }}
-                className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-sm font-['Manrope']"
+                className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-sm"
               >
                 {services.map((s) => (
                   <option key={s.id} value={s.id}>
@@ -520,13 +520,13 @@ export const AgendaView: React.FC = () => {
               </select>
             </div>
             <div>
-              <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                 Profesional
               </label>
               <select
                 value={bookingForm.professionalId}
                 onChange={(e) => setBookingForm({ ...bookingForm, professionalId: e.target.value })}
-                className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-sm font-['Manrope']"
+                className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-sm"
               >
                 {team.map((t) => (
                   <option key={t.id} value={t.id}>
@@ -539,7 +539,7 @@ export const AgendaView: React.FC = () => {
 
           <div className="grid grid-cols-3 gap-3">
             <div>
-              <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                 Fecha
               </label>
               <input
@@ -547,11 +547,11 @@ export const AgendaView: React.FC = () => {
                 required
                 value={bookingForm.date}
                 onChange={(e) => setBookingForm({ ...bookingForm, date: e.target.value })}
-                className="w-full px-2.5 py-2 rounded-xl border border-[#571C31]/20 bg-white text-xs font-['Space_Grotesk'] font-semibold"
+                className="w-full px-2.5 py-2 rounded-xl border border-[#571C31]/20 bg-white text-xs font-semibold"
               />
             </div>
             <div>
-              <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                 Hora
               </label>
               <input
@@ -559,11 +559,11 @@ export const AgendaView: React.FC = () => {
                 required
                 value={bookingForm.time}
                 onChange={(e) => setBookingForm({ ...bookingForm, time: e.target.value })}
-                className="w-full px-2.5 py-2 rounded-xl border border-[#571C31]/20 bg-white text-xs font-['Space_Grotesk'] font-semibold"
+                className="w-full px-2.5 py-2 rounded-xl border border-[#571C31]/20 bg-white text-xs font-semibold"
               />
             </div>
             <div>
-              <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                 Monto ($)
               </label>
               <input
@@ -572,19 +572,19 @@ export const AgendaView: React.FC = () => {
                 step="50"
                 value={bookingForm.priceUYU}
                 onChange={(e) => setBookingForm({ ...bookingForm, priceUYU: Number(e.target.value) })}
-                className="w-full px-2.5 py-2 rounded-xl border border-[#571C31]/20 bg-white text-xs font-['Space_Grotesk'] font-bold text-[#571C31]"
+                className="w-full px-2.5 py-2 rounded-xl border border-[#571C31]/20 bg-white text-xs font-bold text-[#571C31]"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+            <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
               Estado
             </label>
             <select
               value={bookingForm.status}
               onChange={(e) => setBookingForm({ ...bookingForm, status: e.target.value as any })}
-              className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-sm font-['Manrope']"
+              className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-sm"
             >
               <option value="confirmed">Confirmado</option>
               <option value="pending">Pendiente</option>
@@ -616,7 +616,7 @@ export const AgendaView: React.FC = () => {
             <button
               type="button"
               onClick={() => setBlockForm({ ...blockForm, type: 'bloqueado' })}
-              className={`p-3 rounded-xl border text-center text-xs font-['Space_Grotesk'] font-bold ${
+              className={`p-3 rounded-xl border text-center text-xs font-bold ${
                 blockForm.type === 'bloqueado'
                   ? 'border-[#B82E5F] bg-[#F5DCE5] text-[#571C31]'
                   : 'border-[#571C31]/20 bg-white text-[#571C31]/70'
@@ -627,7 +627,7 @@ export const AgendaView: React.FC = () => {
             <button
               type="button"
               onClick={() => setBlockForm({ ...blockForm, type: 'vacaciones' })}
-              className={`p-3 rounded-xl border text-center text-xs font-['Space_Grotesk'] font-bold ${
+              className={`p-3 rounded-xl border text-center text-xs font-bold ${
                 blockForm.type === 'vacaciones'
                   ? 'border-[#B82E5F] bg-[#F5DCE5] text-[#571C31]'
                   : 'border-[#571C31]/20 bg-white text-[#571C31]/70'
@@ -639,38 +639,38 @@ export const AgendaView: React.FC = () => {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                 Fecha
               </label>
               <input
                 type="date"
                 value={blockForm.date}
                 onChange={(e) => setBlockForm({ ...blockForm, date: e.target.value })}
-                className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-xs font-['Space_Grotesk']"
+                className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-xs"
               />
             </div>
             <div>
-              <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                 Hora / Duración
               </label>
               <input
                 type="text"
                 value={blockForm.duration}
                 onChange={(e) => setBlockForm({ ...blockForm, duration: e.target.value })}
-                className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-xs font-['Space_Grotesk']"
+                className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-xs"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+            <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
               Motivo
             </label>
             <input
               type="text"
               value={blockForm.note}
               onChange={(e) => setBlockForm({ ...blockForm, note: e.target.value })}
-              className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-sm font-['Manrope']"
+              className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-sm"
             />
           </div>
 

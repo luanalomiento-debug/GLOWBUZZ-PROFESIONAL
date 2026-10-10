@@ -76,7 +76,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) =>
             </button>
 
             <div className="hidden sm:block">
-              <h1 className="font-['Space_Grotesk'] text-base sm:text-lg font-bold text-[#181416] tracking-tight">
+              <h1 className=" text-base sm:text-lg font-bold text-[#181416] tracking-tight">
                 {currentInfo.title}
               </h1>
             </div>
@@ -89,7 +89,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) =>
           {/* Right section: Plan badge, Ver como clienta, and Demo switches */}
           <div className="flex items-center gap-2 sm:gap-3">
             {/* Plan Badge */}
-            <div className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F5DCE5] border border-[#B82E5F]/20 text-[11px] font-['Space_Grotesk'] font-bold text-[#571C31]">
+            <div className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F5DCE5] border border-[#B82E5F]/20 text-[11px] font-bold text-[#571C31]">
               <Sparkles className="w-3.5 h-3.5 text-[#B82E5F]" />
               <span>
                 {businessProfile.plan === 'pro' ? 'Glow Pro' : 'Glow Start'}
@@ -115,7 +115,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) =>
               <button
                 onClick={restartOnboarding}
                 title="Reiniciar Onboarding (para probar el flujo inicial)"
-                className="text-[11px] font-['Space_Grotesk'] font-semibold text-[#571C31]/70 hover:text-[#B82E5F] hover:bg-[#F5DCE5]/40 px-2 py-1 rounded-lg transition-colors"
+                className="text-[11px] font-semibold text-[#571C31]/70 hover:text-[#B82E5F] hover:bg-[#F5DCE5]/40 px-2 py-1 rounded-lg transition-colors"
               >
                 Probar Onboarding
               </button>

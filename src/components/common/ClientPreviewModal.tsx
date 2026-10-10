@@ -71,7 +71,7 @@ export const ClientPreviewModal: React.FC = () => {
       {/* Main Container - Styled like mobile/tablet consumer app window */}
       <div className="relative w-full max-w-2xl bg-[#FFF8F3] rounded-3xl border border-[#571C31]/20 shadow-2xl overflow-hidden z-10 my-4 flex flex-col max-h-[90vh]">
         {/* Top Simulation Bar */}
-        <div className="bg-[#181416] text-white px-4 py-2.5 flex items-center justify-between text-xs font-['Space_Grotesk'] font-bold flex-shrink-0">
+        <div className="bg-[#181416] text-white px-4 py-2.5 flex items-center justify-between text-xs font-bold flex-shrink-0">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span className="text-[#F5DCE5]">Vista pública como clienta en Glow Buzz</span>
@@ -94,7 +94,7 @@ export const ClientPreviewModal: React.FC = () => {
               alt={businessProfile.name}
               className="w-full h-full object-cover"
             />
-            <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs px-2.5 py-1 rounded-full text-[11px] font-['Space_Grotesk'] font-bold text-[#B82E5F]">
+            <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs px-2.5 py-1 rounded-full text-[11px] font-bold text-[#B82E5F]">
               Glow Buzz Beauty
             </div>
           </div>
@@ -110,12 +110,12 @@ export const ClientPreviewModal: React.FC = () => {
                 />
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <h2 className="font-['Space_Grotesk'] text-lg sm:text-xl font-bold text-[#181416]">
+                    <h2 className=" text-lg sm:text-xl font-bold text-[#181416]">
                       {businessProfile.name}
                     </h2>
                     <ShieldCheck className="w-4 h-4 text-[#B82E5F]" />
                   </div>
-                  <p className="text-xs text-[#571C31]/75 font-['Manrope'] flex items-center gap-1 mt-0.5">
+                  <p className="text-xs text-[#571C31]/75 flex items-center gap-1 mt-0.5">
                     <MapPin className="w-3 h-3 text-[#B82E5F]" />
                     <span>{businessProfile.location}</span>
                   </p>
@@ -124,17 +124,17 @@ export const ClientPreviewModal: React.FC = () => {
 
               {/* Rating */}
               <div className="text-right flex-shrink-0">
-                <div className="flex items-center gap-1 font-['Space_Grotesk'] font-bold text-sm text-[#181416]">
+                <div className="flex items-center gap-1 font-bold text-sm text-[#181416]">
                   <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
                   <span>4.8</span>
                 </div>
-                <span className="text-[10px] text-[#571C31]/60 font-['Manrope']">
+                <span className="text-[10px] text-[#571C31]/60">
                   127 reseñas
                 </span>
               </div>
             </div>
 
-            <p className="text-xs font-['Manrope'] text-[#571C31]/80 mt-3 leading-relaxed">
+            <p className="text-xs text-[#571C31]/80 mt-3 leading-relaxed">
               {businessProfile.description}
             </p>
 
@@ -142,7 +142,7 @@ export const ClientPreviewModal: React.FC = () => {
               {businessProfile.categories.map((c) => (
                 <span
                   key={c}
-                  className="text-[10px] font-['Space_Grotesk'] font-bold bg-[#F5DCE5] text-[#571C31] px-2 py-0.5 rounded-md"
+                  className="text-[10px] font-bold bg-[#F5DCE5] text-[#571C31] px-2 py-0.5 rounded-md"
                 >
                   {c}
                 </span>
@@ -151,12 +151,12 @@ export const ClientPreviewModal: React.FC = () => {
 
             {/* Quick action bar */}
             <div className="mt-4 pt-3 border-t border-[#571C31]/10 flex items-center justify-between">
-              <div className="text-xs text-[#571C31]/80 font-['Manrope']">
+              <div className="text-xs text-[#571C31]/80">
                 <span>{businessProfile.address}</span>
               </div>
               <button
                 onClick={() => setBookingService(services[0])}
-                className="px-4 py-2 bg-[#B82E5F] text-white rounded-xl text-xs font-['Space_Grotesk'] font-bold hover:bg-[#A02450] transition-colors"
+                className="px-4 py-2 bg-[#B82E5F] text-white rounded-xl text-xs font-bold hover:bg-[#A02450] transition-colors"
               >
                 Reservar cita
               </button>
@@ -165,7 +165,7 @@ export const ClientPreviewModal: React.FC = () => {
 
           {/* Consumer Navigation Tabs */}
           <div className="px-4 sm:px-6 mt-4">
-            <div className="flex border-b border-[#571C31]/10 text-xs font-['Space_Grotesk'] font-bold">
+            <div className="flex border-b border-[#571C31]/10 text-xs font-bold">
               <button
                 onClick={() => setActiveTab('works')}
                 className={`py-3 px-3.5 border-b-2 -mb-px transition-colors ${
@@ -223,18 +223,18 @@ export const ClientPreviewModal: React.FC = () => {
                       alt={work.title}
                       className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300"
                     />
-                    <div className="absolute top-2 right-2 bg-black/60 text-white text-[10px] font-['Space_Grotesk'] font-bold px-1.5 py-0.5 rounded-md">
+                    <div className="absolute top-2 right-2 bg-black/60 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-md">
                       ${work.priceUYU}
                     </div>
                   </div>
                   <div className="p-3">
-                    <h4 className="font-['Space_Grotesk'] text-xs font-bold text-[#181416] line-clamp-1">
+                    <h4 className=" text-xs font-bold text-[#181416] line-clamp-1">
                       {work.title}
                     </h4>
-                    <p className="text-[11px] text-[#571C31]/70 font-['Manrope'] truncate mt-0.5">
+                    <p className="text-[11px] text-[#571C31]/70 truncate mt-0.5">
                       {work.professionalName}
                     </p>
-                    <div className="pt-2 mt-2 border-t border-[#571C31]/10 flex items-center justify-between text-[10px] text-[#571C31]/60 font-['Space_Grotesk']">
+                    <div className="pt-2 mt-2 border-t border-[#571C31]/10 flex items-center justify-between text-[10px] text-[#571C31]/60">
                       <span>{work.views} vistas</span>
                       <button
                         onClick={() => {
@@ -261,24 +261,24 @@ export const ClientPreviewModal: React.FC = () => {
                   className="p-4 rounded-2xl bg-white border border-[#571C31]/10 flex items-center justify-between gap-4"
                 >
                   <div>
-                    <h4 className="font-['Space_Grotesk'] text-sm font-bold text-[#181416]">
+                    <h4 className=" text-sm font-bold text-[#181416]">
                       {srv.name}
                     </h4>
-                    <p className="text-xs text-[#571C31]/75 font-['Manrope'] mt-0.5">
+                    <p className="text-xs text-[#571C31]/75 mt-0.5">
                       {srv.description}
                     </p>
-                    <span className="text-[11px] text-[#571C31]/60 font-['Space_Grotesk'] block mt-1">
+                    <span className="text-[11px] text-[#571C31]/60 block mt-1">
                       {srv.durationMinutes} min · Por {srv.professionalName || 'Equipo'}
                     </span>
                   </div>
 
                   <div className="text-right flex-shrink-0">
-                    <span className="font-['Space_Grotesk'] text-base font-bold text-[#571C31] block">
+                    <span className=" text-base font-bold text-[#571C31] block">
                       ${srv.priceUYU}
                     </span>
                     <button
                       onClick={() => setBookingService(srv)}
-                      className="mt-1 px-3 py-1 bg-[#B82E5F] text-white text-[11px] font-['Space_Grotesk'] font-bold rounded-lg hover:bg-[#A02450] transition-colors"
+                      className="mt-1 px-3 py-1 bg-[#B82E5F] text-white text-[11px] font-bold rounded-lg hover:bg-[#A02450] transition-colors"
                     >
                       Reservar
                     </button>
@@ -301,7 +301,7 @@ export const ClientPreviewModal: React.FC = () => {
                         className="w-8 h-8 rounded-full object-cover"
                       />
                       <div>
-                        <span className="font-['Space_Grotesk'] text-xs font-bold text-[#181416] block">
+                        <span className=" text-xs font-bold text-[#181416] block">
                           {rev.clientName}
                         </span>
                         <span className="text-[10px] text-[#571C31]/60">
@@ -313,7 +313,7 @@ export const ClientPreviewModal: React.FC = () => {
                       {'★'.repeat(rev.rating)}
                     </div>
                   </div>
-                  <p className="text-xs font-['Manrope'] text-[#181416] italic">
+                  <p className="text-xs text-[#181416] italic">
                     "{rev.comment}"
                   </p>
                   {rev.reply && (
@@ -329,8 +329,8 @@ export const ClientPreviewModal: React.FC = () => {
           {/* TAB 4: Info & Horarios */}
           {activeTab === 'about' && (
             <div className="p-4 sm:p-6 space-y-4">
-              <div className="p-4 rounded-2xl bg-white border border-[#571C31]/10 space-y-2 text-xs font-['Manrope']">
-                <h4 className="font-['Space_Grotesk'] font-bold text-sm text-[#181416]">
+              <div className="p-4 rounded-2xl bg-white border border-[#571C31]/10 space-y-2 text-xs">
+                <h4 className=" font-bold text-sm text-[#181416]">
                   Ubicación & Contacto
                 </h4>
                 <p><strong>Dirección:</strong> {businessProfile.address}</p>
@@ -338,8 +338,8 @@ export const ClientPreviewModal: React.FC = () => {
                 <p><strong>Instagram:</strong> {businessProfile.instagram}</p>
               </div>
 
-              <div className="p-4 rounded-2xl bg-white border border-[#571C31]/10 space-y-2 text-xs font-['Manrope']">
-                <h4 className="font-['Space_Grotesk'] font-bold text-sm text-[#181416]">
+              <div className="p-4 rounded-2xl bg-white border border-[#571C31]/10 space-y-2 text-xs">
+                <h4 className=" font-bold text-sm text-[#181416]">
                   Horarios habituales
                 </h4>
                 {businessProfile.hours.map((h) => (
@@ -359,7 +359,7 @@ export const ClientPreviewModal: React.FC = () => {
             <div className="bg-[#FFF8F3] rounded-3xl border border-[#571C31]/20 p-6 max-w-sm w-full space-y-4 shadow-xl">
               <div className="flex items-start justify-between">
                 <div>
-                  <h3 className="font-['Space_Grotesk'] text-base font-bold text-[#181416]">
+                  <h3 className=" text-base font-bold text-[#181416]">
                     Reservar {bookingService.name}
                   </h3>
                   <p className="text-xs text-[#571C31]/75">
@@ -374,7 +374,7 @@ export const ClientPreviewModal: React.FC = () => {
                 </button>
               </div>
 
-              <div className="space-y-3 text-xs font-['Space_Grotesk']">
+              <div className="space-y-3 text-xs">
                 <div>
                   <label className="block text-[#571C31] font-bold uppercase text-[10px] mb-1">
                     Fecha del turno
@@ -413,7 +413,7 @@ export const ClientPreviewModal: React.FC = () => {
                 </button>
                 <button
                   onClick={handleSimulateClientBooking}
-                  className="px-4 py-2 rounded-xl text-xs font-['Space_Grotesk'] font-bold bg-[#B82E5F] text-white hover:bg-[#A02450]"
+                  className="px-4 py-2 rounded-xl text-xs font-bold bg-[#B82E5F] text-white hover:bg-[#A02450]"
                 >
                   Confirmar cita
                 </button>

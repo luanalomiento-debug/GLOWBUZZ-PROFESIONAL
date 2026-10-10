@@ -27,10 +27,10 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
           {icon}
         </div>
       )}
-      <h4 className="font-['Space_Grotesk'] text-lg font-bold text-[#181416] tracking-tight mb-2">
+      <h4 className=" text-lg font-bold text-[#181416] tracking-tight mb-2">
         {title}
       </h4>
-      <p className="font-['Manrope'] text-sm text-[#571C31]/75 max-w-sm leading-relaxed mb-6">
+      <p className=" text-sm text-[#571C31]/75 max-w-sm leading-relaxed mb-6">
         {description}
       </p>
       {actionLabel && onAction && (

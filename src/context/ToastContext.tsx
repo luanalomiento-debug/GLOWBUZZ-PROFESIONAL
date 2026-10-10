@@ -74,11 +74,11 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             >
               <IconComponent className={`w-5 h-5 flex-shrink-0 mt-0.5 ${iconColor}`} />
               <div className="flex-1 min-w-0">
-                <p className="font-['Space_Grotesk'] text-sm font-semibold tracking-tight text-[#181416]">
+                <p className=" text-sm font-semibold tracking-tight text-[#181416]">
                   {toast.title}
                 </p>
                 {toast.description && (
-                  <p className="text-xs font-['Manrope'] text-[#571C31]/75 mt-0.5 leading-relaxed">
+                  <p className="text-xs text-[#571C31]/75 mt-0.5 leading-relaxed">
                     {toast.description}
                   </p>
                 )}

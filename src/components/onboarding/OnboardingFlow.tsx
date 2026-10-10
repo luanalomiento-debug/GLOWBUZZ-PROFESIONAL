@@ -128,7 +128,7 @@ export const OnboardingFlow: React.FC = () => {
 
         {onboardingStep > 1 && (
           <div className="flex items-center gap-3">
-            <span className="text-xs font-['Space_Grotesk'] text-[#571C31]/70 font-semibold">
+            <span className="text-xs text-[#571C31]/70 font-semibold">
               Paso {onboardingStep} de {totalSteps}
             </span>
             <div className="w-24 sm:w-32 h-1.5 bg-[#571C31]/10 rounded-full overflow-hidden">
@@ -150,10 +150,10 @@ export const OnboardingFlow: React.FC = () => {
               <Sparkles className="w-8 h-8" />
             </div>
 
-            <h1 className="font-['Unbounded'] text-2xl sm:text-4xl font-extrabold tracking-tight text-[#181416] mb-4 leading-tight">
+            <h1 className=" text-2xl sm:text-4xl font-extrabold tracking-tight text-[#181416] mb-4 leading-tight">
               Hacé crecer tu negocio de belleza
             </h1>
-            <p className="font-['Manrope'] text-base sm:text-lg text-[#571C31]/80 max-w-lg mx-auto leading-relaxed mb-10">
+            <p className=" text-base sm:text-lg text-[#571C31]/80 max-w-lg mx-auto leading-relaxed mb-10">
               Mostrá tu trabajo, construí reputación y llegá a nuevas clientas de forma profesional y simple.
             </p>
 
@@ -177,7 +177,7 @@ export const OnboardingFlow: React.FC = () => {
               </Button>
             </div>
 
-            <p className="text-xs text-[#571C31]/50 mt-8 font-['Manrope']">
+            <p className="text-xs text-[#571C31]/50 mt-8">
               Solo toma 2 minutos. Aplicamos registro progresivo para que empieces ya.
             </p>
           </div>
@@ -187,10 +187,10 @@ export const OnboardingFlow: React.FC = () => {
         {onboardingStep === 2 && (
           <div className="animate-in fade-in duration-300">
             <div className="mb-6">
-              <h2 className="font-['Space_Grotesk'] text-2xl sm:text-3xl font-bold tracking-tight text-[#181416]">
+              <h2 className=" text-2xl sm:text-3xl font-bold tracking-tight text-[#181416]">
                 Crear cuenta profesional
               </h2>
-              <p className="font-['Manrope'] text-sm text-[#571C31]/75 mt-1">
+              <p className=" text-sm text-[#571C31]/75 mt-1">
                 Ingresá tus datos para acceder a tu panel de Glow Buzz.
               </p>
             </div>
@@ -198,66 +198,66 @@ export const OnboardingFlow: React.FC = () => {
             <div className="space-y-4 bg-white p-6 sm:p-8 rounded-3xl border border-[#571C31]/10">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+                  <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                     Nombre
                   </label>
                   <input
                     type="text"
                     value={formData.ownerName}
                     onChange={(e) => setFormData({ ...formData, ownerName: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm font-['Manrope']"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
                     placeholder="Ej. Berna"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+                  <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                     Apellido
                   </label>
                   <input
                     type="text"
                     value={formData.ownerLastName}
                     onChange={(e) => setFormData({ ...formData, ownerLastName: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm font-['Manrope']"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
                     placeholder="Ej. Silva"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                   Email profesional
                 </label>
                 <input
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm font-['Manrope']"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
                   placeholder="hola@tuestudio.uy"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                   Teléfono / WhatsApp
                 </label>
                 <input
                   type="tel"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm font-['Manrope']"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
                   placeholder="+598 99 123 456"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                   Contraseña
                 </label>
                 <input
                   type="password"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm font-['Manrope']"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
                   placeholder="Mínimo 6 caracteres"
                 />
               </div>
@@ -270,7 +270,7 @@ export const OnboardingFlow: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleNext}
-                  className="w-full py-2.5 px-4 rounded-xl border border-[#571C31]/20 bg-white hover:bg-stone-50 text-[#181416] text-sm font-['Manrope'] font-medium flex items-center justify-center gap-2 transition-colors"
+                  className="w-full py-2.5 px-4 rounded-xl border border-[#571C31]/20 bg-white hover:bg-stone-50 text-[#181416] text-sm font-medium flex items-center justify-center gap-2 transition-colors"
                 >
                   <svg className="w-4 h-4" viewBox="0 0 24 24">
                     <path
@@ -301,10 +301,10 @@ export const OnboardingFlow: React.FC = () => {
         {onboardingStep === 3 && (
           <div className="animate-in fade-in duration-300">
             <div className="mb-6">
-              <h2 className="font-['Space_Grotesk'] text-2xl sm:text-3xl font-bold tracking-tight text-[#181416]">
+              <h2 className=" text-2xl sm:text-3xl font-bold tracking-tight text-[#181416]">
                 ¿Cómo trabajás?
               </h2>
-              <p className="font-['Manrope'] text-sm text-[#571C31]/75 mt-1">
+              <p className=" text-sm text-[#571C31]/75 mt-1">
                 Elegí la opción que mejor describe tu modalidad actual. Podés cambiarla en cualquier momento.
               </p>
             </div>
@@ -323,14 +323,14 @@ export const OnboardingFlow: React.FC = () => {
                   <div className="w-12 h-12 rounded-2xl bg-[#FFF8F3] text-[#B82E5F] flex items-center justify-center mb-4">
                     <User className="w-6 h-6" />
                   </div>
-                  <h3 className="font-['Space_Grotesk'] text-lg font-bold text-[#181416] mb-2">
+                  <h3 className=" text-lg font-bold text-[#181416] mb-2">
                     Profesional independiente
                   </h3>
-                  <p className="font-['Manrope'] text-sm text-[#571C31]/75 leading-relaxed">
+                  <p className=" text-sm text-[#571C31]/75 leading-relaxed">
                     Trabajo por mi cuenta y atiendo directamente a mis clientas.
                   </p>
                 </div>
-                <div className="mt-6 flex items-center gap-2 text-xs font-['Space_Grotesk'] font-semibold text-[#B82E5F]">
+                <div className="mt-6 flex items-center gap-2 text-xs font-semibold text-[#B82E5F]">
                   <CheckCircle2
                     className={`w-5 h-5 ${
                       formData.businessType === 'independent' ? 'text-[#B82E5F]' : 'text-stone-300'
@@ -353,14 +353,14 @@ export const OnboardingFlow: React.FC = () => {
                   <div className="w-12 h-12 rounded-2xl bg-[#FFF8F3] text-[#571C31] flex items-center justify-center mb-4">
                     <Users className="w-6 h-6" />
                   </div>
-                  <h3 className="font-['Space_Grotesk'] text-lg font-bold text-[#181416] mb-2">
+                  <h3 className=" text-lg font-bold text-[#181416] mb-2">
                     Comercio / estudio
                   </h3>
-                  <p className="font-['Manrope'] text-sm text-[#571C31]/75 leading-relaxed">
+                  <p className=" text-sm text-[#571C31]/75 leading-relaxed">
                     Trabajo con un equipo de profesionales en un espacio compartido o local.
                   </p>
                 </div>
-                <div className="mt-6 flex items-center gap-2 text-xs font-['Space_Grotesk'] font-semibold text-[#B82E5F]">
+                <div className="mt-6 flex items-center gap-2 text-xs font-semibold text-[#B82E5F]">
                   <CheckCircle2
                     className={`w-5 h-5 ${
                       formData.businessType === 'studio' ? 'text-[#B82E5F]' : 'text-stone-300'
@@ -386,10 +386,10 @@ export const OnboardingFlow: React.FC = () => {
         {onboardingStep === 4 && (
           <div className="animate-in fade-in duration-300">
             <div className="mb-6">
-              <h2 className="font-['Space_Grotesk'] text-2xl sm:text-3xl font-bold tracking-tight text-[#181416]">
+              <h2 className=" text-2xl sm:text-3xl font-bold tracking-tight text-[#181416]">
                 Información básica
               </h2>
-              <p className="font-['Manrope'] text-sm text-[#571C31]/75 mt-1">
+              <p className=" text-sm text-[#571C31]/75 mt-1">
                 Solo lo indispensable para comenzar. Podés completar precios y detalles más adelante.
               </p>
             </div>
@@ -397,21 +397,21 @@ export const OnboardingFlow: React.FC = () => {
             <div className="space-y-6 bg-white p-6 sm:p-8 rounded-3xl border border-[#571C31]/10 mb-8">
               {/* Nombre comercial */}
               <div>
-                <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                   Nombre comercial o marca
                 </label>
                 <input
                   type="text"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm font-['Manrope']"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
                   placeholder="Ej. Berna Studio"
                 />
               </div>
 
               {/* Categorías chips */}
               <div>
-                <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-2">
+                <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-2">
                   Categorías que ofrecés (elegí una o más)
                 </label>
                 <div className="flex flex-wrap gap-2">
@@ -422,7 +422,7 @@ export const OnboardingFlow: React.FC = () => {
                         key={cat}
                         type="button"
                         onClick={() => toggleCategory(cat)}
-                        className={`text-xs font-['Space_Grotesk'] font-semibold px-3 py-1.5 rounded-xl transition-all border ${
+                        className={`text-xs font-semibold px-3 py-1.5 rounded-xl transition-all border ${
                           isSelected
                             ? 'bg-[#B82E5F] text-white border-[#B82E5F] shadow-xs'
                             : 'bg-white text-[#571C31]/80 border-[#571C31]/20 hover:border-[#B82E5F]/50 hover:bg-[#F5DCE5]/30'
@@ -438,7 +438,7 @@ export const OnboardingFlow: React.FC = () => {
 
               {/* Ubicación */}
               <div>
-                <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                   Barrio o zona
                 </label>
                 <div className="relative">
@@ -447,7 +447,7 @@ export const OnboardingFlow: React.FC = () => {
                     type="text"
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                    className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm font-['Manrope']"
+                    className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F3]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
                     placeholder="Ej. Pocitos, Montevideo"
                   />
                 </div>
@@ -455,7 +455,7 @@ export const OnboardingFlow: React.FC = () => {
 
               {/* Modalidad */}
               <div>
-                <label className="block text-xs font-['Space_Grotesk'] font-semibold text-[#571C31] uppercase tracking-wider mb-2">
+                <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-2">
                   Modalidad de atención
                 </label>
                 <div className="grid grid-cols-3 gap-2.5">
@@ -468,7 +468,7 @@ export const OnboardingFlow: React.FC = () => {
                       key={m.id}
                       type="button"
                       onClick={() => setFormData({ ...formData, modality: m.id as any })}
-                      className={`text-xs font-['Space_Grotesk'] font-semibold py-2.5 px-3 rounded-xl border text-center transition-all ${
+                      className={`text-xs font-semibold py-2.5 px-3 rounded-xl border text-center transition-all ${
                         formData.modality === m.id
                           ? 'border-[#B82E5F] bg-[#F5DCE5] text-[#571C31]'
                           : 'border-[#571C31]/20 bg-white text-[#571C31]/70 hover:border-[#571C31]/40'
@@ -496,10 +496,10 @@ export const OnboardingFlow: React.FC = () => {
         {onboardingStep === 5 && formData.businessType === 'studio' && (
           <div className="animate-in fade-in duration-300">
             <div className="mb-6">
-              <h2 className="font-['Space_Grotesk'] text-2xl sm:text-3xl font-bold tracking-tight text-[#181416]">
+              <h2 className=" text-2xl sm:text-3xl font-bold tracking-tight text-[#181416]">
                 ¿Cuántas personas atienden en tu negocio?
               </h2>
-              <p className="font-['Manrope'] text-sm text-[#571C31]/75 mt-1">
+              <p className=" text-sm text-[#571C31]/75 mt-1">
                 Esto nos ayuda a calibrar tu panel y los calendarios.
               </p>
             </div>
@@ -515,7 +515,7 @@ export const OnboardingFlow: React.FC = () => {
                   key={sizeOpt.id}
                   type="button"
                   onClick={() => setFormData({ ...formData, teamSize: sizeOpt.id as any })}
-                  className={`p-5 rounded-2xl border-2 text-center transition-all font-['Space_Grotesk'] font-bold text-base ${
+                  className={`p-5 rounded-2xl border-2 text-center transition-all font-bold text-base ${
                     formData.teamSize === sizeOpt.id
                       ? 'border-[#B82E5F] bg-[#F5DCE5] text-[#571C31] shadow-xs'
                       : 'border-[#571C31]/15 bg-white text-[#571C31]/70 hover:border-[#571C31]/30'
@@ -526,7 +526,7 @@ export const OnboardingFlow: React.FC = () => {
               ))}
             </div>
 
-            <div className="p-4 rounded-2xl bg-[#F5DCE5]/50 border border-[#B82E5F]/20 text-xs text-[#571C31] font-['Manrope'] leading-relaxed mb-8">
+            <div className="p-4 rounded-2xl bg-[#F5DCE5]/50 border border-[#B82E5F]/20 text-xs text-[#571C31] leading-relaxed mb-8">
               <strong>Nota:</strong> No te pediremos nombres ni fotos ahora. Podrás agregar tu equipo más adelante desde la sección Equipo.
             </div>
 
@@ -546,10 +546,10 @@ export const OnboardingFlow: React.FC = () => {
           (formData.businessType === 'studio' && onboardingStep === 6)) && (
           <div className="animate-in fade-in duration-300">
             <div className="mb-6">
-              <h2 className="font-['Space_Grotesk'] text-2xl sm:text-3xl font-bold tracking-tight text-[#181416]">
+              <h2 className=" text-2xl sm:text-3xl font-bold tracking-tight text-[#181416]">
                 ¿Cómo gestionás tus turnos hoy?
               </h2>
-              <p className="font-['Manrope'] text-sm text-[#571C31]/75 mt-1">
+              <p className=" text-sm text-[#571C31]/75 mt-1">
                 Glow Buzz se adapta a tu manera de trabajar.
               </p>
             </div>
@@ -567,7 +567,7 @@ export const OnboardingFlow: React.FC = () => {
                         : 'border-[#571C31]/10 hover:border-[#571C31]/25 text-[#571C31]/80'
                     }`}
                   >
-                    <span className="font-['Manrope'] text-sm">{tool.label}</span>
+                    <span className=" text-sm">{tool.label}</span>
                     <input
                       type="radio"
                       name="agendaTool"
@@ -582,7 +582,7 @@ export const OnboardingFlow: React.FC = () => {
 
             {/* Dynamic message based on selection */}
             {selectedAgendaTool && (
-              <div className="p-4 rounded-2xl bg-[#FFF8F3] border border-[#B82E5F]/30 text-xs sm:text-sm text-[#571C31] font-['Manrope'] leading-relaxed mb-8 flex items-start gap-3">
+              <div className="p-4 rounded-2xl bg-[#FFF8F3] border border-[#B82E5F]/30 text-xs sm:text-sm text-[#571C31] leading-relaxed mb-8 flex items-start gap-3">
                 <CalendarCheck className="w-5 h-5 text-[#B82E5F] flex-shrink-0 mt-0.5" />
                 <div>
                   {!selectedAgendaTool.isDigital ? (
@@ -615,10 +615,10 @@ export const OnboardingFlow: React.FC = () => {
           (formData.businessType === 'studio' && onboardingStep === 7)) && (
           <div className="animate-in fade-in duration-300">
             <div className="text-center mb-8">
-              <h2 className="font-['Space_Grotesk'] text-2xl sm:text-3xl font-bold tracking-tight text-[#181416]">
+              <h2 className=" text-2xl sm:text-3xl font-bold tracking-tight text-[#181416]">
                 Elegí tu plan de crecimiento
               </h2>
-              <p className="font-['Manrope'] text-sm text-[#571C31]/75 mt-1 max-w-md mx-auto">
+              <p className=" text-sm text-[#571C31]/75 mt-1 max-w-md mx-auto">
                 Empezá con 30 días gratis. Sin tarjeta de crédito requerida para comenzar.
               </p>
             </div>
@@ -635,28 +635,28 @@ export const OnboardingFlow: React.FC = () => {
               >
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-['Unbounded'] text-sm font-extrabold text-[#571C31]">
+                    <span className=" text-sm font-extrabold text-[#571C31]">
                       GLOW START
                     </span>
-                    <span className="text-[11px] font-['Space_Grotesk'] font-bold text-[#B82E5F] bg-[#F5DCE5] px-2.5 py-0.5 rounded-full">
+                    <span className="text-[11px] font-bold text-[#B82E5F] bg-[#F5DCE5] px-2.5 py-0.5 rounded-full">
                       30 días gratis
                     </span>
                   </div>
 
                   <div className="my-3">
-                    <span className="font-['Space_Grotesk'] text-2xl sm:text-3xl font-extrabold text-[#181416]">
+                    <span className=" text-2xl sm:text-3xl font-extrabold text-[#181416]">
                       $990
                     </span>
-                    <span className="text-xs text-[#571C31]/70 font-['Manrope'] ml-1.5">
+                    <span className="text-xs text-[#571C31]/70 ml-1.5">
                       UYU / mes
                     </span>
                   </div>
 
-                  <p className="font-['Manrope'] text-xs text-[#571C31]/80 leading-relaxed mb-6">
+                  <p className=" text-xs text-[#571C31]/80 leading-relaxed mb-6">
                     Para empezar a mostrar tu trabajo y conseguir nuevas clientas.
                   </p>
 
-                  <div className="space-y-2.5 pt-4 border-t border-[#571C31]/10 text-xs font-['Manrope'] text-[#181416]">
+                  <div className="space-y-2.5 pt-4 border-t border-[#571C31]/10 text-xs text-[#181416]">
                     <div className="flex items-center gap-2">
                       <Check className="w-4 h-4 text-[#B82E5F] flex-shrink-0" />
                       <span>Perfil profesional</span>
@@ -702,34 +702,34 @@ export const OnboardingFlow: React.FC = () => {
                 }`}
               >
                 {/* Badge discreto: Más completo */}
-                <div className="absolute -top-3 right-6 bg-[#571C31] text-[#FFF8F3] text-[10px] font-['Space_Grotesk'] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-xs">
+                <div className="absolute -top-3 right-6 bg-[#571C31] text-[#FFF8F3] text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-xs">
                   Más completo
                 </div>
 
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-['Unbounded'] text-sm font-extrabold text-[#B82E5F]">
+                    <span className=" text-sm font-extrabold text-[#B82E5F]">
                       GLOW PRO
                     </span>
-                    <span className="text-[11px] font-['Space_Grotesk'] font-bold text-[#B82E5F] bg-[#F5DCE5] px-2.5 py-0.5 rounded-full">
+                    <span className="text-[11px] font-bold text-[#B82E5F] bg-[#F5DCE5] px-2.5 py-0.5 rounded-full">
                       30 días gratis
                     </span>
                   </div>
 
                   <div className="my-3">
-                    <span className="font-['Space_Grotesk'] text-2xl sm:text-3xl font-extrabold text-[#181416]">
+                    <span className=" text-2xl sm:text-3xl font-extrabold text-[#181416]">
                       $1.690
                     </span>
-                    <span className="text-xs text-[#571C31]/70 font-['Manrope'] ml-1.5">
+                    <span className="text-xs text-[#571C31]/70 ml-1.5">
                       UYU / mes
                     </span>
                   </div>
 
-                  <p className="font-['Manrope'] text-xs text-[#571C31]/80 leading-relaxed mb-6">
+                  <p className=" text-xs text-[#571C31]/80 leading-relaxed mb-6">
                     Para negocios que quieren medir y potenciar su crecimiento.
                   </p>
 
-                  <div className="space-y-2.5 pt-4 border-t border-[#571C31]/10 text-xs font-['Manrope'] text-[#181416]">
+                  <div className="space-y-2.5 pt-4 border-t border-[#571C31]/10 text-xs text-[#181416]">
                     <div className="flex items-center gap-2 font-semibold text-[#B82E5F]">
                       <Check className="w-4 h-4 text-[#B82E5F] flex-shrink-0" />
                       <span>Todo Glow Start</span>
@@ -766,7 +766,7 @@ export const OnboardingFlow: React.FC = () => {
               </div>
             </div>
 
-            <p className="text-center text-xs text-[#571C31]/60 font-['Manrope'] mb-8">
+            <p className="text-center text-xs text-[#571C31]/60 mb-8">
               No se realizará ningún cobro durante tu prueba. Podés cancelar en cualquier momento con un clic.
             </p>
 
@@ -780,7 +780,7 @@ export const OnboardingFlow: React.FC = () => {
       </main>
 
       {/* Footer minimalista */}
-      <footer className="max-w-3xl w-full mx-auto text-center pt-6 border-t border-[#571C31]/10 text-xs text-[#571C31]/50 font-['Manrope']">
+      <footer className="max-w-3xl w-full mx-auto text-center pt-6 border-t border-[#571C31]/10 text-xs text-[#571C31]/50">
         Glow Buzz Business · Plataforma especializada para profesionales de belleza en Uruguay
       </footer>
     </div>
