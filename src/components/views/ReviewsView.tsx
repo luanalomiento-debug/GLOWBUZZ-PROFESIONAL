@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { Review } from '../../types';
+import { Avatar } from '../common/Avatar';
 import { Card } from '../common/Card';
 import { Button } from '../common/Button';
 import { Badge } from '../common/Badge';
@@ -201,11 +202,7 @@ export const ReviewsView: React.FC = () => {
             <Card key={rev.id} className="p-5 space-y-3">
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-center gap-3">
-                  <img
-                    src={rev.clientAvatar}
-                    alt={rev.clientName}
-                    className="w-10 h-10 rounded-full object-cover border border-[#B82E5F]/20 flex-shrink-0"
-                  />
+                  <Avatar src={rev.clientAvatar} name={rev.clientName} className="w-10 h-10 rounded-full" />
                   <div>
                     <div className="flex items-center gap-2">
                       <span className=" text-sm font-bold text-[#181416]">

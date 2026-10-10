@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { Client } from '../../types';
+import { Avatar } from '../common/Avatar';
 import { Card } from '../common/Card';
 import { Badge } from '../common/Badge';
 import { Button } from '../common/Button';
@@ -79,11 +80,7 @@ export const ClientsView: React.FC = () => {
                   >
                     <td className="py-3.5 px-4">
                       <div className="flex items-center gap-3">
-                        <img
-                          src={client.avatarUrl}
-                          alt={client.name}
-                          className="w-8 h-8 rounded-full object-cover border border-[#B82E5F]/20 flex-shrink-0"
-                        />
+                        <Avatar src={client.avatarUrl} name={client.name} className="w-8 h-8 rounded-full" />
                         <div>
                           <p className=" font-bold text-[#181416]">
                             {client.name}
@@ -142,11 +139,7 @@ export const ClientsView: React.FC = () => {
         >
           <div className="space-y-4">
             <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#FFF8F9] border border-[#571C31]/10">
-              <img
-                src={selectedClient.avatarUrl}
-                alt={selectedClient.name}
-                className="w-16 h-16 rounded-2xl object-cover border-2 border-white shadow-xs"
-              />
+              <Avatar src={selectedClient.avatarUrl} name={selectedClient.name} className="w-16 h-16 rounded-2xl text-lg" />
               <div>
                 <h3 className=" text-lg font-bold text-[#181416]">
                   {selectedClient.name}

@@ -29,13 +29,13 @@ import {
 } from 'lucide-react';
 
 const PRESET_BEAUTY_IMAGES = [
-  'https://images.unsplash.com/photo-1632345031435-8727f6897d53?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1519014816548-bf5fe059798b?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1607779097040-26e80aa78e66?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1583001931096-959e9a1a6223?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1599940824399-b87987ceb72a?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80',
+  '/images/ejemplos/pelo-ondas.jpg',
+  '/images/ejemplos/pelo-liso.jpg',
+  '/images/ejemplos/facial-glow.jpg',
+  '/images/ejemplos/facial-peeling.jpg',
+  '/images/ejemplos/botox.jpg',
+  '/images/ejemplos/cejas-lifting.jpg',
+  '/images/ejemplos/cejas-diseno.jpg',
 ];
 
 export const ContentView: React.FC = () => {

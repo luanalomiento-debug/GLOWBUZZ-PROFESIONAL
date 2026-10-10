@@ -8,6 +8,7 @@ import { Modal } from '../common/Modal';
 import { EmptyState } from '../common/EmptyState';
 import { useToast } from '../../context/ToastContext';
 import { ImageUpload } from '../common/ImageUpload';
+import { Avatar } from '../common/Avatar';
 import {
   Users,
   UserPlus,
@@ -20,13 +21,6 @@ import {
   Trash2,
   Upload,
 } from 'lucide-react';
-
-const PRESET_TEAM_AVATARS = [
-  'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80',
-  'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80',
-  'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80',
-  'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=300&q=80',
-];
 
 export const TeamView: React.FC = () => {
   const {
@@ -46,7 +40,7 @@ export const TeamView: React.FC = () => {
     name: '',
     role: 'Profesional' as 'Administrador' | 'Profesional',
     specialty: 'Nail Artist',
-    avatarUrl: PRESET_TEAM_AVATARS[0],
+    avatarUrl: '',
     servicesSelected: [] as string[],
     schedule: 'Lun a Vie · 10:00 - 19:00',
     rating: 4.9,
@@ -60,7 +54,7 @@ export const TeamView: React.FC = () => {
       name: '',
       role: 'Profesional',
       specialty: 'Nail Artist',
-      avatarUrl: PRESET_TEAM_AVATARS[Math.floor(Math.random() * PRESET_TEAM_AVATARS.length)],
+      avatarUrl: '',
       servicesSelected: [services[0]?.name || 'Manicuría'],
       schedule: 'Mar a Sáb · 09:30 - 19:30',
       rating: 5.0,
@@ -151,11 +145,7 @@ export const TeamView: React.FC = () => {
             <Card key={member.id} className="p-6 space-y-4">
               <div className="flex items-start justify-between gap-4">
                 <div className="flex items-center gap-3.5">
-                  <img
-                    src={member.avatarUrl}
-                    alt={member.name}
-                    className="w-14 h-14 rounded-2xl object-cover border border-[#B82E5F]/20 flex-shrink-0"
-                  />
+                  <Avatar src={member.avatarUrl} name={member.name} className="w-14 h-14 rounded-2xl" />
                   <div>
                     <div className="flex items-center gap-2">
                       <h3 className=" text-lg font-bold text-[#181416]">
@@ -322,25 +312,11 @@ export const TeamView: React.FC = () => {
               >
                 <Upload className="w-4 h-4" />
               </ImageUpload>
-              {form.avatarUrl && !PRESET_TEAM_AVATARS.includes(form.avatarUrl) && (
+              {form.avatarUrl && (
                 <div className="w-12 h-12 rounded-xl overflow-hidden border-2 border-[#B82E5F] ring-2 ring-[#B82E5F]/30">
                   <img src={form.avatarUrl} alt="Foto elegida" className="w-full h-full object-cover" />
                 </div>
               )}
-              {PRESET_TEAM_AVATARS.map((url, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  onClick={() => setForm({ ...form, avatarUrl: url })}
-                  className={`w-12 h-12 rounded-xl overflow-hidden border-2 transition-all ${
-                    form.avatarUrl === url
-                      ? 'border-[#B82E5F] ring-2 ring-[#B82E5F]/30 scale-105'
-                      : 'border-transparent opacity-70'
-                  }`}
-                >
-                  <img src={url} alt="Preset" className="w-full h-full object-cover" />
-                </button>
-              ))}
             </div>
           </div>
 

@@ -1,3 +1,4 @@
+import { Avatar } from './Avatar';
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import {
@@ -295,11 +296,7 @@ export const ClientPreviewModal: React.FC = () => {
                 <div key={rev.id} className="p-4 rounded-2xl bg-white border border-[#571C31]/10 space-y-2">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <img
-                        src={rev.clientAvatar}
-                        alt={rev.clientName}
-                        className="w-8 h-8 rounded-full object-cover"
-                      />
+                      <Avatar src={rev.clientAvatar} name={rev.clientName} className="w-8 h-8 rounded-full" />
                       <div>
                         <span className=" text-xs font-bold text-[#181416] block">
                           {rev.clientName}

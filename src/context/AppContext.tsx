@@ -104,6 +104,25 @@ const STORAGE_KEYS = {
   BOOST: 'glowbuzz_boost_v1',
 };
 
+/** Las fotos de ejemplo viejas eran enlaces externos; las nuevas están en /images. */
+const isLegacyImage = (value: unknown): boolean =>
+  typeof value === 'string' && value.includes('images.unsplash.com');
+
+/**
+ * Datos guardados antes del cambio de fotos: reemplaza solo las imágenes viejas por las de los datos
+ * iniciales (mismo id) y conserva todo lo que la usuaria haya editado.
+ */
+const refreshLegacyImages = <T extends { id: string }>(stored: T[], initial: T[], fields: (keyof T)[]): T[] =>
+  stored.map((item) => {
+    const base = initial.find((candidate) => candidate.id === item.id);
+    if (!base) return item;
+    const patch: Partial<T> = {};
+    fields.forEach((field) => {
+      if (isLegacyImage(item[field])) patch[field] = base[field];
+    });
+    return { ...item, ...patch };
+  });
+
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // State initialization with localStorage fallback
   const [businessProfile, setBusinessProfile] = useState<BusinessProfile>(() => {
@@ -111,9 +130,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     // Migración: el antiguo plan 'pro' pasa a ser Glow Boost; cualquier valor desconocido vuelve a Glow Start.
     const plan = (stored.plan as string) === 'pro' ? 'boost' : stored.plan;
     const billingCycle = stored.billingCycle === 'annual' ? 'annual' : 'monthly';
+    const images = {
+      avatarUrl: isLegacyImage(stored.avatarUrl) ? INITIAL_BUSINESS_PROFILE.avatarUrl : stored.avatarUrl,
+      coverUrl: isLegacyImage(stored.coverUrl) ? INITIAL_BUSINESS_PROFILE.coverUrl : stored.coverUrl,
+    };
     return PLANS.some((p) => p.id === plan)
-      ? { ...stored, plan, billingCycle }
-      : { ...stored, plan: 'start', billingCycle };
+      ? { ...stored, ...images, plan, billingCycle }
+      : { ...stored, ...images, plan: 'start', billingCycle };
   });
 
   const [services, setServices] = useState<Service[]>(() =>
@@ -121,7 +144,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   );
 
   const [portfolio, setPortfolio] = useState<PortfolioWork[]>(() =>
-    loadFromStorage(STORAGE_KEYS.PORTFOLIO, INITIAL_PORTFOLIO)
+    refreshLegacyImages(loadFromStorage(STORAGE_KEYS.PORTFOLIO, INITIAL_PORTFOLIO), INITIAL_PORTFOLIO, ['imageUrl'])
   );
 
   const [bookings, setBookings] = useState<Booking[]>(() =>
@@ -129,15 +152,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   );
 
   const [team, setTeam] = useState<TeamMember[]>(() =>
-    loadFromStorage(STORAGE_KEYS.TEAM, INITIAL_TEAM)
+    refreshLegacyImages(loadFromStorage(STORAGE_KEYS.TEAM, INITIAL_TEAM), INITIAL_TEAM, ['avatarUrl'])
   );
 
   const [clients, setClients] = useState<Client[]>(() =>
-    loadFromStorage(STORAGE_KEYS.CLIENTS, INITIAL_CLIENTS)
+    refreshLegacyImages(loadFromStorage(STORAGE_KEYS.CLIENTS, INITIAL_CLIENTS), INITIAL_CLIENTS, ['avatarUrl'])
   );
 
   const [reviews, setReviews] = useState<Review[]>(() =>
-    loadFromStorage(STORAGE_KEYS.REVIEWS, INITIAL_REVIEWS)
+    refreshLegacyImages(loadFromStorage(STORAGE_KEYS.REVIEWS, INITIAL_REVIEWS), INITIAL_REVIEWS, ['clientAvatar', 'clientPhotoUrl'])
   );
 
   const [integrations, setIntegrations] = useState<ExternalAgendaIntegration[]>(() =>
@@ -145,7 +168,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   );
 
   const [boostCampaigns, setBoostCampaigns] = useState<GlowBoostCampaign[]>(() =>
-    loadFromStorage(STORAGE_KEYS.BOOST, INITIAL_BOOST_CAMPAIGNS)
+    refreshLegacyImages(loadFromStorage(STORAGE_KEYS.BOOST, INITIAL_BOOST_CAMPAIGNS), INITIAL_BOOST_CAMPAIGNS, ['targetImage'])
   );
 
   const [currentSection, setCurrentSection] = useState<DashboardSection>('home');
