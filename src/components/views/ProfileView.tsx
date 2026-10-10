@@ -307,7 +307,7 @@ export const ProfileView: React.FC<{ initialTab?: 'info' | 'services' | 'hours' 
           {/* Header Visual: Portada y Avatar */}
           <Card className="p-0 overflow-hidden">
             {/* Cover image */}
-            <div className="relative h-44 sm:h-56 bg-stone-100 overflow-hidden">
+            <div className="relative h-44 sm:h-auto sm:aspect-[3/1] bg-stone-100 overflow-hidden">
               <img
                 src={profileForm.coverUrl}
                 alt="Portada"

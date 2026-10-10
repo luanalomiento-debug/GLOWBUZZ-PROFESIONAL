@@ -26,7 +26,7 @@ export const BillingView: React.FC = () => {
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
   const [cardForm, setCardForm] = useState({
     number: '•••• •••• •••• 4242',
-    name: 'Berna Silva',
+    name: 'Paula Silva',
     expiry: '12/28',
     cvv: '•••',
   });

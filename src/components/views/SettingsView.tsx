@@ -166,7 +166,7 @@ export const SettingsView: React.FC = () => {
                   size="sm"
                   onClick={() => {
                     resetAllDemoData();
-                    showToast('Datos reiniciados', 'Se cargaron los datos iniciales de Berna Studio.', 'info');
+                    showToast('Datos reiniciados', 'Se cargaron los datos iniciales de Lumina Studio.', 'info');
                   }}
                 >
                   Reiniciar datos

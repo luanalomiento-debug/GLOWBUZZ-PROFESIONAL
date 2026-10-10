@@ -11,11 +11,11 @@ import {
 } from '../types';
 
 export const INITIAL_BUSINESS_PROFILE: BusinessProfile = {
-  id: 'biz_berna_studio',
-  name: 'Berna Studio',
-  ownerName: 'Berna',
+  id: 'biz_lumina_studio',
+  name: 'Lumina Studio',
+  ownerName: 'Paula',
   ownerLastName: 'Silva',
-  email: 'hola@bernastudio.uy',
+  email: 'hola@luminastudio.uy',
   phone: '+598 99 234 567',
   businessType: 'studio',
   categories: ['Uñas', 'Cejas', 'Pestañas'],
@@ -30,10 +30,10 @@ export const INITIAL_BUSINESS_PROFILE: BusinessProfile = {
   trialDaysLeft: 23,
   description:
     'Estudio boutique especializado en manicuría combinada rusa, kapping gel, nail art botánico y diseño de miradas. Cuidamos la salud natural de tus uñas con productos hipoalergénicos y esterilización grado médico.',
-  instagram: '@berna.studio.uy',
-  tiktok: '@bernastudio',
-  avatarUrl: '/images/negocio/avatar.jpg',
-  coverUrl: '/images/negocio/portada.jpg',
+  instagram: '@lumina.studio.uy',
+  tiktok: '@luminastudio',
+  avatarUrl: '/images/negocio/logo-lumina.png',
+  coverUrl: '/images/negocio/portada-lumina.jpg',
   hours: [
     { day: 'Lunes', open: '09:30', close: '19:30', active: true },
     { day: 'Martes', open: '09:30', close: '19:30', active: true },
@@ -550,7 +550,7 @@ export const INITIAL_BOOST_CAMPAIGNS: GlowBoostCampaign[] = [
     id: 'boost_1',
     type: 'work',
     targetTitle: 'French Chrome Glazed',
-    targetSubtitle: 'Camila · Berna Studio',
+    targetSubtitle: 'Camila · Lumina Studio',
     targetImage: '/images/trabajos/french-abstracto.jpg',
     location: 'Pocitos & Punta Carretas (3 km)',
     category: 'Uñas',

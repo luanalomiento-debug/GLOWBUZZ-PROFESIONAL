@@ -60,12 +60,12 @@ export const OnboardingFlow: React.FC = () => {
 
   // Local form state for onboarding
   const [formData, setFormData] = useState({
-    ownerName: businessProfile.ownerName || 'Berna',
+    ownerName: businessProfile.ownerName || 'Paula',
     ownerLastName: businessProfile.ownerLastName || 'Silva',
-    email: businessProfile.email || 'hola@bernastudio.uy',
+    email: businessProfile.email || 'hola@luminastudio.uy',
     phone: businessProfile.phone || '+598 99 234 567',
     password: '••••••••',
-    name: businessProfile.name || 'Berna Studio',
+    name: businessProfile.name || 'Lumina Studio',
     businessType: businessProfile.businessType || ('studio' as BusinessType),
     categories: businessProfile.categories.length > 0 ? businessProfile.categories : ['Uñas'],
     location: businessProfile.location || 'Pocitos, Montevideo',
@@ -234,7 +234,7 @@ export const OnboardingFlow: React.FC = () => {
                     value={formData.ownerName}
                     onChange={(e) => setFormData({ ...formData, ownerName: e.target.value })}
                     className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F9]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
-                    placeholder="Ej. Berna"
+                    placeholder="Ej. Paula"
                   />
                 </div>
                 <div>
@@ -455,7 +455,7 @@ export const OnboardingFlow: React.FC = () => {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F9]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
-                  placeholder="Ej. Berna Studio"
+                  placeholder="Ej. Lumina Studio"
                 />
               </div>
 

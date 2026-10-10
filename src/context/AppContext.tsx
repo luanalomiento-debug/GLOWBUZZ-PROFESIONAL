@@ -123,10 +123,31 @@ const refreshLegacyImages = <T extends { id: string }>(stored: T[], initial: T[]
     return { ...item, ...patch };
   });
 
+/** Datos de la demo anterior ("Berna Studio"): si siguen sin editar, se pasan al nombre actual. */
+const LEGACY_PROFILE_VALUES: Partial<Record<keyof BusinessProfile, string>> = {
+  name: 'Berna Studio',
+  ownerName: 'Berna',
+  email: 'hola@bernastudio.uy',
+  instagram: '@berna.studio.uy',
+  tiktok: '@bernastudio',
+};
+
+const renameLegacyProfile = (stored: BusinessProfile): BusinessProfile => {
+  const patch: Partial<BusinessProfile> = {};
+  (Object.keys(LEGACY_PROFILE_VALUES) as (keyof BusinessProfile)[]).forEach((field) => {
+    if (stored[field] === LEGACY_PROFILE_VALUES[field]) {
+      (patch as Record<string, unknown>)[field] = INITIAL_BUSINESS_PROFILE[field];
+    }
+  });
+  return { ...stored, ...patch };
+};
+
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // State initialization with localStorage fallback
   const [businessProfile, setBusinessProfile] = useState<BusinessProfile>(() => {
-    const stored = loadFromStorage<BusinessProfile>(STORAGE_KEYS.PROFILE, INITIAL_BUSINESS_PROFILE);
+    const stored = renameLegacyProfile(
+      loadFromStorage<BusinessProfile>(STORAGE_KEYS.PROFILE, INITIAL_BUSINESS_PROFILE)
+    );
     // Migración: el antiguo plan 'pro' pasa a ser Glow Boost; cualquier valor desconocido vuelve a Glow Start.
     const plan = (stored.plan as string) === 'pro' ? 'boost' : stored.plan;
     const billingCycle = stored.billingCycle === 'annual' ? 'annual' : 'monthly';
@@ -168,7 +189,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   );
 
   const [boostCampaigns, setBoostCampaigns] = useState<GlowBoostCampaign[]>(() =>
-    refreshLegacyImages(loadFromStorage(STORAGE_KEYS.BOOST, INITIAL_BOOST_CAMPAIGNS), INITIAL_BOOST_CAMPAIGNS, ['targetImage'])
+    refreshLegacyImages(loadFromStorage(STORAGE_KEYS.BOOST, INITIAL_BOOST_CAMPAIGNS), INITIAL_BOOST_CAMPAIGNS, ['targetImage', 'targetSubtitle'])
   );
 
   const [currentSection, setCurrentSection] = useState<DashboardSection>('home');
