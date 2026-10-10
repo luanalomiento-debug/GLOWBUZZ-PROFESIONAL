@@ -37,7 +37,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) =>
   };
 
   return (
-    <div className="min-h-screen bg-[#FFF8F9] flex">
+    <div className="min-h-screen bg-white flex">
       {/* Sidebar */}
       <Sidebar
         isOpenMobile={isMobileMenuOpen}
@@ -47,7 +47,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) =>
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Top Header Bar */}
-        <header className="h-16 border-b border-[#571C31]/10 bg-[#FFF8F9]/90 backdrop-blur-xs sticky top-0 z-20 px-4 sm:px-8 flex items-center justify-between gap-4">
+        <header className="h-16 border-b border-[#571C31]/10 bg-white/90 backdrop-blur-xs sticky top-0 z-20 px-4 sm:px-8 flex items-center justify-between gap-4">
           {/* Left section: mobile hamburger & page title */}
           <div className="flex items-center gap-3">
             <button

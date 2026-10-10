@@ -57,7 +57,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpenMobile, onCloseMobile })
   };
 
   const navContent = (
-    <div className="flex flex-col h-full bg-[#FFF8F9] border-r border-[#571C31]/10 w-64 select-none">
+    <div className="flex flex-col h-full bg-white border-r border-[#571C31]/10 w-64 select-none">
       {/* Brand Header */}
       <div className="p-5 pb-4 border-b border-[#571C31]/10 flex items-center justify-between">
         <GlowBuzzLogo size="sm" />
