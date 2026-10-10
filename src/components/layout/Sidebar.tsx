@@ -74,7 +74,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpenMobile, onCloseMobile })
       </div>
 
       {/* Business Quick Card */}
-      <div className="px-4 py-3 mx-3 my-3 rounded-2xl bg-white border border-[#571C31]/10 flex items-center gap-3">
+      <div className="px-4 py-3 mx-3 my-3 rounded-2xl bg-white border border-[#571C31]/10 shadow-soft flex items-center gap-3">
         <img
           src={businessProfile.avatarUrl}
           alt={businessProfile.name}
@@ -101,7 +101,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpenMobile, onCloseMobile })
               onClick={() => handleNavClick(item.id)}
               className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-150 ${
                 isActive
-                  ? 'bg-[#B82E5F] text-[#FFF8F3] shadow-xs'
+                  ? 'bg-[#B82E5F] text-[#FFF8F3] shadow-btn'
                   : 'text-[#571C31]/75 hover:text-[#571C31] hover:bg-[#F5DCE5]/40'
               }`}
             >

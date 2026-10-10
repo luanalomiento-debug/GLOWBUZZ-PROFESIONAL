@@ -81,9 +81,6 @@ export const BookingsView: React.FC = () => {
           <h2 className=" text-2xl font-bold tracking-tight text-[#181416]">
             Gestión de reservas
           </h2>
-          <p className=" text-sm text-[#571C31]/75 mt-0.5">
-            Monitoreá el origen y estado de cada cita generada a través de Glow Buzz.
-          </p>
         </div>
 
         {/* Search Input */}

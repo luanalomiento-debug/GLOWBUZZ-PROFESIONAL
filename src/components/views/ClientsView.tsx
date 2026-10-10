@@ -37,11 +37,8 @@ export const ClientsView: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 className=" text-2xl font-bold tracking-tight text-[#181416]">
-            Directorio de clientas
+            Mis clientas
           </h2>
-          <p className=" text-sm text-[#571C31]/75 mt-0.5">
-            Historial simplificado de recurrencia y preferencias.
-          </p>
         </div>
 
         {/* Search */}

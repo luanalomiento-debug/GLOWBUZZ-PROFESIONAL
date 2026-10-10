@@ -7,6 +7,7 @@ import { Badge } from '../common/Badge';
 import { Modal } from '../common/Modal';
 import { EmptyState } from '../common/EmptyState';
 import { useToast } from '../../context/ToastContext';
+import { ImageUpload } from '../common/ImageUpload';
 import {
   Users,
   UserPlus,
@@ -17,6 +18,7 @@ import {
   Shield,
   Edit2,
   Trash2,
+  Upload,
 } from 'lucide-react';
 
 const PRESET_TEAM_AVATARS = [
@@ -122,9 +124,6 @@ export const TeamView: React.FC = () => {
           <h2 className=" text-2xl font-bold tracking-tight text-[#181416]">
             Equipo & Colaboradoras
           </h2>
-          <p className=" text-sm text-[#571C31]/75 mt-0.5">
-            Cada profesional tiene su propio perfil, especialidad y métricas de desempeño.
-          </p>
         </div>
 
         <Button
@@ -314,7 +313,20 @@ export const TeamView: React.FC = () => {
             <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
               Foto de perfil
             </label>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap items-center gap-2">
+              <ImageUpload
+                maxDim={500}
+                onSelect={(url) => setForm({ ...form, avatarUrl: url })}
+                title="Subir desde tu dispositivo"
+                className="w-12 h-12 rounded-xl border-2 border-dashed border-[#B82E5F]/40 hover:border-[#B82E5F] hover:bg-[#F5DCE5]/30 flex items-center justify-center text-[#B82E5F] transition-colors"
+              >
+                <Upload className="w-4 h-4" />
+              </ImageUpload>
+              {form.avatarUrl && !PRESET_TEAM_AVATARS.includes(form.avatarUrl) && (
+                <div className="w-12 h-12 rounded-xl overflow-hidden border-2 border-[#B82E5F] ring-2 ring-[#B82E5F]/30">
+                  <img src={form.avatarUrl} alt="Foto elegida" className="w-full h-full object-cover" />
+                </div>
+              )}
               {PRESET_TEAM_AVATARS.map((url, i) => (
                 <button
                   key={i}

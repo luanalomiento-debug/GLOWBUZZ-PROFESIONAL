@@ -26,7 +26,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
 }) => {
   return (
     <div
-      className={`bg-white rounded-2xl border border-[#571C31]/10 p-5 relative overflow-hidden transition-all duration-200 hover:border-[#B82E5F]/30 ${className}`}
+      className={`bg-white rounded-2xl border border-[#571C31]/10 p-5 relative overflow-hidden shadow-soft transition-all duration-200 hover:border-[#B82E5F]/30 hover:shadow-lifted ${className}`}
     >
       <div className="flex items-start justify-between gap-3 mb-2.5">
         <span className=" text-xs font-semibold text-[#571C31]/70 uppercase tracking-wider">

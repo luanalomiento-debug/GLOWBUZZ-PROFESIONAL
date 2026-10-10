@@ -8,6 +8,7 @@ import { Modal } from '../common/Modal';
 import { useToast } from '../../context/ToastContext';
 import {
   Star,
+  Search,
   Send,
   MessageSquare,
   Sparkles,
@@ -30,7 +31,25 @@ export const ReviewsView: React.FC = () => {
 
   const [requestModalOpen, setRequestModalOpen] = useState(false);
   const [selectedClientId, setSelectedClientId] = useState(clients[0]?.id || '');
+  const [clientQuery, setClientQuery] = useState('');
   const [selectedService, setSelectedService] = useState('Semipermanente Rusa');
+  // null = se usa el mensaje sugerido; si la profesional lo edita, se guarda su versión
+  const [messageDraft, setMessageDraft] = useState<string | null>(null);
+
+  const selectedClient = clients.find((c) => c.id === selectedClientId);
+  const matchingClients = clients.filter((c) => {
+    const term = clientQuery.trim().toLowerCase();
+    return !term || c.name.toLowerCase().includes(term) || c.phone.replace(/\s/g, '').includes(term.replace(/\s/g, ''));
+  });
+  const businessSlug = businessProfile.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const suggestedMessage = `¡Hola${selectedClient ? ` ${selectedClient.name.split(' ')[0]}` : ''}! Gracias por visitarnos en ${businessProfile.name}. ¿Nos dejás tu opinión y una foto del resultado en Glow Buzz? Nos ayuda un montón a crecer: glowbuzz.uy/r/${businessSlug}`;
+  const requestMessage = messageDraft ?? suggestedMessage;
+
+  const openRequestModal = () => {
+    setClientQuery('');
+    setMessageDraft(null);
+    setRequestModalOpen(true);
+  };
   const [replyingReviewId, setReplyingReviewId] = useState<string | null>(null);
   const [replyDraft, setReplyDraft] = useState('');
 
@@ -44,10 +63,10 @@ export const ReviewsView: React.FC = () => {
 
   const handleSendRequest = (e: React.FormEvent) => {
     e.preventDefault();
-    const client = clients.find((c) => c.id === selectedClientId);
+    if (!selectedClient || !requestMessage.trim()) return;
     showToast(
       'Solicitud de reseña enviada',
-      `Se envió el enlace directo por WhatsApp a ${client?.name || 'la clienta'}.`,
+      `Se envió tu mensaje por WhatsApp a ${selectedClient.name}.`,
       'success'
     );
     setRequestModalOpen(false);
@@ -69,15 +88,12 @@ export const ReviewsView: React.FC = () => {
           <h2 className=" text-2xl font-bold tracking-tight text-[#181416]">
             Reseñas & Reputación
           </h2>
-          <p className=" text-sm text-[#571C31]/75 mt-0.5">
-            Las opiniones verificadas construyen confianza y disparan la tasa de reserva.
-          </p>
         </div>
 
         <Button
           variant="primary"
           size="md"
-          onClick={() => setRequestModalOpen(true)}
+          onClick={openRequestModal}
           leftIcon={<Send className="w-4 h-4" />}
         >
           Solicitar reseña
@@ -142,7 +158,7 @@ export const ReviewsView: React.FC = () => {
             </div>
           </Card>
 
-          {/* Bloque Pro: Automatización de solicitudes */}
+          {/* Automatización de solicitudes */}
           <Card className="p-5 bg-[#571C31] text-[#FFF8F3] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="flex items-start gap-3">
               <div className="p-2.5 rounded-xl bg-[#B82E5F] text-white flex-shrink-0">
@@ -300,17 +316,41 @@ export const ReviewsView: React.FC = () => {
             <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
               Seleccionar clienta
             </label>
-            <select
-              value={selectedClientId}
-              onChange={(e) => setSelectedClientId(e.target.value)}
-              className="w-full px-3 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm"
-            >
-              {clients.map((c) => (
-                <option key={c.id} value={c.id}>
-                  {c.name} ({c.phone})
-                </option>
-              ))}
-            </select>
+            <div className="relative">
+              <Search className="w-4 h-4 text-[#571C31]/40 absolute left-3.5 top-3" />
+              <input
+                type="text"
+                value={clientQuery}
+                onChange={(e) => setClientQuery(e.target.value)}
+                placeholder="Buscar por nombre o teléfono"
+                className="w-full pl-10 pr-3 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm focus:outline-none focus:border-[#B82E5F]"
+              />
+            </div>
+            <div className="mt-2 max-h-44 overflow-y-auto rounded-xl border border-[#571C31]/10 divide-y divide-[#571C31]/10 bg-white">
+              {matchingClients.length > 0 ? (
+                matchingClients.map((c) => {
+                  const isSelected = c.id === selectedClientId;
+                  return (
+                    <button
+                      key={c.id}
+                      type="button"
+                      onClick={() => setSelectedClientId(c.id)}
+                      className={`w-full flex items-center justify-between gap-3 px-3.5 py-2.5 text-left text-sm transition-colors ${
+                        isSelected ? 'bg-[#F5DCE5]/60' : 'hover:bg-[#FFF8F9]'
+                      }`}
+                    >
+                      <span className="font-semibold text-[#181416]">{c.name}</span>
+                      <span className="flex items-center gap-2 text-xs text-[#571C31]/70">
+                        {c.phone}
+                        {isSelected && <span className="text-[#B82E5F] font-bold">✓</span>}
+                      </span>
+                    </button>
+                  );
+                })
+              ) : (
+                <p className="px-3.5 py-3 text-xs text-[#571C31]/60">No hay clientas que coincidan con tu búsqueda.</p>
+              )}
+            </div>
           </div>
 
           <div>
@@ -325,10 +365,30 @@ export const ReviewsView: React.FC = () => {
             />
           </div>
 
-          <div className="p-3.5 rounded-2xl bg-[#FFF8F9] border border-[#571C31]/10 text-xs text-[#571C31] space-y-1">
-            <strong>Mensaje de WhatsApp sugerido:</strong>
-            <p className="italic text-[#571C31]/80">
-              "¡Hola! Gracias por visitarnos en Berna Studio. ¿Nos dejás tu opinión y fotito de tus uñas en Glow Buzz? Nos ayuda un montón a crecer: glowbuzz.uy/r/berna-studio"
+          <div>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider">
+                Mensaje de WhatsApp
+              </label>
+              {messageDraft !== null && (
+                <button
+                  type="button"
+                  onClick={() => setMessageDraft(null)}
+                  className="text-[11px] font-semibold text-[#B82E5F] hover:underline"
+                >
+                  Volver al sugerido
+                </button>
+              )}
+            </div>
+            <textarea
+              rows={4}
+              required
+              value={requestMessage}
+              onChange={(e) => setMessageDraft(e.target.value)}
+              className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm leading-relaxed focus:outline-none focus:border-[#B82E5F]"
+            />
+            <p className="text-[11px] text-[#571C31]/60 mt-1">
+              Es una sugerencia: podés editarla antes de enviarla.
             </p>
           </div>
 

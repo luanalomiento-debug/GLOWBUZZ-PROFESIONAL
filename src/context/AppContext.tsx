@@ -66,6 +66,7 @@ interface AppContextType {
 
   addPortfolioWork: (work: Omit<PortfolioWork, 'id' | 'views' | 'saves' | 'bookings' | 'date'>) => void;
   toggleWorkAddedToProfile: (id: string) => void;
+  approvePortfolioWork: (id: string) => void;
   deletePortfolioWork: (id: string) => void;
 
   addBooking: (booking: Omit<Booking, 'id'>) => void;
@@ -109,7 +110,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const stored = loadFromStorage<BusinessProfile>(STORAGE_KEYS.PROFILE, INITIAL_BUSINESS_PROFILE);
     // Migración: el antiguo plan 'pro' pasa a ser Glow Boost; cualquier valor desconocido vuelve a Glow Start.
     const plan = (stored.plan as string) === 'pro' ? 'boost' : stored.plan;
-    return PLANS.some((p) => p.id === plan) ? { ...stored, plan } : { ...stored, plan: 'start' };
+    const billingCycle = stored.billingCycle === 'annual' ? 'annual' : 'monthly';
+    return PLANS.some((p) => p.id === plan)
+      ? { ...stored, plan, billingCycle }
+      : { ...stored, plan: 'start', billingCycle };
   });
 
   const [services, setServices] = useState<Service[]>(() =>
@@ -232,6 +236,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setPortfolio((prev) =>
       prev.map((work) =>
         work.id === id ? { ...work, addedToProfile: !work.addedToProfile } : work
+      )
+    );
+  };
+
+  const approvePortfolioWork = (id: string) => {
+    setPortfolio((prev) =>
+      prev.map((work) =>
+        work.id === id ? { ...work, status: 'approved', addedToProfile: true } : work
       )
     );
   };
@@ -441,6 +453,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         toggleServiceStatus,
         addPortfolioWork,
         toggleWorkAddedToProfile,
+        approvePortfolioWork,
         deletePortfolioWork,
         addBooking,
         updateBookingStatus,

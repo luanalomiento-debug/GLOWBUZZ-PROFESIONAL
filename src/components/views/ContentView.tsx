@@ -8,8 +8,12 @@ import { Modal } from '../common/Modal';
 import { Tabs } from '../common/Tabs';
 import { EmptyState } from '../common/EmptyState';
 import { useToast } from '../../context/ToastContext';
+import { ImageUpload } from '../common/ImageUpload';
+import { BoostPublications } from './BoostPublications';
+import { hasPlan } from '../../data/plans';
 import {
   Plus,
+  Upload,
   Eye,
   Bookmark,
   CalendarCheck,
@@ -39,14 +43,18 @@ export const ContentView: React.FC = () => {
     portfolio,
     addPortfolioWork,
     toggleWorkAddedToProfile,
+    approvePortfolioWork,
     deletePortfolioWork,
+    boostCampaigns,
+    businessProfile,
+    setCurrentSection,
     services,
     team,
     replyToReview,
   } = useApp();
   const { showToast } = useToast();
 
-  const [activeTab, setActiveTab] = useState<'all' | 'my_work' | 'client_ugc' | 'pending'>('all');
+  const [activeTab, setActiveTab] = useState<'all' | 'my_work' | 'client_ugc' | 'pending' | 'boost'>('all');
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [replyModalWork, setReplyModalWork] = useState<PortfolioWork | null>(null);
   const [replyText, setReplyText] = useState('');
@@ -68,7 +76,7 @@ export const ContentView: React.FC = () => {
     if (activeTab === 'my_work') return work.source === 'my_work' && work.status === 'approved';
     if (activeTab === 'client_ugc') return work.source === 'client_ugc' && work.status === 'approved';
     if (activeTab === 'pending') return work.status === 'pending';
-    return true;
+    return false;
   });
 
   const handleOpenAddModal = () => {
@@ -136,9 +144,6 @@ export const ContentView: React.FC = () => {
           <h2 className=" text-2xl font-bold tracking-tight text-[#181416]">
             Contenido & Portfolio
           </h2>
-          <p className=" text-sm text-[#571C31]/75 mt-0.5">
-            Las clientas en Glow Buzz no compran textos: descubren trabajos visuales y reservan lo que ven.
-          </p>
         </div>
 
         <Button
@@ -160,11 +165,21 @@ export const ContentView: React.FC = () => {
           { id: 'my_work', label: 'Mis trabajos', count: portfolio.filter((p) => p.source === 'my_work' && p.status === 'approved').length },
           { id: 'client_ugc', label: 'De clientas (UGC)', count: portfolio.filter((p) => p.source === 'client_ugc' && p.status === 'approved').length },
           { id: 'pending', label: 'Pendientes', count: portfolio.filter((p) => p.status === 'pending').length },
+          { id: 'boost', label: 'Glow Boost', count: boostCampaigns.filter((c) => c.status === 'active').length },
         ]}
       />
 
+      {/* Publicaciones de Glow Boost */}
+      {activeTab === 'boost' && (
+        <BoostPublications
+          campaigns={boostCampaigns}
+          canUseBoost={hasPlan(businessProfile.plan, 'boost')}
+          onCreate={() => setCurrentSection('boost')}
+        />
+      )}
+
       {/* Grid de contenido estilo Pinterest/Masonry beauty */}
-      {filteredWorks.length > 0 ? (
+      {activeTab !== 'boost' && filteredWorks.length > 0 ? (
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-5 space-y-5">
           {filteredWorks.map((work) => {
             const isUgc = work.source === 'client_ugc';
@@ -172,7 +187,7 @@ export const ContentView: React.FC = () => {
             return (
               <div
                 key={work.id}
-                className="break-inside-avoid bg-white rounded-3xl border border-[#571C31]/10 overflow-hidden hover:border-[#B82E5F]/40 transition-all duration-200 shadow-2xs group flex flex-col justify-between"
+                className="break-inside-avoid bg-white rounded-3xl border border-[#571C31]/10 overflow-hidden hover:border-[#B82E5F]/40 transition-all duration-200 shadow-soft hover:shadow-lifted group flex flex-col justify-between"
               >
                 {/* Image & Overlay tags */}
                 <div className="relative overflow-hidden bg-stone-100">
@@ -262,7 +277,7 @@ export const ContentView: React.FC = () => {
                   </div>
 
                   {/* UGC specific interactive action buttons */}
-                  {isUgc && (
+                  {isUgc && work.status !== 'pending' && (
                     <div className="flex items-center gap-2 pt-2 border-t border-[#571C31]/10">
                       <button
                         type="button"
@@ -301,11 +316,11 @@ export const ContentView: React.FC = () => {
                         size="sm"
                         className="w-full"
                         onClick={() => {
-                          handleToggleAddUgc(work);
-                          showToast('Resultado aprobado', 'Se aprobó la publicación de la clienta.', 'success');
+                          approvePortfolioWork(work.id);
+                          showToast('Resultado aprobado', 'Ya está publicado y agregado a tu perfil.', 'success');
                         }}
                       >
-                        Aprobar y agregar a perfil
+                        Aprobar y agregar
                       </Button>
                     </div>
                   )}
@@ -314,7 +329,7 @@ export const ContentView: React.FC = () => {
             );
           })}
         </div>
-      ) : (
+      ) : activeTab !== 'boost' ? (
         <EmptyState
           icon={<ImageIcon className="w-6 h-6" />}
           title={
@@ -332,7 +347,7 @@ export const ContentView: React.FC = () => {
           actionLabel="Agregar trabajo"
           onAction={handleOpenAddModal}
         />
-      )}
+      ) : null}
 
       {/* Modal: Agregar Trabajo */}
       <Modal
@@ -420,12 +435,29 @@ export const ContentView: React.FC = () => {
             </div>
           </div>
 
-          {/* Selector visual de foto para el demo */}
+          {/* Foto del trabajo: se sube desde el dispositivo o se elige una de ejemplo */}
           <div>
             <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
-              Elegir imagen de resultado
+              Foto del resultado
             </label>
-            <div className="grid grid-cols-4 sm:grid-cols-7 gap-2">
+            <div className="flex items-center gap-3">
+              <img
+                src={workForm.imageUrl}
+                alt="Foto elegida"
+                className="w-20 h-20 rounded-xl object-cover border border-[#571C31]/10 flex-shrink-0 bg-stone-100"
+              />
+              <ImageUpload
+                onSelect={(url) => setWorkForm((prev) => ({ ...prev, imageUrl: url }))}
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 border-dashed border-[#B82E5F]/40 hover:border-[#B82E5F] hover:bg-[#F5DCE5]/30 text-sm font-semibold text-[#B82E5F] transition-colors"
+              >
+                <Upload className="w-4 h-4" />
+                <span>Subir desde tu dispositivo</span>
+              </ImageUpload>
+            </div>
+            <p className="text-[11px] text-[#571C31]/60 mt-2">
+              Desde la computadora o el carrete de tu celular. O elegí una foto de ejemplo:
+            </p>
+            <div className="grid grid-cols-4 sm:grid-cols-7 gap-2 mt-2">
               {PRESET_BEAUTY_IMAGES.map((imgUrl, i) => (
                 <button
                   key={i}
@@ -433,11 +465,11 @@ export const ContentView: React.FC = () => {
                   onClick={() => setWorkForm({ ...workForm, imageUrl: imgUrl })}
                   className={`aspect-square rounded-xl overflow-hidden border-2 transition-all relative ${
                     workForm.imageUrl === imgUrl
-                      ? 'border-[#B82E5F] ring-2 ring-[#B82E5F]/30 scale-102'
+                      ? 'border-[#B82E5F] ring-2 ring-[#B82E5F]/30'
                       : 'border-transparent opacity-75 hover:opacity-100'
                   }`}
                 >
-                  <img src={imgUrl} alt="Preset" className="w-full h-full object-cover" />
+                  <img src={imgUrl} alt="Foto de ejemplo" className="w-full h-full object-cover" />
                 </button>
               ))}
             </div>

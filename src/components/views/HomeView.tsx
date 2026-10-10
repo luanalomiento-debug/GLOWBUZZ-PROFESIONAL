@@ -3,6 +3,7 @@ import { useApp } from '../../context/AppContext';
 import { MetricCard } from '../common/MetricCard';
 import { Card } from '../common/Card';
 import { getPlan } from '../../data/plans';
+import { relativeDayLabel } from '../../utils/date';
 import { Button } from '../common/Button';
 import { Badge } from '../common/Badge';
 import {
@@ -45,9 +46,6 @@ export const HomeView: React.FC = () => {
         <h2 className=" text-2xl sm:text-3xl font-bold tracking-tight text-[#181416]">
           Hola, {businessProfile.ownerName}
         </h2>
-        <p className=" text-sm sm:text-base text-[#571C31]/75 mt-1">
-          Esto está pasando con tu perfil en Glow Buzz.
-        </p>
       </div>
 
       {/* 3 KPIs principales */}
@@ -112,12 +110,7 @@ export const HomeView: React.FC = () => {
                     <div className="flex items-center gap-2 text-xs text-[#571C31]/70">
                       <Clock className="w-3 h-3 text-[#B82E5F]" />
                       <span>
-                        {booking.date === '2026-10-09'
-                          ? 'Hoy'
-                          : booking.date === '2026-10-10'
-                          ? 'Mañana'
-                          : booking.date}{' '}
-                        · {booking.time} hs
+                        {relativeDayLabel(booking.date)} · {booking.time} hs
                       </span>
                       <span>· {booking.professionalName}</span>
                     </div>
@@ -222,7 +215,7 @@ export const HomeView: React.FC = () => {
             <div
               key={work.id}
               onClick={() => setCurrentSection('content')}
-              className="bg-white rounded-2xl border border-[#571C31]/10 overflow-hidden hover:border-[#B82E5F]/40 transition-all cursor-pointer group shadow-2xs"
+              className="bg-white rounded-2xl border border-[#571C31]/10 overflow-hidden hover:border-[#B82E5F]/40 transition-all cursor-pointer group shadow-soft hover:shadow-lifted"
             >
               <div className="relative aspect-4/3 overflow-hidden bg-stone-100">
                 <img

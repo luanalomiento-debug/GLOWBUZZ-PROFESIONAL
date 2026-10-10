@@ -67,9 +67,6 @@ export const SettingsView: React.FC = () => {
         <h2 className=" text-2xl font-bold tracking-tight text-[#181416]">
           Configuración
         </h2>
-        <p className=" text-sm text-[#571C31]/75 mt-0.5">
-          Administrá tus accesos, notificaciones y preferencias de seguridad.
-        </p>
       </div>
 
       {/* Tabs */}

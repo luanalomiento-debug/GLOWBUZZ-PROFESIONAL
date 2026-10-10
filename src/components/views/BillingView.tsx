@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { PlanType } from '../../types';
+import { BillingCycle, PlanType } from '../../types';
 import { Card } from '../common/Card';
 import { Button } from '../common/Button';
 import { Badge } from '../common/Badge';
 import { Modal } from '../common/Modal';
 import { useToast } from '../../context/ToastContext';
-import { PLANS, getPlan, formatPrice } from '../../data/plans';
+import { PLANS, getPlan, getPricing, formatPrice } from '../../data/plans';
+import { BillingCycleToggle } from '../common/BillingCycleToggle';
 import {
   CreditCard,
   Check,
@@ -18,7 +19,7 @@ import {
 } from 'lucide-react';
 
 export const BillingView: React.FC = () => {
-  const { businessProfile, switchPlan } = useApp();
+  const { businessProfile, switchPlan, updateProfile } = useApp();
   const { showToast } = useToast();
 
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
@@ -31,11 +32,24 @@ export const BillingView: React.FC = () => {
   });
 
   const currentPlan = getPlan(businessProfile.plan);
+  const currentPricing = getPricing(currentPlan, businessProfile.billingCycle);
+
+  // Frecuencia que se está comparando; solo cambia la suscripción al confirmar en una tarjeta
+  const [viewCycle, setViewCycle] = useState<BillingCycle>(businessProfile.billingCycle);
 
   const handleChangePlan = (targetPlan: PlanType) => {
     const target = getPlan(targetPlan);
     switchPlan(targetPlan);
-    showToast(`Plan cambiado a ${target.name}`, target.unlocks, 'success');
+    updateProfile({ billingCycle: viewCycle });
+    showToast(
+      targetPlan === businessProfile.plan
+        ? `Pago ${viewCycle === 'annual' ? 'anual' : 'mensual'} activado`
+        : `Plan cambiado a ${target.name}`,
+      viewCycle === 'annual'
+        ? `${target.name} con pago anual: ${formatPrice(getPricing(target, 'annual').charge)} por año.`
+        : target.unlocks,
+      'success'
+    );
   };
 
   const handleSavePaymentMethod = (e: React.FormEvent) => {
@@ -60,9 +74,6 @@ export const BillingView: React.FC = () => {
         <h2 className=" text-2xl font-bold tracking-tight text-[#181416]">
           Plan y facturación
         </h2>
-        <p className=" text-sm text-[#571C31]/75 mt-0.5">
-          Gestioná tu suscripción y comprobá el retorno de inversión que genera Glow Buzz.
-        </p>
       </div>
 
       {/* Tarjeta de Estado del Plan Actual */}
@@ -76,7 +87,12 @@ export const BillingView: React.FC = () => {
               <Badge variant="cherry">Prueba gratuita</Badge>
             </div>
             <p className="text-sm font-bold text-[#571C31] mt-1">
-              {formatPrice(currentPlan.price)} UYU / mes
+              {formatPrice(currentPricing.perMonth)} UYU / mes
+              {businessProfile.billingCycle === 'annual' && (
+                <span className="font-medium text-[#571C31]/70">
+                  {' '}· pago anual ({formatPrice(currentPricing.charge)} por año)
+                </span>
+              )}
             </p>
           </div>
 
@@ -102,7 +118,7 @@ export const BillingView: React.FC = () => {
                 Glow Buzz ya te generó 7 reservas por un valor estimado de $12.400 UYU.
               </p>
               <p className=" text-xs text-[#571C31]/75 mt-0.5">
-                El costo mensual de tu plan ({formatPrice(currentPlan.price)}) se pagó {(12400 / currentPlan.price).toFixed(1)} veces con clientas nuevas.
+                El costo mensual de tu plan ({formatPrice(currentPricing.perMonth)}) se pagó {(12400 / currentPricing.perMonth).toFixed(1)} veces con clientas nuevas.
               </p>
             </div>
           </div>
@@ -137,13 +153,16 @@ export const BillingView: React.FC = () => {
 
       {/* Comparativa Interactiva de Planes */}
       <div className="space-y-4">
-        <h3 className=" text-lg font-bold text-[#181416]">
-          Comparar y cambiar de plan
-        </h3>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <h3 className="text-lg font-bold text-[#181416]">Comparar y cambiar de plan</h3>
+          <BillingCycleToggle value={viewCycle} onChange={setViewCycle} />
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {PLANS.map((plan) => {
-            const isCurrent = plan.id === businessProfile.plan;
+            const isCurrentPlan = plan.id === businessProfile.plan;
+            const isCurrent = isCurrentPlan && viewCycle === businessProfile.billingCycle;
+            const pricing = getPricing(plan, viewCycle);
             const isTop = plan.id === 'boost';
             return (
               <Card
@@ -167,14 +186,20 @@ export const BillingView: React.FC = () => {
                     >
                       {plan.name}
                     </span>
-                    {isCurrent && <Badge variant="cherry">Tu plan actual</Badge>}
+                    {isCurrentPlan && <Badge variant="cherry">Tu plan actual</Badge>}
                   </div>
 
                   <div className="my-2">
                     <span className="text-2xl font-extrabold text-[#181416]">
-                      {formatPrice(plan.price)}
+                      {formatPrice(pricing.perMonth)}
                     </span>
                     <span className="text-xs text-[#571C31]/70 ml-1">UYU / mes</span>
+                    {viewCycle === 'annual' && (
+                      <p className="text-[11px] text-[#571C31]/70 mt-1">
+                        Se factura {formatPrice(pricing.charge)} por año ·{' '}
+                        <span className="font-bold text-[#B82E5F]">ahorrás {formatPrice(pricing.yearlySavings)}</span>
+                      </p>
+                    )}
                   </div>
 
                   <p className="text-xs text-[#571C31]/75 mb-4">{plan.tagline}</p>
@@ -197,7 +222,13 @@ export const BillingView: React.FC = () => {
                     disabled={isCurrent}
                     onClick={() => handleChangePlan(plan.id)}
                   >
-                    {isCurrent ? 'Plan activo' : `Cambiar a ${plan.name}`}
+                    {isCurrent
+                      ? 'Plan activo'
+                      : isCurrentPlan
+                      ? viewCycle === 'annual'
+                        ? 'Pasar a pago anual'
+                        : 'Pasar a pago mensual'
+                      : `Cambiar a ${plan.name}`}
                   </Button>
                 </div>
               </Card>

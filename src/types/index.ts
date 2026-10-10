@@ -2,6 +2,8 @@ export type BusinessType = 'independent' | 'studio';
 
 export type PlanType = 'start' | 'start_plus' | 'boost';
 
+export type BillingCycle = 'monthly' | 'annual';
+
 export interface BusinessProfile {
   id: string;
   name: string;
@@ -18,6 +20,7 @@ export interface BusinessProfile {
   teamSize: 'solo' | '2-3' | '4-6' | '7+';
   currentAgendaTool: string;
   plan: PlanType;
+  billingCycle: BillingCycle;
   trialDaysLeft: number;
   description: string;
   instagram: string;

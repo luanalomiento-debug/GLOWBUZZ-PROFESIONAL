@@ -6,6 +6,7 @@ import { Button } from '../common/Button';
 import { Badge } from '../common/Badge';
 import { Modal } from '../common/Modal';
 import { useToast } from '../../context/ToastContext';
+import { WEEKDAY_NAMES, addDays, formatWeekRange, relativeDayLabel, startOfWeek, toDateKey } from '../../utils/date';
 import { PlanLock } from '../common/PlanLock';
 import { hasPlan } from '../../data/plans';
 import {
@@ -26,7 +27,6 @@ import {
   ChevronRight,
 } from 'lucide-react';
 
-const WEEK_DAYS = ['Lunes 05', 'Martes 06', 'Miércoles 07', 'Jueves 08', 'Viernes 09', 'Sábado 10'];
 const TIME_SLOTS = ['09:30', '11:00', '13:00', '15:00', '16:30', '18:00', '19:30'];
 
 export const AgendaView: React.FC = () => {
@@ -45,6 +45,11 @@ export const AgendaView: React.FC = () => {
     switchPlan,
   } = useApp();
   const { showToast } = useToast();
+  // Semana visible: arranca en la semana de hoy y se navega con las flechas
+  const today = new Date();
+  const todayKey = toDateKey(today);
+  const [weekStart, setWeekStart] = useState(() => startOfWeek(new Date()));
+  const isCurrentWeek = toDateKey(weekStart) === toDateKey(startOfWeek(today));
   const hasGlowAgenda = hasPlan(businessProfile.plan, 'start_plus');
 
   const [activeTab, setActiveTab] = useState<'glow_agenda' | 'integrations'>('glow_agenda');
@@ -87,7 +92,7 @@ export const AgendaView: React.FC = () => {
       clientEmail: 'clienta@gmail.com',
       serviceId: services[0]?.id || '',
       professionalId: team[0]?.id || '',
-      date: date || '2026-10-09',
+      date: date || todayKey,
       time: time || '16:30',
       durationMinutes: 60,
       priceUYU: 850,
@@ -160,9 +165,6 @@ export const AgendaView: React.FC = () => {
           <h2 className=" text-2xl font-bold tracking-tight text-[#181416]">
             Agenda & Turnos
           </h2>
-          <p className=" text-sm text-[#571C31]/75 mt-0.5">
-            Glow Agenda organiza la demanda de tus clientas sin robar protagonismo a tus trabajos.
-          </p>
         </div>
 
         {hasGlowAgenda && (
@@ -242,7 +244,7 @@ export const AgendaView: React.FC = () => {
                           Se liberó este horario:
                         </span>
                         <Badge variant="cherry">
-                          {cancelled.date === '2026-10-09' ? 'Hoy' : cancelled.date} · {cancelled.time} hs
+                          {relativeDayLabel(cancelled.date)} · {cancelled.time} hs
                         </Badge>
                       </div>
                       <p className=" text-xs text-[#571C31]/75 mt-0.5">
@@ -271,7 +273,7 @@ export const AgendaView: React.FC = () => {
             <div className="p-4 bg-[#FFF8F9] border-b border-[#571C31]/10 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <span className=" text-base font-bold text-[#181416]">
-                  Semana del 05 al 11 de Octubre, 2026
+                  {formatWeekRange(weekStart)}
                 </span>
                 <span className="text-xs text-[#571C31]/60 hidden sm:inline">
                   (Pocitos · Horario activo)
@@ -279,31 +281,56 @@ export const AgendaView: React.FC = () => {
               </div>
 
               <div className="flex items-center gap-2">
-                <button className="p-1.5 rounded-lg border border-[#571C31]/15 hover:bg-[#F5DCE5]/40 text-[#571C31]">
+                {!isCurrentWeek && (
+                  <button
+                    type="button"
+                    onClick={() => setWeekStart(startOfWeek(new Date()))}
+                    className="px-3 py-1.5 rounded-lg border border-[#571C31]/15 hover:bg-[#F5DCE5]/40 text-xs font-semibold text-[#571C31]"
+                  >
+                    Hoy
+                  </button>
+                )}
+                <button
+                  type="button"
+                  aria-label="Semana anterior"
+                  onClick={() => setWeekStart((w) => addDays(w, -7))}
+                  className="p-1.5 rounded-lg border border-[#571C31]/15 hover:bg-[#F5DCE5]/40 text-[#571C31]"
+                >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
-                <button className="p-1.5 rounded-lg border border-[#571C31]/15 hover:bg-[#F5DCE5]/40 text-[#571C31]">
+                <button
+                  type="button"
+                  aria-label="Semana siguiente"
+                  onClick={() => setWeekStart((w) => addDays(w, 7))}
+                  className="p-1.5 rounded-lg border border-[#571C31]/15 hover:bg-[#F5DCE5]/40 text-[#571C31]"
+                >
                   <ChevronRight className="w-4 h-4" />
                 </button>
               </div>
             </div>
 
             {/* Grid semanal */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 divide-x divide-y sm:divide-y-0 divide-[#571C31]/10 min-h-[420px] bg-white">
-              {WEEK_DAYS.map((dayLabel, dayIndex) => {
-                const dayDateStr = `2026-10-${String(5 + dayIndex).padStart(2, '0')}`;
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 divide-x divide-y sm:divide-y-0 divide-[#571C31]/10 min-h-[420px] bg-white">
+              {WEEKDAY_NAMES.map((dayName, dayIndex) => {
+                const dayDate = addDays(weekStart, dayIndex);
+                const dayDateStr = toDateKey(dayDate);
+                const isToday = dayDateStr === todayKey;
                 const dayBookings = bookings.filter((b) => b.date === dayDateStr);
 
                 return (
-                  <div key={dayLabel} className="p-3 flex flex-col justify-between">
+                  <div key={dayName} className={`p-3 flex flex-col justify-between ${isToday ? 'bg-[#FFF8F9]' : ''}`}>
                     <div>
                       {/* Day Header */}
                       <div className="text-center pb-2.5 mb-2.5 border-b border-[#571C31]/10">
-                        <span className=" text-xs font-bold text-[#571C31] uppercase tracking-wider block">
-                          {dayLabel.split(' ')[0]}
+                        <span className="text-xs font-bold text-[#571C31] uppercase tracking-wider block">
+                          {dayName.slice(0, 3)}
                         </span>
-                        <span className=" text-sm font-extrabold text-[#181416]">
-                          {dayLabel.split(' ')[1]}
+                        <span
+                          className={`inline-flex items-center justify-center min-w-7 h-7 px-1 mt-0.5 rounded-full text-sm font-extrabold ${
+                            isToday ? 'bg-[#B82E5F] text-white' : 'text-[#181416]'
+                          }`}
+                        >
+                          {String(dayDate.getDate()).padStart(2, '0')}
                         </span>
                       </div>
 

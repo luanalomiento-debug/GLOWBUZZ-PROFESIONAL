@@ -88,9 +88,6 @@ export const BoostView: React.FC = () => {
       <div className="space-y-6 animate-in fade-in duration-200">
         <div>
           <h2 className="text-2xl font-bold tracking-tight text-[#181416]">Glow Boost</h2>
-          <p className="text-sm text-[#571C31]/75 mt-0.5">
-            Posicionamiento destacado para llegar a más clientas con alta intención de reserva en tu zona.
-          </p>
         </div>
         <PlanLock
           requiredPlan="boost"
@@ -111,9 +108,6 @@ export const BoostView: React.FC = () => {
           </h2>
           <Badge variant="sponsored">Patrocinado</Badge>
         </div>
-        <p className=" text-sm text-[#571C31]/75 mt-0.5">
-          Herramienta nativa para destacar tus mejores trabajos frente a clientas con alta intención de reserva en tu zona.
-        </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">

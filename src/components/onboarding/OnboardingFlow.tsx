@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { GlowBuzzLogo } from '../common/GlowBuzzLogo';
 import { Button } from '../common/Button';
-import { BusinessType, PlanType } from '../../types';
-import { PLANS, formatPrice } from '../../data/plans';
+import { BillingCycle, BusinessType, PlanType } from '../../types';
+import { PLANS, formatPrice, getPricing } from '../../data/plans';
+import { BillingCycleToggle } from '../common/BillingCycleToggle';
 import {
   Sparkles,
   User,
@@ -72,7 +73,11 @@ export const OnboardingFlow: React.FC = () => {
     teamSize: businessProfile.teamSize || ('2-3' as 'solo' | '2-3' | '4-6' | '7+'),
     currentAgendaTool: businessProfile.currentAgendaTool || 'WhatsApp / mensajes',
     plan: businessProfile.plan || ('boost' as PlanType),
+    billingCycle: (businessProfile.billingCycle || 'monthly') as BillingCycle,
   });
+
+  // "Crear cuenta" recorre todo el cuestionario; "Iniciar sesión" entra directo al panel
+  const [authMode, setAuthMode] = useState<'signup' | 'login'>('signup');
 
   const totalSteps = formData.businessType === 'studio' ? 7 : 6;
 
@@ -91,6 +96,7 @@ export const OnboardingFlow: React.FC = () => {
       teamSize: formData.teamSize,
       currentAgendaTool: formData.currentAgendaTool,
       plan: formData.plan,
+      billingCycle: formData.billingCycle,
     });
 
     if (onboardingStep < totalSteps) {
@@ -99,6 +105,11 @@ export const OnboardingFlow: React.FC = () => {
       completeOnboarding();
       showToast('¡Tu Glow Buzz está listo!', 'Bienvenida a tu panel de negocios.', 'success');
     }
+  };
+
+  const handleLogin = () => {
+    completeOnboarding();
+    showToast('¡Qué bueno verte de nuevo!', 'Entraste a tu panel de negocios.', 'success');
   };
 
   const handleBack = () => {
@@ -170,7 +181,10 @@ export const OnboardingFlow: React.FC = () => {
                 variant="primary"
                 size="lg"
                 className="w-full"
-                onClick={handleNext}
+                onClick={() => {
+                  setAuthMode('signup');
+                  handleNext();
+                }}
                 rightIcon={<ArrowRight className="w-4 h-4" />}
               >
                 Crear cuenta
@@ -179,7 +193,10 @@ export const OnboardingFlow: React.FC = () => {
                 variant="outline"
                 size="lg"
                 className="w-full"
-                onClick={handleNext}
+                onClick={() => {
+                  setAuthMode('login');
+                  handleNext();
+                }}
               >
                 Iniciar sesión
               </Button>
@@ -196,14 +213,17 @@ export const OnboardingFlow: React.FC = () => {
           <div className="animate-in fade-in duration-300">
             <div className="mb-6">
               <h2 className=" text-2xl sm:text-3xl font-bold tracking-tight text-[#181416]">
-                Crear cuenta profesional
+                {authMode === 'login' ? 'Iniciar sesión' : 'Crear cuenta profesional'}
               </h2>
               <p className=" text-sm text-[#571C31]/75 mt-1">
-                Ingresá tus datos para acceder a tu panel de Glow Buzz.
+                {authMode === 'login'
+                  ? 'Ingresá con tu email y contraseña para volver a tu panel.'
+                  : 'Ingresá tus datos para acceder a tu panel de Glow Buzz.'}
               </p>
             </div>
 
             <div className="space-y-4 bg-white p-6 sm:p-8 rounded-3xl border border-[#571C31]/10">
+              {authMode === 'signup' && (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
@@ -230,6 +250,7 @@ export const OnboardingFlow: React.FC = () => {
                   />
                 </div>
               </div>
+              )}
 
               <div>
                 <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
@@ -244,6 +265,7 @@ export const OnboardingFlow: React.FC = () => {
                 />
               </div>
 
+              {authMode === 'signup' && (
               <div>
                 <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                   Teléfono / WhatsApp
@@ -256,6 +278,7 @@ export const OnboardingFlow: React.FC = () => {
                   placeholder="+598 99 123 456"
                 />
               </div>
+              )}
 
               <div>
                 <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
@@ -271,13 +294,18 @@ export const OnboardingFlow: React.FC = () => {
               </div>
 
               <div className="pt-2 flex flex-col gap-3">
-                <Button variant="primary" size="lg" className="w-full" onClick={handleNext}>
-                  Continuar
+                <Button
+                  variant="primary"
+                  size="lg"
+                  className="w-full"
+                  onClick={authMode === 'login' ? handleLogin : handleNext}
+                >
+                  {authMode === 'login' ? 'Iniciar sesión' : 'Continuar'}
                 </Button>
 
                 <button
                   type="button"
-                  onClick={handleNext}
+                  onClick={authMode === 'login' ? handleLogin : handleNext}
                   className="w-full py-2.5 px-4 rounded-xl border border-[#571C31]/20 bg-white hover:bg-stone-50 text-[#181416] text-sm font-medium flex items-center justify-center gap-2 transition-colors"
                 >
                   <svg className="w-4 h-4" viewBox="0 0 24 24">
@@ -300,7 +328,24 @@ export const OnboardingFlow: React.FC = () => {
                   </svg>
                   Continuar con Google
                 </button>
+
+                <p className="text-center text-xs text-[#571C31]/70">
+                  {authMode === 'login' ? '¿Todavía no tenés cuenta? ' : '¿Ya tenés cuenta? '}
+                  <button
+                    type="button"
+                    onClick={() => setAuthMode(authMode === 'login' ? 'signup' : 'login')}
+                    className="font-bold text-[#B82E5F] hover:underline"
+                  >
+                    {authMode === 'login' ? 'Crear cuenta' : 'Iniciar sesión'}
+                  </button>
+                </p>
               </div>
+            </div>
+
+            <div className="mt-6">
+              <Button variant="ghost" size="md" onClick={handleBack} leftIcon={<ArrowLeft className="w-4 h-4" />}>
+                Volver
+              </Button>
             </div>
           </div>
         )}
@@ -364,9 +409,6 @@ export const OnboardingFlow: React.FC = () => {
                   <h3 className=" text-lg font-bold text-[#181416] mb-2">
                     Comercio / estudio
                   </h3>
-                  <p className=" text-sm text-[#571C31]/75 leading-relaxed">
-                    Trabajo con un equipo de profesionales en un espacio compartido o local.
-                  </p>
                 </div>
                 <div className="mt-6 flex items-center gap-2 text-xs font-semibold text-[#B82E5F]">
                   <CheckCircle2
@@ -596,7 +638,7 @@ export const OnboardingFlow: React.FC = () => {
                   {!selectedAgendaTool.isDigital ? (
                     <>
                       <strong>¡Perfecto!</strong> Podés organizar tus turnos directamente con{' '}
-                      <span className="text-[#B82E5F] font-semibold">Glow Agenda</span>, sin costo extra y con recordatorios automáticos.
+                      <span className="text-[#B82E5F] font-semibold">Glow Agenda</span>, que forma parte del plan Glow Start +.
                     </>
                   ) : (
                     <>
@@ -631,8 +673,16 @@ export const OnboardingFlow: React.FC = () => {
               </p>
             </div>
 
+            <div className="flex justify-center mb-6">
+              <BillingCycleToggle
+                value={formData.billingCycle}
+                onChange={(billingCycle) => setFormData({ ...formData, billingCycle })}
+              />
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
               {PLANS.map((plan) => {
+                const pricing = getPricing(plan, formData.billingCycle);
                 const isSelected = formData.plan === plan.id;
                 const isTop = plan.id === 'boost';
                 return (
@@ -664,9 +714,15 @@ export const OnboardingFlow: React.FC = () => {
 
                       <div className="my-3">
                         <span className="text-2xl sm:text-3xl font-extrabold text-[#181416]">
-                          {formatPrice(plan.price)}
+                          {formatPrice(pricing.perMonth)}
                         </span>
                         <span className="text-xs text-[#571C31]/70 ml-1.5">UYU / mes</span>
+                        {formData.billingCycle === 'annual' && (
+                          <p className="text-[11px] text-[#571C31]/70 mt-1">
+                            {formatPrice(pricing.charge)} por año ·{' '}
+                            <span className="font-bold text-[#B82E5F]">ahorrás {formatPrice(pricing.yearlySavings)}</span>
+                          </p>
+                        )}
                       </div>
 
                       <span className="inline-block text-[11px] font-bold text-[#B82E5F] bg-[#F5DCE5] px-2.5 py-0.5 rounded-full mb-4">

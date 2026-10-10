@@ -92,9 +92,6 @@ export const StatsView: React.FC = () => {
           <h2 className=" text-2xl font-bold tracking-tight text-[#181416]">
             Estadísticas & Rendimiento
           </h2>
-          <p className=" text-sm text-[#571C31]/75 mt-0.5">
-            Analizá cómo tu contenido se convierte en visibilidad y reservas reales.
-          </p>
         </div>
 
         {/* Time Selector */}

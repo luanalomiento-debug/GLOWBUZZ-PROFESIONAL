@@ -5,9 +5,11 @@ import { Button } from '../common/Button';
 import { Badge } from '../common/Badge';
 import { Modal } from '../common/Modal';
 import { TeamView } from './TeamView';
+import { ImageUpload } from '../common/ImageUpload';
 import { useToast } from '../../context/ToastContext';
 import {
   Camera,
+  Pencil,
   Eye,
   MapPin,
   Instagram,
@@ -54,8 +56,8 @@ export const ProfileView: React.FC<{ initialTab?: 'info' | 'services' | 'hours' 
 
   const [activeTab, setActiveTab] = useState<'info' | 'services' | 'hours' | 'team'>(initialTab);
 
-  // Form state
-  const [profileForm, setProfileForm] = useState({
+  // Form state: el perfil se ve en modo lectura y solo se edita al activar "Editar perfil"
+  const buildProfileForm = () => ({
     name: businessProfile.name,
     description: businessProfile.description,
     categories: [...businessProfile.categories],
@@ -67,8 +69,16 @@ export const ProfileView: React.FC<{ initialTab?: 'info' | 'services' | 'hours' 
     avatarUrl: businessProfile.avatarUrl,
     coverUrl: businessProfile.coverUrl,
     modality: businessProfile.modality,
-    hours: [...businessProfile.hours],
+    hours: businessProfile.hours.map((h) => ({ ...h })),
   });
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [profileForm, setProfileForm] = useState(buildProfileForm);
+
+  const handleCancelEditing = () => {
+    setProfileForm(buildProfileForm());
+    setIsEditing(false);
+  };
 
   // Service Modal state (Add / Edit)
   const [serviceModalOpen, setServiceModalOpen] = useState(false);
@@ -106,6 +116,7 @@ export const ProfileView: React.FC<{ initialTab?: 'info' | 'services' | 'hours' 
       hours: profileForm.hours,
     });
 
+    setIsEditing(false);
     showToast('Perfil actualizado', 'Los cambios ya son visibles para tus clientas en Glow Buzz.', 'success');
   };
 
@@ -197,28 +208,45 @@ export const ProfileView: React.FC<{ initialTab?: 'info' | 'services' | 'hours' 
           <h2 className=" text-2xl font-bold tracking-tight text-[#181416]">
             Mi perfil público
           </h2>
-          <p className=" text-sm text-[#571C31]/75 mt-0.5">
-            Configurá la vitrina con la que te descubren en Glow Buzz.
-          </p>
         </div>
 
         <div className="flex items-center gap-2.5">
-          <Button
-            variant="outline"
-            size="md"
-            onClick={() => setPreviewAsClientModalOpen(true)}
-            leftIcon={<Eye className="w-4 h-4 text-[#B82E5F]" />}
-          >
-            Ver como clienta
-          </Button>
-          <Button
-            variant="primary"
-            size="md"
-            onClick={handleSaveProfile}
-            leftIcon={<Check className="w-4 h-4" />}
-          >
-            Guardar cambios
-          </Button>
+          {isEditing ? (
+            <>
+              <Button variant="ghost" size="md" onClick={handleCancelEditing}>
+                Cancelar
+              </Button>
+              <Button
+                variant="primary"
+                size="md"
+                onClick={handleSaveProfile}
+                leftIcon={<Check className="w-4 h-4" />}
+              >
+                Guardar cambios
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                variant="outline"
+                size="md"
+                onClick={() => setPreviewAsClientModalOpen(true)}
+                leftIcon={<Eye className="w-4 h-4 text-[#B82E5F]" />}
+              >
+                Ver como clienta
+              </Button>
+              {(activeTab === 'info' || activeTab === 'hours') && (
+                <Button
+                  variant="primary"
+                  size="md"
+                  onClick={() => setIsEditing(true)}
+                  leftIcon={<Pencil className="w-4 h-4" />}
+                >
+                  Editar perfil
+                </Button>
+              )}
+            </>
+          )}
         </div>
       </div>
 
@@ -274,7 +302,8 @@ export const ProfileView: React.FC<{ initialTab?: 'info' | 'services' | 'hours' 
 
       {/* TAB 1: INFORMACIÓN GENERAL */}
       {activeTab === 'info' && (
-        <form onSubmit={handleSaveProfile} className="space-y-6">
+        <form onSubmit={handleSaveProfile}>
+          <fieldset disabled={!isEditing} className="space-y-6 min-w-0">
           {/* Header Visual: Portada y Avatar */}
           <Card className="p-0 overflow-hidden">
             {/* Cover image */}
@@ -284,22 +313,14 @@ export const ProfileView: React.FC<{ initialTab?: 'info' | 'services' | 'hours' 
                 alt="Portada"
                 className="w-full h-full object-cover"
               />
-              <button
-                type="button"
-                onClick={() =>
-                  setProfileForm((prev) => ({
-                    ...prev,
-                    coverUrl:
-                      prev.coverUrl === INITIAL_BUSINESS_PROFILE.coverUrl
-                        ? 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1200&q=80'
-                        : INITIAL_BUSINESS_PROFILE.coverUrl,
-                  }))
-                }
-                className="absolute top-3 right-3 bg-black/60 hover:bg-black/80 text-white text-xs font-medium px-3 py-1.5 rounded-xl backdrop-blur-xs flex items-center gap-1.5 transition-colors"
+              <ImageUpload
+                maxDim={1600}
+                onSelect={(url) => setProfileForm((prev) => ({ ...prev, coverUrl: url }))}
+                className="edit-only absolute top-3 right-3 bg-black/60 hover:bg-black/80 text-white text-xs font-medium px-3 py-1.5 rounded-xl backdrop-blur-xs flex items-center gap-1.5 transition-colors"
               >
                 <Camera className="w-3.5 h-3.5" />
                 <span>Cambiar portada</span>
-              </button>
+              </ImageUpload>
             </div>
 
             {/* Avatar & main identity */}
@@ -311,22 +332,14 @@ export const ProfileView: React.FC<{ initialTab?: 'info' | 'services' | 'hours' 
                     alt={profileForm.name}
                     className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover border-4 border-white shadow-md bg-stone-100"
                   />
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setProfileForm((prev) => ({
-                        ...prev,
-                        avatarUrl:
-                          prev.avatarUrl === INITIAL_BUSINESS_PROFILE.avatarUrl
-                            ? 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80'
-                            : INITIAL_BUSINESS_PROFILE.avatarUrl,
-                      }))
-                    }
-                    className="absolute inset-0 bg-black/40 rounded-2xl opacity-0 group-hover:opacity-100 flex items-center justify-center text-white transition-opacity"
-                    title="Cambiar avatar"
+                  <ImageUpload
+                    maxDim={500}
+                    onSelect={(url) => setProfileForm((prev) => ({ ...prev, avatarUrl: url }))}
+                    className="edit-only absolute inset-0 bg-black/40 rounded-2xl opacity-0 group-hover:opacity-100 focus-within:opacity-100 flex items-center justify-center text-white transition-opacity"
+                    title="Cambiar foto de perfil"
                   >
                     <Camera className="w-5 h-5" />
-                  </button>
+                  </ImageUpload>
                 </div>
 
                 <div className="mb-2">
@@ -475,6 +488,7 @@ export const ProfileView: React.FC<{ initialTab?: 'info' | 'services' | 'hours' 
               })}
             </div>
           </Card>
+        </fieldset>
         </form>
       )}
 
@@ -583,6 +597,7 @@ export const ProfileView: React.FC<{ initialTab?: 'info' | 'services' | 'hours' 
       {/* TAB 3: HORARIOS DE ATENCIÓN */}
       {activeTab === 'hours' && (
         <Card className="space-y-4">
+          <fieldset disabled={!isEditing} className="space-y-4 min-w-0">
           <div>
             <h3 className=" text-base font-bold text-[#181416]">
               Horarios semanales
@@ -648,11 +663,7 @@ export const ProfileView: React.FC<{ initialTab?: 'info' | 'services' | 'hours' 
             ))}
           </div>
 
-          <div className="pt-4 flex justify-end">
-            <Button variant="primary" size="md" onClick={handleSaveProfile}>
-              Guardar horarios
-            </Button>
-          </div>
+          </fieldset>
         </Card>
       )}
 
@@ -732,18 +743,25 @@ export const ProfileView: React.FC<{ initialTab?: 'info' | 'services' | 'hours' 
               <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
                 Duración (minutos)
               </label>
-              <select
+              <input
+                type="number"
+                inputMode="numeric"
+                min={5}
+                step={5}
+                required
+                list="duration-options"
                 value={serviceForm.durationMinutes}
                 onChange={(e) => setServiceForm({ ...serviceForm, durationMinutes: Number(e.target.value) })}
-                className="w-full px-3 py-2.5 rounded-xl border border-[#571C31]/20 bg-white text-sm"
-              >
-                <option value={30}>30 min</option>
-                <option value={45}>45 min</option>
-                <option value={60}>60 min (1 h)</option>
-                <option value={75}>75 min</option>
-                <option value={90}>90 min (1 h 30)</option>
-                <option value={120}>120 min (2 h)</option>
-              </select>
+                className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-white focus:outline-none focus:border-[#B82E5F] text-sm"
+                placeholder="Elegí o escribí los minutos"
+              />
+              <datalist id="duration-options">
+                {[30, 45, 60, 75, 90, 120, 150, 180].map((m) => (
+                  <option key={m} value={m}>
+                    {m} min
+                  </option>
+                ))}
+              </datalist>
             </div>
           </div>
 

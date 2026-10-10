@@ -1,4 +1,4 @@
-import { PlanType } from '../types';
+import { BillingCycle, PlanType } from '../types';
 
 export interface PlanInfo {
   id: PlanType;
@@ -49,5 +49,27 @@ export const getPlan = (id: PlanType): PlanInfo => PLANS.find((p) => p.id === id
 /** true si `current` incluye todo lo que ofrece `required` (los planes son acumulativos). */
 export const hasPlan = (current: PlanType, required: PlanType): boolean =>
   RANK[current] >= RANK[required];
+
+/** Descuento por pagar el año completo por adelantado. */
+export const ANNUAL_DISCOUNT_PERCENT = 10;
+
+export interface PlanPricing {
+  /** Lo que se paga cada mes (en pago anual, el equivalente mensual). */
+  perMonth: number;
+  /** Lo que se factura en cada cobro: un mes o el año completo. */
+  charge: number;
+  /** Ahorro anual frente a pagar mes a mes (0 en pago mensual). */
+  yearlySavings: number;
+}
+
+export const getPricing = (plan: PlanInfo, cycle: BillingCycle): PlanPricing => {
+  if (cycle === 'monthly') return { perMonth: plan.price, charge: plan.price, yearlySavings: 0 };
+  const annualCharge = Math.round(plan.price * 12 * (1 - ANNUAL_DISCOUNT_PERCENT / 100));
+  return {
+    perMonth: Math.round(annualCharge / 12),
+    charge: annualCharge,
+    yearlySavings: plan.price * 12 - annualCharge,
+  };
+};
 
 export const formatPrice = (price: number): string => `$${price.toLocaleString('es-UY')}`;
