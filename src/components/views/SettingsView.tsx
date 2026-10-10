@@ -4,6 +4,7 @@ import { Card } from '../common/Card';
 import { Button } from '../common/Button';
 import { Badge } from '../common/Badge';
 import { Tabs } from '../common/Tabs';
+import { BillingView } from './BillingView';
 import { useToast } from '../../context/ToastContext';
 import {
   User,
@@ -80,7 +81,7 @@ export const SettingsView: React.FC = () => {
           { id: 'notifications', label: 'Notificaciones' },
           { id: 'integrations', label: 'Integraciones' },
           { id: 'privacy', label: 'Privacidad' },
-          { id: 'billing', label: 'Facturación' },
+          { id: 'billing', label: 'Plan y facturación' },
         ]}
       />
 
@@ -266,24 +267,8 @@ export const SettingsView: React.FC = () => {
         </Card>
       )}
 
-      {/* TAB 5: FACTURACIÓN */}
-      {activeTab === 'billing' && (
-        <Card className="p-6 max-w-2xl space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-[#571C31]/10">
-            <div>
-              <h3 className=" text-base font-bold text-[#181416]">
-                Suscripción actual
-              </h3>
-              <p className="text-xs text-[#571C31]/70">
-                {businessProfile.plan === 'pro' ? 'Glow Pro ($1.690 UYU/mes)' : 'Glow Start ($990 UYU/mes)'}
-              </p>
-            </div>
-            <Button variant="primary" size="sm" onClick={() => setCurrentSection('billing')}>
-              Ver Facturación
-            </Button>
-          </div>
-        </Card>
-      )}
+      {/* TAB 5: PLAN Y FACTURACIÓN */}
+      {activeTab === 'billing' && <BillingView />}
     </div>
   );
 };

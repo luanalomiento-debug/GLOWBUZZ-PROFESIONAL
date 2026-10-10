@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { Sidebar } from './Sidebar';
-import { Button } from '../common/Button';
 import { GlowBuzzLogo } from '../common/GlowBuzzLogo';
 import {
   Menu,
-  Eye,
 } from 'lucide-react';
 
 interface DashboardLayoutProps {
@@ -15,7 +13,6 @@ interface DashboardLayoutProps {
 export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const {
     currentSection,
-    setPreviewAsClientModalOpen,
   } = useApp();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -72,20 +69,6 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) =>
             </div>
           </div>
 
-          {/* Right section: Plan badge, Ver como clienta, and Demo switches */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            {/* Ver como clienta CTA */}
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setPreviewAsClientModalOpen(true)}
-              leftIcon={<Eye className="w-3.5 h-3.5 text-[#B82E5F]" />}
-              className="hidden sm:inline-flex"
-            >
-              Ver como clienta
-            </Button>
-
-          </div>
         </header>
 
         {/* Page Content View */}

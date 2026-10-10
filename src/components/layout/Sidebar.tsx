@@ -13,7 +13,6 @@ import {
   BarChart3,
   UserCheck,
   Zap,
-  CreditCard,
   Settings,
   X,
 } from 'lucide-react';
@@ -49,7 +48,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpenMobile, onCloseMobile })
       icon: <UserCheck className="w-4 h-4" />,
     },
     { id: 'boost', label: 'Glow Boost', icon: <Zap className="w-4 h-4" /> },
-    { id: 'billing', label: 'Plan y facturación', icon: <CreditCard className="w-4 h-4" /> },
     { id: 'settings', label: 'Configuración', icon: <Settings className="w-4 h-4" /> },
   ];
 

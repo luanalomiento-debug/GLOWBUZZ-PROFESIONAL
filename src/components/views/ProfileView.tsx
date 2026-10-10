@@ -7,6 +7,7 @@ import { Modal } from '../common/Modal';
 import { useToast } from '../../context/ToastContext';
 import {
   Camera,
+  Eye,
   MapPin,
   Instagram,
   Clock,
@@ -46,6 +47,7 @@ export const ProfileView: React.FC = () => {
     deleteService,
     toggleServiceStatus,
     team,
+    setPreviewAsClientModalOpen,
   } = useApp();
   const { showToast } = useToast();
 
@@ -200,6 +202,14 @@ export const ProfileView: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-2.5">
+          <Button
+            variant="outline"
+            size="md"
+            onClick={() => setPreviewAsClientModalOpen(true)}
+            leftIcon={<Eye className="w-4 h-4 text-[#B82E5F]" />}
+          >
+            Ver como clienta
+          </Button>
           <Button
             variant="primary"
             size="md"
