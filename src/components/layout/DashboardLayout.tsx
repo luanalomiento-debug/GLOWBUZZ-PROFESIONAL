@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useApp } from '../../context/AppContext';
 import { Sidebar } from './Sidebar';
 import { GlowBuzzLogo } from '../common/GlowBuzzLogo';
 import {
@@ -10,6 +11,7 @@ interface DashboardLayoutProps {
 }
 
 export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
+  const { setCurrentSection } = useApp();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
@@ -34,7 +36,14 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) =>
               <Menu className="w-5 h-5" />
             </button>
 
-            <GlowBuzzLogo size="sm" showBusinessBadge={false} />
+            <button
+              type="button"
+              onClick={() => setCurrentSection('home')}
+              aria-label="Ir al inicio"
+              className="rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B82E5F]"
+            >
+              <GlowBuzzLogo size="sm" showBusinessBadge={false} />
+            </button>
           </div>
 
         </header>

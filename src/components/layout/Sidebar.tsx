@@ -54,7 +54,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpenMobile, onCloseMobile })
     <div className="flex flex-col h-full bg-white border-r border-[#571C31]/10 w-64 select-none">
       {/* Brand Header */}
       <div className="p-5 pb-4 border-b border-[#571C31]/10 flex items-center justify-between">
-        <GlowBuzzLogo size="sm" />
+        <button
+          type="button"
+          onClick={() => handleNavClick('home')}
+          aria-label="Ir al inicio"
+          className="rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B82E5F]"
+        >
+          <GlowBuzzLogo size="sm" />
+        </button>
         {isOpenMobile && (
           <button
             onClick={onCloseMobile}
