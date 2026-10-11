@@ -144,10 +144,10 @@ export const TeamView: React.FC = () => {
           {team.map((member) => (
             <Card key={member.id} className="p-6 space-y-4">
               <div className="flex items-start justify-between gap-4">
-                <div className="flex items-center gap-3.5">
+                <div className="flex items-center gap-3.5 min-w-0">
                   <Avatar src={member.avatarUrl} name={member.name} className="w-14 h-14 rounded-2xl" />
                   <div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
                       <h3 className=" text-lg font-bold text-[#181416]">
                         {member.name}
                       </h3>
@@ -165,7 +165,7 @@ export const TeamView: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-1.5 bg-[#FFF8F9] px-2.5 py-1 rounded-xl border border-[#571C31]/10 text-xs font-bold text-[#571C31]">
+                <div className="flex items-center gap-1.5 flex-shrink-0 bg-[#FFF8F9] px-2.5 py-1 rounded-xl border border-[#571C31]/10 text-xs font-bold text-[#571C31]">
                   <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
                   <span>{member.rating}</span>
                   <span className="text-stone-400 font-normal">({member.totalReviews})</span>

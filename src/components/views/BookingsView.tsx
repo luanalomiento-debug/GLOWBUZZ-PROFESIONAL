@@ -234,7 +234,7 @@ export const BookingsView: React.FC = () => {
                 <span className="text-[#571C31]/60 text-[10px] uppercase font-bold block">
                   Servicio
                 </span>
-                <p className="font-bold text-[#181416]">{selectedBooking.serviceName}</p>
+                <p className="font-bold text-[#181416] break-words">{selectedBooking.serviceName}</p>
                 <p className="text-[#571C31]/80">{selectedBooking.durationMinutes} minutos</p>
               </div>
 
@@ -243,7 +243,7 @@ export const BookingsView: React.FC = () => {
                   Cita
                 </span>
                 <p className="font-bold text-[#181416]">{selectedBooking.date}</p>
-                <p className="text-[#571C31]/80">{selectedBooking.time} hs · Con {selectedBooking.professionalName}</p>
+                <p className="text-[#571C31]/80 break-words">{selectedBooking.time} hs · Con {selectedBooking.professionalName}</p>
               </div>
             </div>
 

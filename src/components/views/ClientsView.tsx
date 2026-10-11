@@ -156,7 +156,7 @@ export const ClientsView: React.FC = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-3 text-center">
+            <div className="grid grid-cols-2 min-[380px]:grid-cols-3 gap-3 text-center">
               <div className="p-3 rounded-xl bg-white border border-[#571C31]/10">
                 <span className="text-[10px] uppercase font-bold text-[#571C31]/60 block">
                   Total citas

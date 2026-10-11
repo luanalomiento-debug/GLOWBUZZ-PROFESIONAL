@@ -636,7 +636,7 @@ export const ProfileView: React.FC<{ initialTab?: 'info' | 'services' | 'hours' 
 
           <div className="divide-y divide-[#571C31]/10">
             {profileForm.hours.map((hour, idx) => (
-              <div key={hour.day} className="py-3 flex items-center justify-between gap-4">
+              <div key={hour.day} className="py-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
                 <div className="flex items-center gap-3 w-32">
                   <input
                     type="checkbox"
@@ -667,7 +667,7 @@ export const ProfileView: React.FC<{ initialTab?: 'info' | 'services' | 'hours' 
                         updated[idx].open = e.target.value;
                         setProfileForm({ ...profileForm, hours: updated });
                       }}
-                      className="px-2.5 py-1.5 rounded-lg border border-[#571C31]/20 bg-white"
+                      className="min-w-0 px-2.5 py-1.5 rounded-lg border border-[#571C31]/20 bg-white"
                     />
                     <span className="text-[#571C31]/50">a</span>
                     <input
@@ -678,7 +678,7 @@ export const ProfileView: React.FC<{ initialTab?: 'info' | 'services' | 'hours' 
                         updated[idx].close = e.target.value;
                         setProfileForm({ ...profileForm, hours: updated });
                       }}
-                      className="px-2.5 py-1.5 rounded-lg border border-[#571C31]/20 bg-white"
+                      className="min-w-0 px-2.5 py-1.5 rounded-lg border border-[#571C31]/20 bg-white"
                     />
                   </div>
                 ) : (

@@ -215,7 +215,7 @@ export const BoostView: React.FC = () => {
                       : 'border-[#571C31]/15 bg-white text-[#571C31]/70 hover:border-[#571C31]/30'
                   }`}
                 >
-                  <span className="text-lg sm:text-xl font-extrabold text-[#181416] block whitespace-nowrap">
+                  <span className="text-base min-[360px]:text-lg sm:text-xl font-extrabold text-[#181416] block whitespace-nowrap">
                     ${amount}
                   </span>
                   <span className="text-[10px] text-[#571C31]/60">
