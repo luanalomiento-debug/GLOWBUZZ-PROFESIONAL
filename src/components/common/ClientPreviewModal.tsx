@@ -53,7 +53,7 @@ export const ClientPreviewModal: React.FC = () => {
       durationMinutes: bookingService.durationMinutes,
       priceUYU: bookingService.priceUYU,
       status: 'confirmed',
-      source: 'Glow Buzz Feed',
+      source: 'GlowBuzz Feed',
       notes: 'Reserva simulada desde la vista "Ver como clienta".',
     });
 
@@ -75,7 +75,7 @@ export const ClientPreviewModal: React.FC = () => {
         <div className="bg-[#181416] text-white px-4 py-2.5 flex items-center justify-between text-xs font-bold flex-shrink-0">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-[#F5DCE5]">Vista pública como clienta en Glow Buzz</span>
+            <span className="text-[#F5DCE5]">Vista pública como clienta en GlowBuzz</span>
           </div>
           <button
             onClick={() => setPreviewAsClientModalOpen(false)}
@@ -96,7 +96,7 @@ export const ClientPreviewModal: React.FC = () => {
               className="w-full h-full object-cover"
             />
             <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs px-2.5 py-1 rounded-full text-[11px] font-bold text-[#B82E5F]">
-              Glow Buzz Beauty
+              GlowBuzz Beauty
             </div>
           </div>
 

@@ -17,7 +17,7 @@ export const PLANS: PlanInfo[] = [
     name: 'Glow Start',
     price: 990,
     tagline: 'Para empezar a mostrar tu trabajo y conseguir nuevas clientas.',
-    features: ['Perfil con tus trabajos', 'Reseñas de clientas', 'Reservas desde Glow Buzz'],
+    features: ['Perfil con tus trabajos', 'Reseñas de clientas', 'Reservas desde GlowBuzz'],
     unlocks: 'Plan básico activo con perfil, trabajos, reseñas y reservas.',
   },
   {
@@ -25,7 +25,7 @@ export const PLANS: PlanInfo[] = [
     name: 'Glow Start +',
     price: 1690,
     tagline: 'Todo lo básico, más una agenda pensada para tu día a día.',
-    features: ['Todo lo de Glow Start', 'Agenda desarrollada por Glow Buzz'],
+    features: ['Todo lo de Glow Start', 'Agenda desarrollada por GlowBuzz'],
     unlocks: 'Se desbloqueó la Glow Agenda semanal.',
   },
   {

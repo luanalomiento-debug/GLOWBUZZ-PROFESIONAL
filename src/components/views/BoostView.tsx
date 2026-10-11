@@ -194,7 +194,7 @@ export const BoostView: React.FC = () => {
               />
             </div>
             <p className="text-[11px] text-[#571C31]/60">
-              Llegarás a clientas que abren la app de Glow Buzz en tu radio de influencia.
+              Llegarás a clientas que abren la app de GlowBuzz en tu radio de influencia.
             </p>
           </Card>
 

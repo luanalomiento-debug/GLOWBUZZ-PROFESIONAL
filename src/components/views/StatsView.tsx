@@ -119,10 +119,10 @@ export const StatsView: React.FC = () => {
             Impacto económico atribuido
           </span>
           <h3 className=" text-3xl sm:text-4xl font-extrabold text-[#FFF8F3] mt-2">
-            Glow Buzz generó {statsData.generatedUYU} este período
+            GlowBuzz generó {statsData.generatedUYU} este período
           </h3>
           <p className=" text-xs sm:text-sm text-[#F5DCE5]/80 mt-1 max-w-xl">
-            Calculado sobre las reservas completadas y confirmadas originadas directamente a través de tu perfil, portfolio y campañas en Glow Buzz.
+            Calculado sobre las reservas completadas y confirmadas originadas directamente a través de tu perfil, portfolio y campañas en GlowBuzz.
           </p>
         </div>
 
@@ -285,7 +285,7 @@ export const StatsView: React.FC = () => {
           <MetricCard
             label="Reservas confirmadas"
             value={statsData.bookings}
-            subtitle="Agendadas en Glow Buzz"
+            subtitle="Agendadas en GlowBuzz"
           />
           <MetricCard
             label="Clientas nuevas"

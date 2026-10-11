@@ -2,7 +2,8 @@ export const loadFromStorage = <T>(key: string, defaultValue: T): T => {
   try {
     const item = window.localStorage.getItem(key);
     if (!item) return defaultValue;
-    return JSON.parse(item) as T;
+    // La marca se escribe siempre "GlowBuzz": corrige textos guardados antes de unificarla.
+    return JSON.parse(item.replace(/Glow Buzz/g, 'GlowBuzz')) as T;
   } catch (error) {
     console.warn(`Error reading localStorage key "${key}":`, error);
     return defaultValue;

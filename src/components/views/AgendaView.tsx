@@ -132,7 +132,7 @@ export const AgendaView: React.FC = () => {
   const handlePublishReleasedSlot = (bookingId: string) => {
     publishReleasedSlot(bookingId);
     showToast(
-      'Este horario ya puede ser descubierto en Glow Buzz',
+      'Este horario ya puede ser descubierto en GlowBuzz',
       'Las clientas que buscan citas de último momento en Pocitos verán este turno destacado.',
       'success'
     );
@@ -221,7 +221,7 @@ export const AgendaView: React.FC = () => {
         <PlanLock
           requiredPlan="start_plus"
           title="La Glow Agenda es parte de Glow Start +"
-          description="Organizá tus turnos con la agenda desarrollada por Glow Buzz. Mientras tanto, podés conectar la agenda que ya usás."
+          description="Organizá tus turnos con la agenda desarrollada por GlowBuzz. Mientras tanto, podés conectar la agenda que ya usás."
         />
       )}
       {activeTab === 'glow_agenda' && hasGlowAgenda && (
@@ -260,7 +260,7 @@ export const AgendaView: React.FC = () => {
                     onClick={() => handlePublishReleasedSlot(cancelled.id)}
                     className="whitespace-nowrap flex-shrink-0"
                   >
-                    {cancelled.releasedSlotPublished ? 'Publicado en Glow Buzz ✓' : 'Publicar disponibilidad'}
+                    {cancelled.releasedSlotPublished ? 'Publicado en GlowBuzz ✓' : 'Publicar disponibilidad'}
                   </Button>
                 </div>
               ))}

@@ -115,7 +115,7 @@ export const BillingView: React.FC = () => {
                 Retorno de inversión medido
               </span>
               <p className=" text-base sm:text-lg font-bold text-[#181416] mt-0.5">
-                Glow Buzz ya te generó 7 reservas por un valor estimado de $12.400 UYU.
+                GlowBuzz ya te generó 7 reservas por un valor estimado de $12.400 UYU.
               </p>
               <p className=" text-xs text-[#571C31]/75 mt-0.5">
                 El costo mensual de tu plan ({formatPrice(currentPricing.perMonth)}) se pagó {(12400 / currentPricing.perMonth).toFixed(1)} veces con clientas nuevas.

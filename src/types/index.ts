@@ -88,7 +88,7 @@ export interface Booking {
   durationMinutes: number;
   priceUYU: number;
   status: 'confirmed' | 'pending' | 'completed' | 'cancelled';
-  source: 'Glow Buzz Feed' | 'Búsqueda' | 'Perfil' | 'Trabajo de clienta' | 'Glow Boost';
+  source: 'GlowBuzz Feed' | 'Búsqueda' | 'Perfil' | 'Trabajo de clienta' | 'Glow Boost';
   notes?: string;
   releasedSlotPublished?: boolean;
 }

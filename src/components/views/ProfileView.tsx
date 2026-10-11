@@ -117,7 +117,7 @@ export const ProfileView: React.FC<{ initialTab?: 'info' | 'services' | 'hours' 
     });
 
     setIsEditing(false);
-    showToast('Perfil actualizado', 'Los cambios ya son visibles para tus clientas en Glow Buzz.', 'success');
+    showToast('Perfil actualizado', 'Los cambios ya son visibles para tus clientas en GlowBuzz.', 'success');
   };
 
   const toggleCategory = (cat: string) => {

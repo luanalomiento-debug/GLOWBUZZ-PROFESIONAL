@@ -43,7 +43,7 @@ export const ReviewsView: React.FC = () => {
     return !term || c.name.toLowerCase().includes(term) || c.phone.replace(/\s/g, '').includes(term.replace(/\s/g, ''));
   });
   const businessSlug = businessProfile.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-  const suggestedMessage = `¡Hola${selectedClient ? ` ${selectedClient.name.split(' ')[0]}` : ''}! Gracias por visitarnos en ${businessProfile.name}. ¿Nos dejás tu opinión y una foto del resultado en Glow Buzz? Nos ayuda un montón a crecer: glowbuzz.uy/r/${businessSlug}`;
+  const suggestedMessage = `¡Hola${selectedClient ? ` ${selectedClient.name.split(' ')[0]}` : ''}! Gracias por visitarnos en ${businessProfile.name}. ¿Nos dejás tu opinión y una foto del resultado en GlowBuzz? Nos ayuda un montón a crecer: glowbuzz.uy/r/${businessSlug}`;
   const requestMessage = messageDraft ?? suggestedMessage;
 
   const openRequestModal = () => {
@@ -306,7 +306,7 @@ export const ReviewsView: React.FC = () => {
         isOpen={requestModalOpen}
         onClose={() => setRequestModalOpen(false)}
         title="Solicitar reseña a clienta"
-        subtitle="Las clientas reciben un link de Glow Buzz para calificar su cita y subir foto en 1 minuto."
+        subtitle="Las clientas reciben un link de GlowBuzz para calificar su cita y subir foto en 1 minuto."
       >
         <form onSubmit={handleSendRequest} className="space-y-4">
           <div>

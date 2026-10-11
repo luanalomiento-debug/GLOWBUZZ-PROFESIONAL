@@ -103,7 +103,7 @@ export const OnboardingFlow: React.FC = () => {
       setOnboardingStep(onboardingStep + 1);
     } else {
       completeOnboarding();
-      showToast('¡Tu Glow Buzz está listo!', 'Bienvenida a tu panel de negocios.', 'success');
+      showToast('¡Tu GlowBuzz está listo!', 'Bienvenida a tu panel de negocios.', 'success');
     }
   };
 
@@ -218,7 +218,7 @@ export const OnboardingFlow: React.FC = () => {
               <p className=" text-sm text-[#571C31]/75 mt-1">
                 {authMode === 'login'
                   ? 'Ingresá con tu email y contraseña para volver a tu panel.'
-                  : 'Ingresá tus datos para acceder a tu panel de Glow Buzz.'}
+                  : 'Ingresá tus datos para acceder a tu panel de GlowBuzz.'}
               </p>
             </div>
 
@@ -600,7 +600,7 @@ export const OnboardingFlow: React.FC = () => {
                 ¿Cómo gestionás tus turnos hoy?
               </h2>
               <p className=" text-sm text-[#571C31]/75 mt-1">
-                Glow Buzz se adapta a tu manera de trabajar.
+                GlowBuzz se adapta a tu manera de trabajar.
               </p>
             </div>
 
@@ -775,7 +775,7 @@ export const OnboardingFlow: React.FC = () => {
 
       {/* Footer minimalista */}
       <footer className="max-w-3xl w-full mx-auto text-center pt-6 border-t border-[#571C31]/10 text-xs text-[#571C31]/50">
-        Glow Buzz Business · Plataforma especializada para profesionales de belleza en Uruguay
+        GlowBuzz Business · Plataforma especializada para profesionales de belleza en Uruguay
       </footer>
     </div>
   );

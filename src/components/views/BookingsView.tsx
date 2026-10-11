@@ -65,7 +65,7 @@ export const BookingsView: React.FC = () => {
     publishReleasedSlot(bookingId);
     showToast(
       'Horario liberado publicado',
-      'El turno cancelado ya está en el feed de Glow Buzz para ser reservado por otra clienta.',
+      'El turno cancelado ya está en el feed de GlowBuzz para ser reservado por otra clienta.',
       'success'
     );
     if (selectedBooking) {
@@ -135,7 +135,7 @@ export const BookingsView: React.FC = () => {
                   }[b.status];
 
                   const originBadge = {
-                    'Glow Buzz Feed': <Badge variant="cherry">Feed</Badge>,
+                    'GlowBuzz Feed': <Badge variant="cherry">Feed</Badge>,
                     'Búsqueda': <Badge variant="bordo">Búsqueda</Badge>,
                     'Perfil': <Badge variant="neutral">Perfil</Badge>,
                     'Trabajo de clienta': <Badge variant="blush">UGC</Badge>,
@@ -249,7 +249,7 @@ export const BookingsView: React.FC = () => {
 
             {/* Source info */}
             <div className="p-3.5 rounded-xl border border-[#571C31]/10 bg-white flex items-center justify-between text-xs">
-              <span className="text-[#571C31]/75">Canal de origen en Glow Buzz:</span>
+              <span className="text-[#571C31]/75">Canal de origen en GlowBuzz:</span>
               <Badge variant="cherry">{selectedBooking.source}</Badge>
             </div>
 
@@ -269,7 +269,7 @@ export const BookingsView: React.FC = () => {
                   </span>
                 </div>
                 <p className="text-xs text-[#571C31]/75">
-                  Podés volver a ofrecer este turno a clientas en el feed de descubrimientos de Glow Buzz.
+                  Podés volver a ofrecer este turno a clientas en el feed de descubrimientos de GlowBuzz.
                 </p>
                 <Button
                   variant="primary"
@@ -279,7 +279,7 @@ export const BookingsView: React.FC = () => {
                   className="w-full mt-2"
                 >
                   {selectedBooking.releasedSlotPublished
-                    ? 'Publicado en Glow Buzz ✓'
+                    ? 'Publicado en GlowBuzz ✓'
                     : 'Publicar disponibilidad'}
                 </Button>
               </div>

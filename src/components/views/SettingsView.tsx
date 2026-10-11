@@ -201,7 +201,7 @@ export const SettingsView: React.FC = () => {
               { id: 'newBookingEmail', label: 'Resumen de citas por correo electrónico', checked: notifications.newBookingEmail },
               { id: 'cancellations', label: 'Aviso inmediato si una clienta cancela un turno', checked: notifications.cancellations },
               { id: 'newReview', label: 'Notificación cuando una clienta publica una reseña con foto', checked: notifications.newReview },
-              { id: 'weeklyReport', label: 'Reporte semanal de métricas y rendimiento en Glow Buzz', checked: notifications.weeklyReport },
+              { id: 'weeklyReport', label: 'Reporte semanal de métricas y rendimiento en GlowBuzz', checked: notifications.weeklyReport },
             ].map((item) => (
               <label key={item.id} className="pt-3 flex items-center justify-between cursor-pointer">
                 <span className="text-[#181416] font-medium pr-4">{item.label}</span>
@@ -258,7 +258,7 @@ export const SettingsView: React.FC = () => {
               ✓ Los números de teléfono de tus clientas solo son accesibles por vos y tus colaboradoras registradas para coordinar las citas.
             </p>
             <p>
-              ✓ Las fotos UGC subidas por clientas cuentan con autorización expresa para mostrarse en el feed de Glow Buzz.
+              ✓ Las fotos UGC subidas por clientas cuentan con autorización expresa para mostrarse en el feed de GlowBuzz.
             </p>
           </div>
         </Card>

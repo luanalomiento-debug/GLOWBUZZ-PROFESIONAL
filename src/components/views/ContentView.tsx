@@ -505,7 +505,7 @@ export const ContentView: React.FC = () => {
           isOpen={Boolean(replyModalWork)}
           onClose={() => setReplyModalWork(null)}
           title={`Responder a ${replyModalWork.clientName || 'la clienta'}`}
-          subtitle={`Tu respuesta se mostrará públicamente junto a la foto en tu perfil de Glow Buzz.`}
+          subtitle={`Tu respuesta se mostrará públicamente junto a la foto en tu perfil de GlowBuzz.`}
         >
           <form onSubmit={handleSendReply} className="space-y-4">
             <div className="p-3.5 rounded-2xl bg-[#FFF8F9] border border-[#571C31]/10 flex items-center gap-3">

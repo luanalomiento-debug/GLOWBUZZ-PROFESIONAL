@@ -65,7 +65,7 @@ export const HomeView: React.FC = () => {
           icon={<CalendarCheck className="w-4 h-4" />}
         />
         <MetricCard
-          label="Generado por Glow Buzz"
+          label="Generado por GlowBuzz"
           value="$15.840"
           subtitle="En pesos uruguayos (UYU)"
           trend={{ value: `ROI ${(15840 / getPlan(businessProfile.plan).price).toFixed(1)}x tu plan`, isPositive: true }}
@@ -129,11 +129,11 @@ export const HomeView: React.FC = () => {
           </Card>
         </div>
 
-        {/* BLOQUE 2: Checklist interactiva "Terminá de preparar tu Glow Buzz" (7 cols) */}
+        {/* BLOQUE 2: Checklist interactiva "Terminá de preparar tu GlowBuzz" (7 cols) */}
         <div className="lg:col-span-7 space-y-4">
           <div className="flex items-center justify-between">
             <h3 className=" text-lg font-bold text-[#181416] tracking-tight">
-              Terminá de preparar tu Glow Buzz
+              Terminá de preparar tu GlowBuzz
             </h3>
             <span className="text-xs font-bold text-[#571C31] bg-[#F5DCE5] px-2.5 py-1 rounded-full">
               {checklistProgress.completed} de {checklistProgress.total} completados
