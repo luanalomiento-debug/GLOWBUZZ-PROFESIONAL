@@ -251,10 +251,10 @@ export const ProfileView: React.FC<{ initialTab?: 'info' | 'services' | 'hours' 
       </div>
 
       {/* Tabs de sección */}
-      <div className="flex items-center gap-2 border-b border-[#571C31]/10">
+      <div className="flex items-center gap-2 border-b border-[#571C31]/10 overflow-x-auto no-scrollbar">
         <button
           onClick={() => setActiveTab('info')}
-          className={`py-3 px-4 text-sm font-semibold border-b-2 -mb-px transition-colors ${
+          className={`py-3 px-4 text-sm font-semibold whitespace-nowrap flex-shrink-0 border-b-2 -mb-px transition-colors ${
             activeTab === 'info'
               ? 'border-[#B82E5F] text-[#B82E5F]'
               : 'border-transparent text-[#571C31]/60 hover:text-[#571C31]'
@@ -264,7 +264,7 @@ export const ProfileView: React.FC<{ initialTab?: 'info' | 'services' | 'hours' 
         </button>
         <button
           onClick={() => setActiveTab('services')}
-          className={`py-3 px-4 text-sm font-semibold border-b-2 -mb-px transition-colors flex items-center gap-2 ${
+          className={`py-3 px-4 text-sm font-semibold whitespace-nowrap flex-shrink-0 border-b-2 -mb-px transition-colors flex items-center gap-2 ${
             activeTab === 'services'
               ? 'border-[#B82E5F] text-[#B82E5F]'
               : 'border-transparent text-[#571C31]/60 hover:text-[#571C31]'
@@ -277,7 +277,7 @@ export const ProfileView: React.FC<{ initialTab?: 'info' | 'services' | 'hours' 
         </button>
         <button
           onClick={() => setActiveTab('hours')}
-          className={`py-3 px-4 text-sm font-semibold border-b-2 -mb-px transition-colors ${
+          className={`py-3 px-4 text-sm font-semibold whitespace-nowrap flex-shrink-0 border-b-2 -mb-px transition-colors ${
             activeTab === 'hours'
               ? 'border-[#B82E5F] text-[#B82E5F]'
               : 'border-transparent text-[#571C31]/60 hover:text-[#571C31]'
@@ -287,7 +287,7 @@ export const ProfileView: React.FC<{ initialTab?: 'info' | 'services' | 'hours' 
         </button>
         <button
           onClick={() => setActiveTab('team')}
-          className={`py-3 px-4 text-sm font-semibold border-b-2 -mb-px transition-colors ${
+          className={`py-3 px-4 text-sm font-semibold whitespace-nowrap flex-shrink-0 border-b-2 -mb-px transition-colors ${
             activeTab === 'team'
               ? 'border-[#B82E5F] text-[#B82E5F]'
               : 'border-transparent text-[#571C31]/60 hover:text-[#571C31]'
@@ -384,6 +384,13 @@ export const ProfileView: React.FC<{ initialTab?: 'info' | 'services' | 'hours' 
                 </label>
                 <textarea
                   rows={4}
+                  ref={(el) => {
+                    // Crece con el texto para que la descripción se lea completa en pantallas angostas
+                    if (el) {
+                      el.style.height = 'auto';
+                      el.style.height = `${el.scrollHeight}px`;
+                    }
+                  }}
                   value={profileForm.description}
                   onChange={(e) => setProfileForm({ ...profileForm, description: e.target.value })}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-[#571C31]/20 bg-[#FFF8F9]/60 focus:bg-white focus:outline-none focus:border-[#B82E5F] text-sm leading-relaxed"

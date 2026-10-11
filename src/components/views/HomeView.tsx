@@ -203,7 +203,7 @@ export const HomeView: React.FC = () => {
           </div>
           <button
             onClick={() => setCurrentSection('content')}
-            className="text-xs font-bold text-[#B82E5F] hover:underline flex items-center gap-1"
+            className="text-xs font-bold text-[#B82E5F] hover:underline flex items-center gap-1 whitespace-nowrap flex-shrink-0"
           >
             <span>Ver portfolio</span>
             <ArrowRight className="w-3.5 h-3.5" />

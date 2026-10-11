@@ -140,7 +140,7 @@ export const StatsView: React.FC = () => {
 
       {/* FUNNEL DE CONVERSIÓN VISUAL */}
       <div className="space-y-4">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
           <h3 className=" text-lg font-bold text-[#181416]">
             Embudo de descubrimiento a reserva
           </h3>

@@ -212,7 +212,7 @@ export const ReviewsView: React.FC = () => {
                         Cita verificada
                       </span>
                     </div>
-                    <div className="flex items-center gap-2 text-xs text-[#571C31]/70 mt-0.5">
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-[#571C31]/70 mt-0.5">
                       <span>{rev.serviceName}</span>
                       <span>· Atendió: {rev.professionalName}</span>
                       <span>· {rev.date}</span>

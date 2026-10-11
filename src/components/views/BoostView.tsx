@@ -209,13 +209,13 @@ export const BoostView: React.FC = () => {
                   key={amount}
                   type="button"
                   onClick={() => setBudget(amount)}
-                  className={`p-4 rounded-2xl border-2 text-center transition-all ${
+                  className={`p-3 sm:p-4 rounded-2xl border-2 text-center transition-all ${
                     budget === amount
                       ? 'border-[#B82E5F] bg-[#FFF8F9] shadow-xs'
                       : 'border-[#571C31]/15 bg-white text-[#571C31]/70 hover:border-[#571C31]/30'
                   }`}
                 >
-                  <span className=" text-xl font-extrabold text-[#181416] block">
+                  <span className="text-lg sm:text-xl font-extrabold text-[#181416] block whitespace-nowrap">
                     ${amount}
                   </span>
                   <span className="text-[10px] text-[#571C31]/60">
