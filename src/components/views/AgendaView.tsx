@@ -6,7 +6,7 @@ import { Button } from '../common/Button';
 import { Badge } from '../common/Badge';
 import { Modal } from '../common/Modal';
 import { useToast } from '../../context/ToastContext';
-import { WEEKDAY_NAMES, addDays, formatWeekRange, relativeDayLabel, startOfWeek, toDateKey } from '../../utils/date';
+import { WEEKDAY_NAMES, addDays, formatDayLabel, formatWeekRange, relativeDayLabel, startOfWeek, toDateKey } from '../../utils/date';
 import { PlanLock } from '../common/PlanLock';
 import { hasPlan } from '../../data/plans';
 import {
@@ -48,8 +48,12 @@ export const AgendaView: React.FC = () => {
   // Semana visible: arranca en la semana de hoy y se navega con las flechas
   const today = new Date();
   const todayKey = toDateKey(today);
-  const [weekStart, setWeekStart] = useState(() => startOfWeek(new Date()));
+  // Día en foco: en celular se muestra ese día; en pantallas grandes, la semana que lo contiene
+  const [focusDate, setFocusDate] = useState(() => new Date());
+  const weekStart = startOfWeek(focusDate);
   const isCurrentWeek = toDateKey(weekStart) === toDateKey(startOfWeek(today));
+  const isFocusToday = toDateKey(focusDate) === todayKey;
+  const swipeStartX = React.useRef<number | null>(null);
   const hasGlowAgenda = hasPlan(businessProfile.plan, 'start_plus');
 
   const [activeTab, setActiveTab] = useState<'glow_agenda' | 'integrations'>('glow_agenda');
@@ -156,6 +160,43 @@ export const AgendaView: React.FC = () => {
     );
     setBlockModalOpen(false);
   };
+
+  const BOOKING_STYLES = {
+    confirmed: 'bg-[#FFF8F9] border-[#B82E5F]/30 text-[#181416]',
+    pending: 'bg-amber-50 border-amber-200 text-amber-900',
+    completed: 'bg-stone-50 border-stone-200 text-stone-700 opacity-70',
+    cancelled: 'bg-red-50 border-red-200 text-red-700 opacity-60 line-through',
+  };
+
+  const renderBookingCard = (b: Booking) => (
+    <div
+      key={b.id}
+      onClick={() => handleOpenNewBooking(b.date, b.time)}
+      className={`p-2.5 rounded-xl border text-left text-xs transition-all hover:shadow-xs cursor-pointer ${BOOKING_STYLES[b.status]}`}
+    >
+      <div className="flex items-center justify-between font-bold text-[11px] mb-1">
+        <span>{b.time} hs</span>
+        <span>${b.priceUYU}</span>
+      </div>
+      <p className="font-semibold text-xs truncate text-[#181416]">{b.clientName}</p>
+      <p className="text-[10px] text-[#571C31]/75 truncate">
+        {b.serviceName} ({b.professionalName})
+      </p>
+    </div>
+  );
+
+  const renderFreeSlot = (dateKey: string) => (
+    <button
+      type="button"
+      onClick={() => handleOpenNewBooking(dateKey, '15:00')}
+      className="w-full py-2 border border-dashed border-[#571C31]/20 hover:border-[#B82E5F] rounded-xl text-[11px] font-semibold text-[#571C31]/50 hover:text-[#B82E5F] hover:bg-[#FFF8F9] transition-colors"
+    >
+      + Turno
+    </button>
+  );
+
+  const focusKey = toDateKey(focusDate);
+  const focusBookings = bookings.filter((b) => b.date === focusKey);
 
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
@@ -267,12 +308,15 @@ export const AgendaView: React.FC = () => {
             </div>
           )}
 
-          {/* Calendario Semanal Visual */}
+          {/* Calendario: semana en pantallas grandes, un día a la vez en celular */}
           <Card className="p-0 overflow-hidden">
             {/* Header del calendario */}
             <div className="p-4 bg-[#FFF8F9] border-b border-[#571C31]/10 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <span className=" text-base font-bold text-[#181416]">
+                <span className="text-base font-bold text-[#181416] sm:hidden">
+                  {formatDayLabel(focusDate)}
+                </span>
+                <span className="text-base font-bold text-[#181416] hidden sm:inline">
                   {formatWeekRange(weekStart)}
                 </span>
                 <span className="text-xs text-[#571C31]/60 hidden sm:inline">
@@ -280,11 +324,41 @@ export const AgendaView: React.FC = () => {
                 </span>
               </div>
 
-              <div className="flex items-center gap-2">
+              {/* Flechas: de a un día en celular */}
+              <div className="flex items-center gap-2 sm:hidden">
+                {!isFocusToday && (
+                  <button
+                    type="button"
+                    onClick={() => setFocusDate(new Date())}
+                    className="px-3 py-1.5 rounded-lg border border-[#571C31]/15 hover:bg-[#F5DCE5]/40 text-xs font-semibold text-[#571C31]"
+                  >
+                    Hoy
+                  </button>
+                )}
+                <button
+                  type="button"
+                  aria-label="Día anterior"
+                  onClick={() => setFocusDate((d) => addDays(d, -1))}
+                  className="p-1.5 rounded-lg border border-[#571C31]/15 hover:bg-[#F5DCE5]/40 text-[#571C31]"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <button
+                  type="button"
+                  aria-label="Día siguiente"
+                  onClick={() => setFocusDate((d) => addDays(d, 1))}
+                  className="p-1.5 rounded-lg border border-[#571C31]/15 hover:bg-[#F5DCE5]/40 text-[#571C31]"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Flechas: de a una semana en pantallas grandes */}
+              <div className="hidden sm:flex items-center gap-2">
                 {!isCurrentWeek && (
                   <button
                     type="button"
-                    onClick={() => setWeekStart(startOfWeek(new Date()))}
+                    onClick={() => setFocusDate(new Date())}
                     className="px-3 py-1.5 rounded-lg border border-[#571C31]/15 hover:bg-[#F5DCE5]/40 text-xs font-semibold text-[#571C31]"
                   >
                     Hoy
@@ -293,7 +367,7 @@ export const AgendaView: React.FC = () => {
                 <button
                   type="button"
                   aria-label="Semana anterior"
-                  onClick={() => setWeekStart((w) => addDays(w, -7))}
+                  onClick={() => setFocusDate((d) => addDays(d, -7))}
                   className="p-1.5 rounded-lg border border-[#571C31]/15 hover:bg-[#F5DCE5]/40 text-[#571C31]"
                 >
                   <ChevronLeft className="w-4 h-4" />
@@ -301,7 +375,7 @@ export const AgendaView: React.FC = () => {
                 <button
                   type="button"
                   aria-label="Semana siguiente"
-                  onClick={() => setWeekStart((w) => addDays(w, 7))}
+                  onClick={() => setFocusDate((d) => addDays(d, 7))}
                   className="p-1.5 rounded-lg border border-[#571C31]/15 hover:bg-[#F5DCE5]/40 text-[#571C31]"
                 >
                   <ChevronRight className="w-4 h-4" />
@@ -309,8 +383,67 @@ export const AgendaView: React.FC = () => {
               </div>
             </div>
 
-            {/* Grid semanal */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 divide-x divide-y sm:divide-y-0 divide-[#571C31]/10 min-h-[420px] bg-white">
+            {/* Celular: tira de la semana + turnos del día elegido */}
+            <div className="sm:hidden bg-white">
+              <div className="grid grid-cols-7 border-b border-[#571C31]/10">
+                {WEEKDAY_NAMES.map((dayName, dayIndex) => {
+                  const dayDate = addDays(weekStart, dayIndex);
+                  const dayKey = toDateKey(dayDate);
+                  const isToday = dayKey === todayKey;
+                  const isSelected = dayKey === focusKey;
+                  const hasBookings = bookings.some((b) => b.date === dayKey);
+
+                  return (
+                    <button
+                      key={dayName}
+                      type="button"
+                      aria-label={formatDayLabel(dayDate)}
+                      aria-pressed={isSelected}
+                      onClick={() => setFocusDate(dayDate)}
+                      className={`py-2.5 flex flex-col items-center transition-colors ${
+                        isSelected ? 'bg-[#F5DCE5]/50' : 'hover:bg-[#FFF8F9]'
+                      }`}
+                    >
+                      <span className="text-[10px] font-bold text-[#571C31] uppercase tracking-wider">
+                        {dayName.slice(0, 3)}
+                      </span>
+                      <span
+                        className={`inline-flex items-center justify-center min-w-7 h-7 px-1 mt-0.5 rounded-full text-sm font-extrabold ${
+                          isToday ? 'bg-[#B82E5F] text-white' : 'text-[#181416]'
+                        }`}
+                      >
+                        {String(dayDate.getDate()).padStart(2, '0')}
+                      </span>
+                      <span
+                        className={`w-1 h-1 rounded-full mt-1 ${hasBookings ? 'bg-[#B82E5F]' : 'bg-transparent'}`}
+                      />
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div
+                className="p-3 min-h-[320px] space-y-2"
+                onTouchStart={(e) => {
+                  swipeStartX.current = e.touches[0].clientX;
+                }}
+                onTouchEnd={(e) => {
+                  if (swipeStartX.current === null) return;
+                  const dx = e.changedTouches[0].clientX - swipeStartX.current;
+                  swipeStartX.current = null;
+                  if (Math.abs(dx) > 60) setFocusDate((d) => addDays(d, dx < 0 ? 1 : -1));
+                }}
+              >
+                {focusBookings.length === 0 && (
+                  <p className="text-xs text-[#571C31]/60 text-center py-2">No hay turnos este día.</p>
+                )}
+                {focusBookings.map(renderBookingCard)}
+                {focusBookings.length < 3 && renderFreeSlot(focusKey)}
+              </div>
+            </div>
+
+            {/* Grid semanal (pantallas grandes) */}
+            <div className="hidden sm:grid sm:grid-cols-3 lg:grid-cols-7 divide-x divide-[#571C31]/10 min-h-[420px] bg-white">
               {WEEKDAY_NAMES.map((dayName, dayIndex) => {
                 const dayDate = addDays(weekStart, dayIndex);
                 const dayDateStr = toDateKey(dayDate);
@@ -336,42 +469,8 @@ export const AgendaView: React.FC = () => {
 
                       {/* Day Event Slots */}
                       <div className="space-y-2">
-                        {dayBookings.map((b) => {
-                          const statusStyles = {
-                            confirmed: 'bg-[#FFF8F9] border-[#B82E5F]/30 text-[#181416]',
-                            pending: 'bg-amber-50 border-amber-200 text-amber-900',
-                            completed: 'bg-stone-50 border-stone-200 text-stone-700 opacity-70',
-                            cancelled: 'bg-red-50 border-red-200 text-red-700 opacity-60 line-through',
-                          }[b.status];
-
-                          return (
-                            <div
-                              key={b.id}
-                              onClick={() => handleOpenNewBooking(b.date, b.time)}
-                              className={`p-2.5 rounded-xl border text-left text-xs transition-all hover:shadow-xs cursor-pointer ${statusStyles}`}
-                            >
-                              <div className="flex items-center justify-between font-bold text-[11px] mb-1">
-                                <span>{b.time} hs</span>
-                                <span>${b.priceUYU}</span>
-                              </div>
-                              <p className="font-semibold text-xs truncate text-[#181416]">{b.clientName}</p>
-                              <p className="text-[10px] text-[#571C31]/75 truncate">
-                                {b.serviceName} ({b.professionalName})
-                              </p>
-                            </div>
-                          );
-                        })}
-
-                        {/* Free Slot CTA */}
-                        {dayBookings.length < 3 && (
-                          <button
-                            type="button"
-                            onClick={() => handleOpenNewBooking(dayDateStr, '15:00')}
-                            className="w-full py-2 border border-dashed border-[#571C31]/20 hover:border-[#B82E5F] rounded-xl text-[11px] font-semibold text-[#571C31]/50 hover:text-[#B82E5F] hover:bg-[#FFF8F9] transition-colors"
-                          >
-                            + Turno
-                          </button>
-                        )}
+                        {dayBookings.map(renderBookingCard)}
+                        {dayBookings.length < 3 && renderFreeSlot(dayDateStr)}
                       </div>
                     </div>
                   </div>

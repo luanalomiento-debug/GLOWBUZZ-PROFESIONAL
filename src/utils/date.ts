@@ -38,3 +38,7 @@ export const relativeDayLabel = (dateKey: string, today: Date = new Date()): str
   const [y, m, d] = dateKey.split('-').map(Number);
   return `${d} de ${MONTHS[m - 1]}${y !== today.getFullYear() ? ` de ${y}` : ''}`;
 };
+
+/** "Sábado 10 de octubre" para mostrar un único día. */
+export const formatDayLabel = (d: Date): string =>
+  `${WEEKDAY_NAMES[(d.getDay() + 6) % 7]} ${d.getDate()} de ${MONTHS[d.getMonth()]}`;
