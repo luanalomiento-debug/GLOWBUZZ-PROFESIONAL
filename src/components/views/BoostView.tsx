@@ -209,7 +209,7 @@ export const BoostView: React.FC = () => {
                   key={amount}
                   type="button"
                   onClick={() => setBudget(amount)}
-                  className={`p-3 sm:p-4 rounded-2xl border-2 text-center transition-all ${
+                  className={`px-1.5 py-3 min-[360px]:px-3 sm:p-4 rounded-2xl border-2 text-center transition-all ${
                     budget === amount
                       ? 'border-[#B82E5F] bg-[#FFF8F9] shadow-xs'
                       : 'border-[#571C31]/15 bg-white text-[#571C31]/70 hover:border-[#571C31]/30'
@@ -343,7 +343,7 @@ export const BoostView: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {boostCampaigns.map((camp) => (
               <Card key={camp.id} className="p-4 flex items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 min-w-0">
                   <img
                     src={camp.targetImage}
                     alt={camp.targetTitle}
@@ -366,7 +366,7 @@ export const BoostView: React.FC = () => {
                   </div>
                 </div>
 
-                <Badge variant="success" size="sm">Activa ✓</Badge>
+                <Badge variant="success" size="sm" className="flex-shrink-0">Activa ✓</Badge>
               </Card>
             ))}
           </div>

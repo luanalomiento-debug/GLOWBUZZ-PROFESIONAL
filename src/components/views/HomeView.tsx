@@ -29,6 +29,9 @@ export const HomeView: React.FC = () => {
     setCurrentSection,
   } = useApp();
 
+  // El checklist de puesta a punto desaparece cuando ya está todo completo
+  const setupComplete = checklistProgress.completed >= checklistProgress.total;
+
   // Upcoming bookings (max 3 confirmed/pending)
   const upcomingBookings = bookings
     .filter((b) => b.status === 'confirmed' || b.status === 'pending')
@@ -76,7 +79,7 @@ export const HomeView: React.FC = () => {
       {/* Grid Principal: 2 Bloques */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* BLOQUE 1: Próximas reservas (5 cols en desktop) */}
-        <div className="lg:col-span-5 space-y-4">
+        <div className={`${setupComplete ? 'lg:col-span-12' : 'lg:col-span-5'} space-y-4`}>
           <div className="flex items-center justify-between">
             <h3 className=" text-lg font-bold text-[#181416] tracking-tight">
               Próximas reservas
@@ -130,64 +133,66 @@ export const HomeView: React.FC = () => {
         </div>
 
         {/* BLOQUE 2: Checklist interactiva "Terminá de preparar tu GlowBuzz" (7 cols) */}
-        <div className="lg:col-span-7 space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className=" text-lg font-bold text-[#181416] tracking-tight">
-              Terminá de preparar tu GlowBuzz
-            </h3>
-            <span className="text-xs font-bold text-[#571C31] bg-[#F5DCE5] px-2.5 py-1 rounded-full">
-              {checklistProgress.completed} de {checklistProgress.total} completados
-            </span>
-          </div>
-
-          <Card className="p-5">
-            {/* Barra de progreso */}
-            <div className="w-full h-2 bg-[#571C31]/10 rounded-full overflow-hidden mb-5">
-              <div
-                className="h-full bg-[#B82E5F] rounded-full transition-all duration-300"
-                style={{
-                  width: `${(checklistProgress.completed / checklistProgress.total) * 100}%`,
-                }}
-              />
+        {!setupComplete && (
+          <div className="lg:col-span-7 space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className=" text-lg font-bold text-[#181416] tracking-tight">
+                Terminá de preparar tu GlowBuzz
+              </h3>
+              <span className="text-xs font-bold text-[#571C31] bg-[#F5DCE5] px-2.5 py-1 rounded-full">
+                {checklistProgress.completed} de {checklistProgress.total} completados
+              </span>
             </div>
 
-            <div className="space-y-2.5">
-              {checklistProgress.tasks.map((task) => (
-                <button
-                  key={task.id}
-                  onClick={() => setCurrentSection(task.targetSection)}
-                  className={`w-full flex items-center justify-between p-3 rounded-xl border text-left transition-all ${
-                    task.done
-                      ? 'bg-[#FFF8F9]/40 border-[#571C31]/10 text-[#181416]/70'
-                      : 'bg-white border-[#B82E5F]/30 hover:border-[#B82E5F] hover:bg-[#FFF8F9] text-[#181416] shadow-2xs'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    {task.done ? (
-                      <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                    ) : (
-                      <Circle className="w-5 h-5 text-[#B82E5F] flex-shrink-0" />
+            <Card className="p-5">
+              {/* Barra de progreso */}
+              <div className="w-full h-2 bg-[#571C31]/10 rounded-full overflow-hidden mb-5">
+                <div
+                  className="h-full bg-[#B82E5F] rounded-full transition-all duration-300"
+                  style={{
+                    width: `${(checklistProgress.completed / checklistProgress.total) * 100}%`,
+                  }}
+                />
+              </div>
+
+              <div className="space-y-2.5">
+                {checklistProgress.tasks.map((task) => (
+                  <button
+                    key={task.id}
+                    onClick={() => setCurrentSection(task.targetSection)}
+                    className={`w-full flex items-center justify-between p-3 rounded-xl border text-left transition-all ${
+                      task.done
+                        ? 'bg-[#FFF8F9]/40 border-[#571C31]/10 text-[#181416]/70'
+                        : 'bg-white border-[#B82E5F]/30 hover:border-[#B82E5F] hover:bg-[#FFF8F9] text-[#181416] shadow-2xs'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      {task.done ? (
+                        <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                      ) : (
+                        <Circle className="w-5 h-5 text-[#B82E5F] flex-shrink-0" />
+                      )}
+                      <span
+                        className={`text-xs sm:text-sm font-medium ${
+                          task.done ? 'line-through text-[#571C31]/50' : 'text-[#181416] font-semibold'
+                        }`}
+                      >
+                        {task.title}
+                      </span>
+                    </div>
+
+                    {!task.done && (
+                      <span className="text-xs font-bold text-[#B82E5F] flex items-center gap-1">
+                        <span>Completar</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </span>
                     )}
-                    <span
-                      className={`text-xs sm:text-sm font-medium ${
-                        task.done ? 'line-through text-[#571C31]/50' : 'text-[#181416] font-semibold'
-                      }`}
-                    >
-                      {task.title}
-                    </span>
-                  </div>
-
-                  {!task.done && (
-                    <span className="text-xs font-bold text-[#B82E5F] flex items-center gap-1">
-                      <span>Completar</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </span>
-                  )}
-                </button>
-              ))}
-            </div>
-          </Card>
-        </div>
+                  </button>
+                ))}
+              </div>
+            </Card>
+          </div>
+        )}
       </div>
 
       {/* BLOQUE 3: "Tus trabajos con mejor rendimiento" (máximo 3 cards) */}
