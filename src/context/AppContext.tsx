@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useMemo } from 'react';
+import React, { createContext, useContext, useState, useEffect, useMemo, useRef } from 'react';
 import {
   BusinessProfile,
   Service,
@@ -25,6 +25,8 @@ import {
 } from '../data/initialData';
 import { loadFromStorage, saveToStorage } from '../utils/storage';
 import { PLANS } from '../data/plans';
+import { canPublish, fetchRemoteBookings, publishBusiness } from '../lib/sync';
+import { useToast } from './ToastContext';
 
 interface AppContextType {
   // State
@@ -232,6 +234,49 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   useEffect(() => {
     saveToStorage(STORAGE_KEYS.BOOST, boostCampaigns);
   }, [boostCampaigns]);
+
+  // --- Conexión con la app de usuarias (Supabase) ---
+  const { showToast } = useToast();
+  const bookingsRef = useRef(bookings);
+  bookingsRef.current = bookings;
+
+  // Publica el catálogo y las reservas poco después de cada cambio.
+  useEffect(() => {
+    if (!businessProfile.onboardingCompleted || !canPublish()) return;
+    const timer = setTimeout(() => {
+      void publishBusiness({ profile: businessProfile, services, portfolio, bookings, reviews });
+    }, 1200);
+    return () => clearTimeout(timer);
+  }, [businessProfile, services, portfolio, bookings, reviews]);
+
+  // Trae las reservas que hacen las usuarias.
+  useEffect(() => {
+    let cancelled = false;
+    const pull = async () => {
+      const remote = await fetchRemoteBookings();
+      if (!remote || cancelled) return;
+      const known = new Set(bookingsRef.current.map((b) => b.id));
+      const fresh = remote.filter((b) => !known.has(b.id));
+      if (fresh.length === 0) return;
+      setBookings((prev) => {
+        const ids = new Set(prev.map((b) => b.id));
+        return [...fresh.filter((b) => !ids.has(b.id)), ...prev];
+      });
+      if (fresh.length === 1) {
+        const [b] = fresh;
+        showToast('Nueva reserva desde GlowBuzz', `${b.clientName} reservó ${b.serviceName} · ${b.date} ${b.time} hs`, 'success');
+      } else {
+        showToast('Nuevas reservas desde GlowBuzz', `Llegaron ${fresh.length} reservas nuevas.`, 'success');
+      }
+    };
+    void pull();
+    const interval = setInterval(pull, 8000);
+    return () => {
+      cancelled = true;
+      clearInterval(interval);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Profile actions
   const updateProfile = (updates: Partial<BusinessProfile>) => {
