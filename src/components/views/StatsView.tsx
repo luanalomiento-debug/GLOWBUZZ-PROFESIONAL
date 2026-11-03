@@ -27,62 +27,44 @@ export const StatsView: React.FC = () => {
   const [timeRange, setTimeRange] = useState<'7d' | '30d' | '3m'>('30d');
   const hasAdvancedStats = hasPlan(businessProfile.plan, 'boost');
 
+  // Cifras reales de la cuenta, en el período elegido.
+  const { bookings, portfolio } = useApp();
+  const days = timeRange === '7d' ? 7 : timeRange === '30d' ? 30 : 90;
+  const since = new Date();
+  since.setDate(since.getDate() - days);
+  const sinceKey = `${since.getFullYear()}-${String(since.getMonth() + 1).padStart(2, '0')}-${String(since.getDate()).padStart(2, '0')}`;
+  const inRange = bookings.filter((b) => b.status !== 'cancelled' && b.date >= sinceKey);
+  const earned = inRange.filter((b) => b.status === 'confirmed' || b.status === 'completed');
+  const generated = earned.reduce((sum, b) => sum + b.priceUYU, 0);
+  const firstVisitByClient = new Map<string, string>();
+  bookings
+    .filter((b) => b.status !== 'cancelled')
+    .forEach((b) => {
+      const key = (b.clientPhone || b.clientEmail || b.clientName).trim().toLowerCase();
+      const prev = firstVisitByClient.get(key);
+      if (!prev || b.date < prev) firstVisitByClient.set(key, b.date);
+    });
+  const newClients = [...firstVisitByClient.values()].filter((d) => d >= sinceKey).length;
+  const totalViews = portfolio.reduce((sum, w) => sum + w.views, 0);
+  const totalSaves = portfolio.reduce((sum, w) => sum + w.saves, 0);
+  const fmt = (n: number) => n.toLocaleString('es-UY');
+  const pct = (part: number, whole: number) => (whole > 0 ? `${Math.round((part / whole) * 100)}%` : '—');
+
+  // Las visitas, impresiones y clics todavía no se registran: se muestran en cero hasta que existan.
   const statsData = {
-    '7d': {
-      views: '342',
-      impressions: '1.240',
-      profileVisits: '48',
-      saves: '32',
-      serviceClicks: '64',
-      intentClicks: '11',
-      bookings: '5',
-      newClients: '4',
-      conversionRate: '10.4%',
-      generatedUYU: '$11.200',
-      funnel: {
-        views: 342,
-        visits: 48,
-        intent: 11,
-        bookings: 5,
-      },
-    },
-    '30d': {
-      views: '1.284',
-      impressions: '5.920',
-      profileVisits: '173',
-      saves: '142',
-      serviceClicks: '286',
-      intentClicks: '38',
-      bookings: '18',
-      newClients: '12',
-      conversionRate: '10.4%',
-      generatedUYU: '$43.600',
-      funnel: {
-        views: 1284,
-        visits: 173,
-        intent: 38,
-        bookings: 18,
-      },
-    },
-    '3m': {
-      views: '4.180',
-      impressions: '18.400',
-      profileVisits: '530',
-      saves: '410',
-      serviceClicks: '890',
-      intentClicks: '115',
-      bookings: '54',
-      newClients: '39',
-      conversionRate: '10.2%',
-      generatedUYU: '$128.400',
-      funnel: {
-        views: 4180,
-        visits: 530,
-        intent: 115,
-        bookings: 54,
-      },
-    },
-  }[timeRange];
+    views: fmt(totalViews),
+    impressions: '0',
+    profileVisits: '0',
+    saves: fmt(totalSaves),
+    serviceClicks: '0',
+    intentClicks: '0',
+    bookings: fmt(inRange.length),
+    newClients: fmt(newClients),
+    conversionRate: '—',
+    generatedUYU: `$${fmt(generated)}`,
+    averageTicket: earned.length ? `$${fmt(Math.round(generated / earned.length))}` : '—',
+    funnel: { views: totalViews, visits: 0, intent: 0, bookings: inRange.length },
+  };
 
   return (
     <div className="space-y-8 animate-in fade-in duration-200">
@@ -145,7 +127,7 @@ export const StatsView: React.FC = () => {
             Embudo de descubrimiento a reserva
           </h3>
           <span className="text-xs text-[#571C31]/70">
-            De cada 100 visitas, ~10 reservan
+            {statsData.funnel.visits > 0 ? `De cada 100 visitas, ~${Math.round((statsData.funnel.bookings / statsData.funnel.visits) * 100)} reservan` : 'Todavía sin visitas registradas'}
           </span>
         </div>
 
@@ -166,7 +148,7 @@ export const StatsView: React.FC = () => {
               </div>
               <div className="mt-4 pt-3 border-t border-[#571C31]/10 text-[11px] text-[#B82E5F] font-bold flex items-center justify-between">
                 <span>Pasa al perfil</span>
-                <span>{((statsData.funnel.visits / statsData.funnel.views) * 100).toFixed(0)}%</span>
+                <span>{pct(statsData.funnel.visits, statsData.funnel.views)}</span>
               </div>
             </div>
 
@@ -185,7 +167,7 @@ export const StatsView: React.FC = () => {
               </div>
               <div className="mt-4 pt-3 border-t border-[#571C31]/10 text-[11px] text-[#B82E5F] font-bold flex items-center justify-between">
                 <span>Intención de turno</span>
-                <span>{((statsData.funnel.intent / statsData.funnel.visits) * 100).toFixed(0)}%</span>
+                <span>{pct(statsData.funnel.intent, statsData.funnel.visits)}</span>
               </div>
             </div>
 
@@ -204,7 +186,7 @@ export const StatsView: React.FC = () => {
               </div>
               <div className="mt-4 pt-3 border-t border-[#571C31]/10 text-[11px] text-[#B82E5F] font-bold flex items-center justify-between">
                 <span>Confirmación final</span>
-                <span>{((statsData.funnel.bookings / statsData.funnel.intent) * 100).toFixed(0)}%</span>
+                <span>{pct(statsData.funnel.bookings, statsData.funnel.intent)}</span>
               </div>
             </div>
 
@@ -218,11 +200,11 @@ export const StatsView: React.FC = () => {
                   {statsData.funnel.bookings}
                 </p>
                 <p className="text-xs text-[#571C31] mt-0.5">
-                  Turnos confirmados en Pocitos
+                  Reservas del período
                 </p>
               </div>
               <div className="mt-4 pt-3 border-t border-[#B82E5F]/20 text-[11px] text-[#571C31] font-bold">
-                ✓ Valor medio: $880 UYU
+                ✓ Valor medio: {statsData.averageTicket === '—' ? 'sin datos todavía' : `${statsData.averageTicket} UYU`}
               </div>
             </div>
           </div>
@@ -244,7 +226,7 @@ export const StatsView: React.FC = () => {
           <MetricCard
             label="Impresiones en búsquedas"
             value={statsData.impressions}
-            subtitle="Resultados en Pocitos y Montevideo"
+            subtitle="Resultados de búsqueda en tu zona"
           />
           <MetricCard
             label="Visitas directas al perfil"
@@ -296,7 +278,7 @@ export const StatsView: React.FC = () => {
           <MetricCard
             label="Tasa de conversión global"
             value={statsData.conversionRate}
-            subtitle="Por encima de la media (7.2%)"
+            subtitle="Reservas sobre visitas al perfil"
             locked={!hasAdvancedStats}
           />
         </div>

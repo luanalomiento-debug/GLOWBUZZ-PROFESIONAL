@@ -140,7 +140,7 @@ export const AgendaView: React.FC = () => {
     publishReleasedSlot(bookingId);
     showToast(
       'Este horario ya puede ser descubierto en GlowBuzz',
-      'Las clientas que buscan citas de último momento en Pocitos verán este turno destacado.',
+      'Las clientas que buscan citas de último momento en tu zona verán este turno destacado.',
       'success'
     );
   };
@@ -323,7 +323,7 @@ export const AgendaView: React.FC = () => {
                   {formatWeekRange(weekStart)}
                 </span>
                 <span className="text-xs text-[#571C31]/60 hidden sm:inline">
-                  (Pocitos · Horario activo)
+                  ({businessProfile.location || 'Tu negocio'} · Horario activo)
                 </span>
               </div>
 

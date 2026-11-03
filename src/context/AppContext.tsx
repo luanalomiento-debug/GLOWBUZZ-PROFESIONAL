@@ -12,21 +12,20 @@ import {
   DashboardSection,
   PlanType,
 } from '../types';
-import {
-  INITIAL_BUSINESS_PROFILE,
-  INITIAL_SERVICES,
-  INITIAL_TEAM,
-  INITIAL_PORTFOLIO,
-  INITIAL_BOOKINGS,
-  INITIAL_CLIENTS,
-  INITIAL_REVIEWS,
-  INITIAL_INTEGRATIONS,
-  INITIAL_BOOST_CAMPAIGNS,
-} from '../data/initialData';
 import { loadFromStorage, saveToStorage } from '../utils/storage';
-import { PLANS } from '../data/plans';
-import { canPublish, fetchRemoteBookings, publishBusiness, resetRemoteBookings } from '../lib/sync';
+import type { User } from '@supabase/supabase-js';
+import { buildEmptyProfile, EMPTY_INTEGRATIONS } from '../data/emptyState';
+import {
+  canPublish,
+  fetchRemoteBookings,
+  loadBusinessState,
+  publishBusiness,
+  saveBusinessState,
+  type PersistedState,
+} from '../lib/sync';
 import { useToast } from './ToastContext';
+import { deriveClients } from '../lib/clients';
+import { LoadingScreen } from '../components/common/LoadingScreen';
 
 interface AppContextType {
   // State
@@ -88,172 +87,113 @@ interface AppContextType {
 
   switchPlan: (plan: PlanType) => void;
   completeOnboarding: () => void;
-  restartOnboarding: () => void;
-  resetAllDemoData: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
-const STORAGE_KEYS = {
-  PROFILE: 'glowbuzz_business_profile_v1',
-  SERVICES: 'glowbuzz_services_v1',
-  PORTFOLIO: 'glowbuzz_portfolio_v1',
-  BOOKINGS: 'glowbuzz_bookings_v1',
-  TEAM: 'glowbuzz_team_v1',
-  CLIENTS: 'glowbuzz_clients_v1',
-  REVIEWS: 'glowbuzz_reviews_v1',
-  INTEGRATIONS: 'glowbuzz_integrations_v1',
-  BOOST: 'glowbuzz_boost_v1',
-};
+/** Copia local de los datos de cada cuenta (la fuente de verdad es Supabase). */
+const storageKey = (userId: string, name: string): string => `glowbuzz_business:${userId}:${name}`;
 
-/** Foto de demo (enlace o ruta incluida en la app). Las que sube la usuaria son data URLs y no se tocan. */
-const isShippedImage = (value: unknown): boolean =>
-  typeof value === 'string' && value !== '' && !value.startsWith('data:');
+export const AppProvider: React.FC<{ user: User; children: React.ReactNode }> = ({ user, children }) => {
+  const userId = user.id;
+  const meta = (user.user_metadata ?? {}) as { owner_name?: string; owner_last_name?: string; phone?: string };
 
-/**
- * Datos guardados antes de un cambio de fotos: reemplaza solo las fotos de demo por las de los datos
- * iniciales (mismo id) y conserva todo lo que la usuaria haya editado.
- */
-const refreshLegacyImages = <T extends { id: string }>(stored: T[], initial: T[], fields: (keyof T)[]): T[] =>
-  stored.map((item) => {
-    const base = initial.find((candidate) => candidate.id === item.id);
-    if (!base) return item;
-    const patch: Partial<T> = {};
-    fields.forEach((field) => {
-      if (isShippedImage(item[field])) patch[field] = base[field];
-    });
-    return { ...item, ...patch };
-  });
-
-/** Datos de la demo anterior ("Berna Studio"): si siguen sin editar, se pasan al nombre actual. */
-const LEGACY_PROFILE_VALUES: Partial<Record<keyof BusinessProfile, string>> = {
-  name: 'Berna Studio',
-  ownerName: 'Berna',
-  email: 'hola@bernastudio.uy',
-  instagram: '@berna.studio.uy',
-  tiktok: '@bernastudio',
-};
-
-const renameLegacyProfile = (stored: BusinessProfile): BusinessProfile => {
-  const patch: Partial<BusinessProfile> = {};
-  (Object.keys(LEGACY_PROFILE_VALUES) as (keyof BusinessProfile)[]).forEach((field) => {
-    if (stored[field] === LEGACY_PROFILE_VALUES[field]) {
-      (patch as Record<string, unknown>)[field] = INITIAL_BUSINESS_PROFILE[field];
-    }
-  });
-  return { ...stored, ...patch };
-};
-
-export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // State initialization with localStorage fallback
-  const [businessProfile, setBusinessProfile] = useState<BusinessProfile>(() => {
-    const stored = renameLegacyProfile(
-      loadFromStorage<BusinessProfile>(STORAGE_KEYS.PROFILE, INITIAL_BUSINESS_PROFILE)
-    );
-    // Migración: el antiguo plan 'pro' pasa a ser Glow Boost; cualquier valor desconocido vuelve a Glow Start.
-    const plan = (stored.plan as string) === 'pro' ? 'boost' : stored.plan;
-    const billingCycle = stored.billingCycle === 'annual' ? 'annual' : 'monthly';
-    const images = {
-      avatarUrl: isShippedImage(stored.avatarUrl) ? INITIAL_BUSINESS_PROFILE.avatarUrl : stored.avatarUrl,
-      coverUrl: isShippedImage(stored.coverUrl) ? INITIAL_BUSINESS_PROFILE.coverUrl : stored.coverUrl,
-    };
-    return PLANS.some((p) => p.id === plan)
-      ? { ...stored, ...images, plan, billingCycle }
-      : { ...stored, ...images, plan: 'start', billingCycle };
-  });
-
-  const [services, setServices] = useState<Service[]>(() =>
-    loadFromStorage(STORAGE_KEYS.SERVICES, INITIAL_SERVICES)
+  // Estado inicial: la copia local de esta cuenta o, si es nueva, todo vacío.
+  const [businessProfile, setBusinessProfile] = useState<BusinessProfile>(() =>
+    loadFromStorage(
+      storageKey(userId, 'profile'),
+      buildEmptyProfile(userId, {
+        email: user.email ?? '',
+        ownerName: meta.owner_name,
+        ownerLastName: meta.owner_last_name,
+        phone: meta.phone,
+      })
+    )
   );
-
-  const [portfolio, setPortfolio] = useState<PortfolioWork[]>(() =>
-    refreshLegacyImages(loadFromStorage(STORAGE_KEYS.PORTFOLIO, INITIAL_PORTFOLIO), INITIAL_PORTFOLIO, ['imageUrl'])
-  );
-
-  const [bookings, setBookings] = useState<Booking[]>(() =>
-    loadFromStorage(STORAGE_KEYS.BOOKINGS, INITIAL_BOOKINGS)
-  );
-
-  const [team, setTeam] = useState<TeamMember[]>(() =>
-    refreshLegacyImages(loadFromStorage(STORAGE_KEYS.TEAM, INITIAL_TEAM), INITIAL_TEAM, ['avatarUrl'])
-  );
-
-  const [clients, setClients] = useState<Client[]>(() =>
-    refreshLegacyImages(loadFromStorage(STORAGE_KEYS.CLIENTS, INITIAL_CLIENTS), INITIAL_CLIENTS, ['avatarUrl'])
-  );
-
-  const [reviews, setReviews] = useState<Review[]>(() =>
-    refreshLegacyImages(loadFromStorage(STORAGE_KEYS.REVIEWS, INITIAL_REVIEWS), INITIAL_REVIEWS, ['clientAvatar', 'clientPhotoUrl'])
-  );
-
+  const [services, setServices] = useState<Service[]>(() => loadFromStorage(storageKey(userId, 'services'), []));
+  const [portfolio, setPortfolio] = useState<PortfolioWork[]>(() => loadFromStorage(storageKey(userId, 'portfolio'), []));
+  const [bookings, setBookings] = useState<Booking[]>(() => loadFromStorage(storageKey(userId, 'bookings'), []));
+  const [team, setTeam] = useState<TeamMember[]>(() => loadFromStorage(storageKey(userId, 'team'), []));
+  const [reviews, setReviews] = useState<Review[]>(() => loadFromStorage(storageKey(userId, 'reviews'), []));
   const [integrations, setIntegrations] = useState<ExternalAgendaIntegration[]>(() =>
-    loadFromStorage(STORAGE_KEYS.INTEGRATIONS, INITIAL_INTEGRATIONS)
+    loadFromStorage(storageKey(userId, 'integrations'), EMPTY_INTEGRATIONS)
   );
-
   const [boostCampaigns, setBoostCampaigns] = useState<GlowBoostCampaign[]>(() =>
-    refreshLegacyImages(loadFromStorage(STORAGE_KEYS.BOOST, INITIAL_BOOST_CAMPAIGNS), INITIAL_BOOST_CAMPAIGNS, ['targetImage', 'targetSubtitle'])
+    loadFromStorage(storageKey(userId, 'boost'), [])
   );
 
   const [currentSection, setCurrentSection] = useState<DashboardSection>('home');
-  const [onboardingStep, setOnboardingStep] = useState<number>(1);
+  const [onboardingStep, setOnboardingStep] = useState<number>(3);
   const [previewAsClientModalOpen, setPreviewAsClientModalOpen] = useState<boolean>(false);
 
-  // Sync to storage on change
-  useEffect(() => {
-    saveToStorage(STORAGE_KEYS.PROFILE, businessProfile);
-  }, [businessProfile]);
-
-  useEffect(() => {
-    saveToStorage(STORAGE_KEYS.SERVICES, services);
-  }, [services]);
-
-  useEffect(() => {
-    saveToStorage(STORAGE_KEYS.PORTFOLIO, portfolio);
-  }, [portfolio]);
-
-  useEffect(() => {
-    saveToStorage(STORAGE_KEYS.BOOKINGS, bookings);
-  }, [bookings]);
-
-  useEffect(() => {
-    saveToStorage(STORAGE_KEYS.TEAM, team);
-  }, [team]);
-
-  useEffect(() => {
-    saveToStorage(STORAGE_KEYS.CLIENTS, clients);
-  }, [clients]);
-
-  useEffect(() => {
-    saveToStorage(STORAGE_KEYS.REVIEWS, reviews);
-  }, [reviews]);
-
-  useEffect(() => {
-    saveToStorage(STORAGE_KEYS.INTEGRATIONS, integrations);
-  }, [integrations]);
-
-  useEffect(() => {
-    saveToStorage(STORAGE_KEYS.BOOST, boostCampaigns);
-  }, [boostCampaigns]);
-
-  // --- Conexión con la app de usuarias (Supabase) ---
+  // --- Datos de la cuenta: copia local + Supabase ---
   const { showToast } = useToast();
+  const [hydrated, setHydrated] = useState(false);
+
+  // Las clientas salen de las reservas: no hay que cargarlas a mano.
+  const clients = useMemo(() => deriveClients(bookings), [bookings]);
   const bookingsRef = useRef(bookings);
   bookingsRef.current = bookings;
 
-  // Publica el catálogo y las reservas poco después de cada cambio.
-  useEffect(() => {
-    if (!businessProfile.onboardingCompleted || !canPublish()) return;
-    const timer = setTimeout(() => {
-      void publishBusiness({ profile: businessProfile, services, portfolio, bookings, reviews });
-    }, 1200);
-    return () => clearTimeout(timer);
-  }, [businessProfile, services, portfolio, bookings, reviews]);
+  // Copia local (rápida y sirve sin conexión).
+  useEffect(() => saveToStorage(storageKey(userId, 'profile'), businessProfile), [userId, businessProfile]);
+  useEffect(() => saveToStorage(storageKey(userId, 'services'), services), [userId, services]);
+  useEffect(() => saveToStorage(storageKey(userId, 'portfolio'), portfolio), [userId, portfolio]);
+  useEffect(() => saveToStorage(storageKey(userId, 'bookings'), bookings), [userId, bookings]);
+  useEffect(() => saveToStorage(storageKey(userId, 'team'), team), [userId, team]);
+  useEffect(() => saveToStorage(storageKey(userId, 'reviews'), reviews), [userId, reviews]);
+  useEffect(() => saveToStorage(storageKey(userId, 'integrations'), integrations), [userId, integrations]);
+  useEffect(() => saveToStorage(storageKey(userId, 'boost'), boostCampaigns), [userId, boostCampaigns]);
 
-  // Trae las reservas que hacen las usuarias.
+  // Al entrar: se trae lo guardado en la cuenta (así se ve igual desde cualquier dispositivo).
   useEffect(() => {
     let cancelled = false;
+    (async () => {
+      const [saved, remoteBookings] = await Promise.all([loadBusinessState(userId), fetchRemoteBookings(userId)]);
+      if (cancelled) return;
+      if (saved.ok && saved.state) {
+        const st = saved.state;
+        if (st.businessProfile) setBusinessProfile({ ...buildEmptyProfile(userId, { email: user.email ?? '' }), ...st.businessProfile, email: user.email ?? st.businessProfile.email });
+        if (st.services) setServices(st.services);
+        if (st.portfolio) setPortfolio(st.portfolio);
+        if (st.team) setTeam(st.team as TeamMember[]);
+        if (st.reviews) setReviews(st.reviews);
+        if (st.integrations) setIntegrations(st.integrations as ExternalAgendaIntegration[]);
+        if (st.boostCampaigns) setBoostCampaigns(st.boostCampaigns as GlowBoostCampaign[]);
+      }
+      if (remoteBookings) {
+        // Las reservas de la base mandan; se conservan las locales que todavía no se subieron.
+        setBookings((local) => {
+          const remoteIds = new Set(remoteBookings.map((b) => b.id));
+          return [...remoteBookings, ...local.filter((b) => !remoteIds.has(b.id))];
+        });
+      }
+      setHydrated(true);
+    })();
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userId]);
+
+  // Guarda en la cuenta y publica el catálogo poco después de cada cambio.
+  useEffect(() => {
+    if (!hydrated) return;
+    const timer = setTimeout(() => {
+      void saveBusinessState(userId, { businessProfile, services, portfolio, team, reviews, integrations, boostCampaigns });
+      if (businessProfile.onboardingCompleted && canPublish()) {
+        void publishBusiness({ userId, profile: businessProfile, services, portfolio, bookings, reviews });
+      }
+    }, 1200);
+    return () => clearTimeout(timer);
+  }, [hydrated, userId, businessProfile, services, portfolio, team, reviews, integrations, boostCampaigns, bookings]);
+
+  // Trae las reservas nuevas que hacen las usuarias.
+  useEffect(() => {
+    if (!hydrated) return;
+    let cancelled = false;
     const pull = async () => {
-      const remote = await fetchRemoteBookings();
+      const remote = await fetchRemoteBookings(userId);
       if (!remote || cancelled) return;
       const known = new Set(bookingsRef.current.map((b) => b.id));
       const fresh = remote.filter((b) => !known.has(b.id));
@@ -269,14 +209,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         showToast('Nuevas reservas desde GlowBuzz', `Llegaron ${fresh.length} reservas nuevas.`, 'success');
       }
     };
-    void pull();
     const interval = setInterval(pull, 8000);
     return () => {
       cancelled = true;
       clearInterval(interval);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [hydrated, userId]);
 
   // Profile actions
   const updateProfile = (updates: Partial<BusinessProfile>) => {
@@ -432,26 +371,27 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const completeOnboarding = () => {
     setBusinessProfile((prev) => ({ ...prev, onboardingCompleted: true }));
-    setCurrentSection('home');
-  };
-
-  const restartOnboarding = () => {
-    setBusinessProfile((prev) => ({ ...prev, onboardingCompleted: false }));
-    setOnboardingStep(1);
-  };
-
-  const resetAllDemoData = () => {
-    setBusinessProfile(INITIAL_BUSINESS_PROFILE);
-    setServices(INITIAL_SERVICES);
-    setPortfolio(INITIAL_PORTFOLIO);
-    setBookings(INITIAL_BOOKINGS);
-    // Sin esto, las reservas guardadas en la base volverían a aparecer solas.
-    if (canPublish()) void resetRemoteBookings(INITIAL_BOOKINGS.map((b) => b.id));
-    setTeam(INITIAL_TEAM);
-    setClients(INITIAL_CLIENTS);
-    setReviews(INITIAL_REVIEWS);
-    setIntegrations(INITIAL_INTEGRATIONS);
-    setBoostCampaigns(INITIAL_BOOST_CAMPAIGNS);
+    // La dueña es la primera profesional del equipo: los servicios y turnos se asignan a alguien.
+    setTeam((prev) =>
+      prev.length > 0
+        ? prev
+        : [
+            {
+              id: `team_${userId}`,
+              name: businessProfile.ownerName || 'Profesional',
+              role: 'Administrador',
+              specialty: businessProfile.categories[0] ?? 'Profesional',
+              avatarUrl: '',
+              services: [],
+              rating: 0,
+              totalReviews: 0,
+              totalBookings: 0,
+              activeAppointments: 0,
+              portfolioCount: 0,
+              schedule: 'Según el horario del negocio',
+            },
+          ]
+    );
     setCurrentSection('home');
   };
 
@@ -558,11 +498,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         activateBoost,
         switchPlan,
         completeOnboarding,
-        restartOnboarding,
-        resetAllDemoData,
       }}
     >
-      {children}
+      {hydrated ? children : <LoadingScreen />}
     </AppContext.Provider>
   );
 };

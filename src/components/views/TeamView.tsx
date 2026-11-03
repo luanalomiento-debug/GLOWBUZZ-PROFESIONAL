@@ -165,11 +165,13 @@ export const TeamView: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-1.5 flex-shrink-0 bg-[#FFF8F9] px-2.5 py-1 rounded-xl border border-[#571C31]/10 text-xs font-bold text-[#571C31]">
-                  <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-                  <span>{member.rating}</span>
-                  <span className="text-stone-400 font-normal">({member.totalReviews})</span>
-                </div>
+                {member.totalReviews > 0 && (
+                  <div className="flex items-center gap-1.5 flex-shrink-0 bg-[#FFF8F9] px-2.5 py-1 rounded-xl border border-[#571C31]/10 text-xs font-bold text-[#571C31]">
+                    <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+                    <span>{member.rating}</span>
+                    <span className="text-stone-400 font-normal">({member.totalReviews})</span>
+                  </div>
+                )}
               </div>
 
               {/* Métricas del miembro */}

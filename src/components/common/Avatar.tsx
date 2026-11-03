@@ -24,7 +24,7 @@ export const Avatar: React.FC<AvatarProps> = ({ src, name, className = 'w-10 h-1
       <div
         role="img"
         aria-label={name}
-        className={`${className} bg-[#F5DCE5] text-[#571C31] flex items-center justify-center text-xs font-bold flex-shrink-0 select-none`}
+        className={`${className} ${/(^|\s)text-/.test(className) ? '' : 'text-xs'} bg-[#F5DCE5] text-[#571C31] flex items-center justify-center font-bold flex-shrink-0 select-none`}
       >
         {initialsOf(name)}
       </div>

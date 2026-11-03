@@ -6,6 +6,7 @@ import { Badge } from '../common/Badge';
 import { Tabs } from '../common/Tabs';
 import { BillingView } from './BillingView';
 import { useToast } from '../../context/ToastContext';
+import { useAuth } from '../../context/AuthContext';
 import {
   User,
   Bell,
@@ -24,11 +25,10 @@ export const SettingsView: React.FC = () => {
   const {
     businessProfile,
     updateProfile,
-    restartOnboarding,
-    resetAllDemoData,
     setCurrentSection,
   } = useApp();
   const { showToast } = useToast();
+  const { signOut } = useAuth();
 
   const [activeTab, setActiveTab] = useState<'account' | 'notifications' | 'integrations' | 'privacy' | 'billing'>('account');
 
@@ -54,7 +54,6 @@ export const SettingsView: React.FC = () => {
     updateProfile({
       ownerName: accountForm.ownerName,
       ownerLastName: accountForm.ownerLastName,
-      email: accountForm.email,
       phone: accountForm.phone,
     });
     showToast('Ajustes guardados', 'Tus datos de cuenta fueron actualizados.', 'success');
@@ -122,9 +121,11 @@ export const SettingsView: React.FC = () => {
               <input
                 type="email"
                 value={accountForm.email}
-                onChange={(e) => setAccountForm({ ...accountForm, email: e.target.value })}
-                className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-sm"
+                readOnly
+                aria-readonly="true"
+                className="w-full px-3 py-2 rounded-xl border border-[#571C31]/10 bg-[#FFF8F9] text-sm text-[#571C31]/70 cursor-default"
               />
+              <p className="text-[11px] text-[#571C31]/60 mt-1">Es el email con el que iniciás sesión.</p>
             </div>
 
             <div>
@@ -146,43 +147,22 @@ export const SettingsView: React.FC = () => {
             </div>
           </Card>
 
-          {/* Sesión y Demo Controls */}
-          <Card className="p-5 border-red-100 bg-white space-y-4">
-            <h3 className=" text-sm font-bold text-red-900 uppercase tracking-wider">
-              Acciones de sesión y prototipo
-            </h3>
-
+          {/* Sesión */}
+          <Card className="p-5 space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
-                <p className="text-xs font-semibold text-[#181416]">Reiniciar para demostración</p>
-                <p className="text-[11px] text-[#571C31]/60">Vuelve al flujo de bienvenida u onboarding inicial.</p>
+                <p className="text-xs font-semibold text-[#181416]">Sesión</p>
+                <p className="text-[11px] text-[#571C31]/60">Cerrá sesión para salir de GlowBuzz Business en este dispositivo.</p>
               </div>
-              <div className="flex items-center gap-2">
-                <Button variant="outline" size="sm" onClick={restartOnboarding}>
-                  Volver al Onboarding
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => {
-                    resetAllDemoData();
-                    showToast('Datos reiniciados', 'Se cargaron los datos iniciales de Lumina Studio.', 'info');
-                  }}
-                >
-                  Reiniciar datos
-                </Button>
-                <Button
-                  variant="danger"
-                  size="sm"
-                  onClick={() => {
-                    restartOnboarding();
-                    showToast('Sesión cerrada', 'Prototipo reiniciado al inicio.', 'info');
-                  }}
-                  leftIcon={<LogOut className="w-3.5 h-3.5" />}
-                >
-                  Cerrar sesión
-                </Button>
-              </div>
+              <Button
+                variant="danger"
+                size="sm"
+                type="button"
+                onClick={() => void signOut()}
+                leftIcon={<LogOut className="w-3.5 h-3.5" />}
+              >
+                Cerrar sesión
+              </Button>
             </div>
           </Card>
         </form>

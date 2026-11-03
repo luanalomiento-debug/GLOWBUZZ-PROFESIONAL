@@ -18,17 +18,23 @@ import {
   Share2,
 } from 'lucide-react';
 
-const REPUTATION_TAGS = [
-  { name: 'Resultado', count: 114, percent: '90%' },
-  { name: 'Atención', count: 98, percent: '77%' },
-  { name: 'Puntualidad', count: 86, percent: '68%' },
-  { name: 'Ambiente', count: 72, percent: '56%' },
-  { name: 'Calidad-precio', count: 65, percent: '51%' },
-];
 
 export const ReviewsView: React.FC = () => {
   const { reviews, clients, replyToReview, businessProfile, switchPlan } = useApp();
   const { showToast } = useToast();
+
+  // Resumen calculado con las reseñas reales de la cuenta.
+  const average = reviews.length ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length : 0;
+  const distribution = [5, 4, 3, 2, 1].map((n) => ({
+    stars: `${n} ★`,
+    pct: reviews.length ? Math.round((reviews.filter((r) => r.rating === n).length / reviews.length) * 100) : 0,
+  }));
+  const tagCounts = new Map<string, number>();
+  reviews.forEach((r) => r.tags.forEach((t) => tagCounts.set(t.replace(/^#/, ''), (tagCounts.get(t.replace(/^#/, '')) ?? 0) + 1)));
+  const reputationTags = [...tagCounts.entries()]
+    .sort((x, y) => y[1] - x[1])
+    .slice(0, 6)
+    .map(([name, count]) => ({ name, count, percent: `${Math.round((count / reviews.length) * 100)}%` }));
 
   const [requestModalOpen, setRequestModalOpen] = useState(false);
   const [selectedClientId, setSelectedClientId] = useState(clients[0]?.id || '');
@@ -110,22 +116,18 @@ export const ReviewsView: React.FC = () => {
               Calificación promedio
             </span>
             <div className=" text-5xl font-extrabold text-[#181416] my-2">
-              4.8 <span className="text-[#B82E5F] text-4xl">★</span>
+              {reviews.length ? average.toFixed(1) : '—'} <span className="text-[#B82E5F] text-4xl">★</span>
             </div>
             <p className="text-xs text-[#571C31]/75">
-              Basado en <strong>127 reseñas verificadas</strong>
+              {reviews.length
+                ? <>Basado en <strong>{reviews.length} {reviews.length === 1 ? 'reseña verificada' : 'reseñas verificadas'}</strong></>
+                : 'Todavía no recibiste reseñas'}
             </p>
           </div>
 
           {/* Star Distribution */}
           <div className="mt-5 space-y-1.5 text-xs">
-            {[
-              { stars: '5 ★', pct: 88 },
-              { stars: '4 ★', pct: 9 },
-              { stars: '3 ★', pct: 2 },
-              { stars: '2 ★', pct: 1 },
-              { stars: '1 ★', pct: 0 },
-            ].map((row) => (
+            {distribution.map((row) => (
               <div key={row.stars} className="flex items-center gap-2">
                 <span className="w-7 text-left text-stone-600 font-semibold">{row.stars}</span>
                 <div className="flex-1 h-2 bg-stone-100 rounded-full overflow-hidden">
@@ -145,7 +147,7 @@ export const ReviewsView: React.FC = () => {
               Lo que más destacan tus clientas
             </h4>
             <div className="flex flex-wrap gap-2">
-              {REPUTATION_TAGS.map((t) => (
+              {reputationTags.map((t) => (
                 <div
                   key={t.name}
                   className="px-3.5 py-2 rounded-xl bg-[#FFF8F9] border border-[#571C31]/10 flex items-center gap-2 text-xs"

@@ -90,11 +90,11 @@ export const ClientPreviewModal: React.FC = () => {
         <div className="flex-1 overflow-y-auto">
           {/* Cover Hero */}
           <div className="relative h-44 sm:h-52 bg-stone-200">
-            <img
-              src={businessProfile.coverUrl}
-              alt={businessProfile.name}
-              className="w-full h-full object-cover"
-            />
+            {businessProfile.coverUrl ? (
+              <img src={businessProfile.coverUrl} alt={businessProfile.name} className="w-full h-full object-cover" />
+            ) : (
+              <div className="w-full h-full bg-gradient-to-br from-[#F5DCE5] via-[#FBEAF0] to-[#FFF8F9]" />
+            )}
             <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs px-2.5 py-1 rounded-full text-[11px] font-bold text-[#B82E5F]">
               GlowBuzz Beauty
             </div>
@@ -104,10 +104,10 @@ export const ClientPreviewModal: React.FC = () => {
           <div className="p-5 sm:p-6 pb-4 bg-white border-b border-[#571C31]/10 relative -mt-10 sm:-mt-12 mx-3 sm:mx-4 rounded-3xl shadow-sm">
             <div className="flex items-start justify-between gap-4">
               <div className="flex items-end gap-3.5">
-                <img
+                <Avatar
                   src={businessProfile.avatarUrl}
-                  alt={businessProfile.name}
-                  className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover border-3 border-white shadow-md bg-stone-100 flex-shrink-0"
+                  name={businessProfile.name || 'Mi negocio'}
+                  className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl !border-4 !border-white shadow-md text-2xl"
                 />
                 <div>
                   <div className="flex items-center gap-1.5">

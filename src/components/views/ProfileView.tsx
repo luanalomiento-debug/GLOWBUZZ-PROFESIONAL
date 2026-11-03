@@ -6,6 +6,7 @@ import { Badge } from '../common/Badge';
 import { Modal } from '../common/Modal';
 import { TeamView } from './TeamView';
 import { ImageUpload } from '../common/ImageUpload';
+import { Avatar } from '../common/Avatar';
 import { useToast } from '../../context/ToastContext';
 import {
   Camera,
@@ -23,7 +24,6 @@ import {
   AlertCircle,
 } from 'lucide-react';
 import { Service } from '../../types';
-import { INITIAL_BUSINESS_PROFILE } from '../../data/initialData';
 
 const CATEGORY_CHIPS = [
   'Peluquería',
@@ -308,11 +308,11 @@ export const ProfileView: React.FC<{ initialTab?: 'info' | 'services' | 'hours' 
           <Card className="p-0 overflow-hidden">
             {/* Cover image */}
             <div className="relative h-44 sm:h-auto sm:aspect-[3/1] bg-stone-100 overflow-hidden">
-              <img
-                src={profileForm.coverUrl}
-                alt="Portada"
-                className="w-full h-full object-cover"
-              />
+              {profileForm.coverUrl ? (
+                <img src={profileForm.coverUrl} alt="Portada" className="w-full h-full object-cover" />
+              ) : (
+                <div className="w-full h-full bg-gradient-to-br from-[#F5DCE5] via-[#FBEAF0] to-[#FFF8F9]" />
+              )}
               <ImageUpload
                 maxDim={1600}
                 onSelect={(url) => setProfileForm((prev) => ({ ...prev, coverUrl: url }))}
@@ -327,10 +327,10 @@ export const ProfileView: React.FC<{ initialTab?: 'info' | 'services' | 'hours' 
             <div className="p-6 pt-0 relative flex flex-col sm:flex-row sm:items-end justify-between gap-4 -mt-12 sm:-mt-14">
               <div className="flex items-end gap-4">
                 <div className="relative group">
-                  <img
+                  <Avatar
                     src={profileForm.avatarUrl}
-                    alt={profileForm.name}
-                    className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover border-4 border-white shadow-md bg-stone-100"
+                    name={profileForm.name || 'Mi negocio'}
+                    className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl !border-4 !border-white shadow-md text-3xl"
                   />
                   <ImageUpload
                     maxDim={500}
@@ -353,8 +353,7 @@ export const ProfileView: React.FC<{ initialTab?: 'info' | 'services' | 'hours' 
               </div>
 
               <div className="flex items-center gap-2 mb-2">
-                <Badge variant="cherry">Perfil Verificado</Badge>
-                <Badge variant="blush">Estudio en Pocitos</Badge>
+
               </div>
             </div>
           </Card>

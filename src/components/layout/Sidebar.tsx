@@ -2,6 +2,7 @@ import React from 'react';
 import { useApp } from '../../context/AppContext';
 import { DashboardSection } from '../../types';
 import { GlowBuzzLogo } from '../common/GlowBuzzLogo';
+import { Avatar } from '../common/Avatar';
 import {
   Home,
   User,
@@ -75,11 +76,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpenMobile, onCloseMobile })
 
       {/* Business Quick Card */}
       <div className="px-4 py-3 mx-3 my-3 rounded-2xl bg-white border border-[#571C31]/10 shadow-soft flex items-center gap-3">
-        <img
-          src={businessProfile.avatarUrl}
-          alt={businessProfile.name}
-          className="w-9 h-9 rounded-xl object-cover border border-[#B82E5F]/20 flex-shrink-0"
-        />
+        <Avatar src={businessProfile.avatarUrl} name={businessProfile.name || 'GlowBuzz'} className="w-9 h-9 rounded-xl" />
         <div className="min-w-0 flex-1">
           <p className=" text-xs font-bold text-[#181416] truncate">
             {businessProfile.name}

@@ -1,6 +1,9 @@
 import React from 'react';
 import { AppProvider, useApp } from './context/AppContext';
 import { ToastProvider } from './context/ToastContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import { AuthScreens } from './components/auth/AuthScreens';
+import { LoadingScreen } from './components/common/LoadingScreen';
 import { OnboardingFlow } from './components/onboarding/OnboardingFlow';
 import { DashboardLayout } from './components/layout/DashboardLayout';
 import { HomeView } from './components/views/HomeView';
@@ -64,12 +67,26 @@ const AppContent: React.FC = () => {
   );
 };
 
+/** Sin sesión: registro / inicio de sesión. Con sesión: el panel de esa cuenta (que arranca vacío si es nueva). */
+const Gate: React.FC = () => {
+  const { user, loading, recovering } = useAuth();
+
+  if (loading) return <LoadingScreen message="Abriendo GlowBuzz…" />;
+  if (!user || recovering) return <AuthScreens />;
+
+  return (
+    <AppProvider key={user.id} user={user}>
+      <AppContent />
+    </AppProvider>
+  );
+};
+
 export default function App() {
   return (
     <ToastProvider>
-      <AppProvider>
-        <AppContent />
-      </AppProvider>
+      <AuthProvider>
+        <Gate />
+      </AuthProvider>
     </ToastProvider>
   );
 }

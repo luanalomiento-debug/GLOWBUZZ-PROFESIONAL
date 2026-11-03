@@ -37,6 +37,15 @@ export const HomeView: React.FC = () => {
     .filter((b) => b.status === 'confirmed' || b.status === 'pending')
     .slice(0, 3);
 
+  // Cifras reales de la cuenta
+  const activeBookings = bookings.filter((b) => b.status !== 'cancelled');
+  const pendingBookings = bookings.filter((b) => b.status === 'pending').length;
+  const revenue = bookings
+    .filter((b) => b.status === 'confirmed' || b.status === 'completed')
+    .reduce((sum, b) => sum + b.priceUYU, 0);
+  const publishedWorks = portfolio.filter((w) => w.status === 'approved' && w.source === 'my_work').length;
+  const formatMoney = (n: number) => `$${n.toLocaleString('es-UY')}`;
+
   // Top performing works (max 3)
   const topWorks = [...portfolio]
     .sort((a, b) => b.views + b.saves * 2 - (a.views + a.saves * 2))
@@ -54,24 +63,26 @@ export const HomeView: React.FC = () => {
       {/* 3 KPIs principales */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <MetricCard
-          label="Visitas al perfil"
-          value="173"
-          subtitle="En los últimos 30 días"
-          trend={{ value: '+24% vs mes anterior', isPositive: true }}
+          label="Trabajos publicados"
+          value={String(publishedWorks)}
+          subtitle="Visibles para las clientas en GlowBuzz"
           icon={<Eye className="w-4 h-4" />}
         />
         <MetricCard
-          label="Reservas generadas"
-          value="18"
-          subtitle="Todas desde el descubrimiento"
-          trend={{ value: '+6 esta semana', isPositive: true }}
+          label="Reservas"
+          value={String(activeBookings.length)}
+          subtitle={`${pendingBookings} pendientes de confirmar`}
           icon={<CalendarCheck className="w-4 h-4" />}
         />
         <MetricCard
-          label="Generado por GlowBuzz"
-          value="$15.840"
-          subtitle="En pesos uruguayos (UYU)"
-          trend={{ value: `ROI ${(15840 / getPlan(businessProfile.plan).price).toFixed(1)}x tu plan`, isPositive: true }}
+          label="Ingresos por reservas"
+          value={formatMoney(revenue)}
+          subtitle="Reservas confirmadas y completadas (UYU)"
+          trend={
+            revenue > 0
+              ? { value: `ROI ${(revenue / getPlan(businessProfile.plan).price).toFixed(1)}x tu plan`, isPositive: true }
+              : undefined
+          }
           icon={<TrendingUp className="w-4 h-4" />}
         />
       </div>
@@ -195,72 +206,73 @@ export const HomeView: React.FC = () => {
         )}
       </div>
 
-      {/* BLOQUE 3: "Tus trabajos con mejor rendimiento" (máximo 3 cards) */}
-      <div className="space-y-4 pt-2">
-        <div className="flex items-center justify-between">
-          <div>
-            <h3 className=" text-lg font-bold text-[#181416] tracking-tight">
-              Tus trabajos con mejor rendimiento
-            </h3>
-            <p className="text-xs text-[#571C31]/70 mt-0.5">
-              Los contenidos que más descubrimientos y reservas generaron este mes.
-            </p>
-          </div>
-          <button
-            onClick={() => setCurrentSection('content')}
-            className="text-xs font-bold text-[#B82E5F] hover:underline flex items-center gap-1 whitespace-nowrap flex-shrink-0"
-          >
-            <span>Ver portfolio</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-          {topWorks.map((work) => (
-            <div
-              key={work.id}
-              onClick={() => setCurrentSection('content')}
-              className="bg-white rounded-2xl border border-[#571C31]/10 overflow-hidden hover:border-[#B82E5F]/40 transition-all cursor-pointer group shadow-soft hover:shadow-lifted"
-            >
-              <div className="relative aspect-4/3 overflow-hidden bg-stone-100">
-                <img
-                  src={work.imageUrl}
-                  alt={work.title}
-                  className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300"
-                />
-                <div className="absolute top-2.5 right-2.5 bg-black/60 backdrop-blur-xs text-white text-[11px] font-bold px-2 py-0.5 rounded-lg">
-                  ${work.priceUYU}
-                </div>
-              </div>
-
-              <div className="p-4 space-y-2">
-                <h4 className=" text-sm font-bold text-[#181416] truncate">
-                  {work.title}
-                </h4>
-                <p className="text-xs text-[#571C31]/70 truncate">
-                  {work.professionalName}
-                </p>
-
-                {/* Métricas destacadas */}
-                <div className="flex items-center justify-between pt-2 border-t border-[#571C31]/10 text-[11px] text-[#571C31]/80">
-                  <span className="flex items-center gap-1">
-                    <Eye className="w-3 h-3 text-[#B82E5F]" />
-                    {work.views.toLocaleString()} vistas
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Bookmark className="w-3 h-3 text-[#B82E5F]" />
-                    {work.saves} guardados
-                  </span>
-                  <span className="flex items-center gap-1 font-bold text-[#B82E5F]">
-                    <CalendarCheck className="w-3 h-3" />
-                    {work.bookings} reservas
-                  </span>
-                </div>
-              </div>
+      {topWorks.length > 0 && (
+        <div className="space-y-4 pt-2">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className=" text-lg font-bold text-[#181416] tracking-tight">
+                Tus trabajos con mejor rendimiento
+              </h3>
+              <p className="text-xs text-[#571C31]/70 mt-0.5">
+                Los contenidos que más descubrimientos y reservas generaron este mes.
+              </p>
             </div>
-          ))}
+            <button
+              onClick={() => setCurrentSection('content')}
+              className="text-xs font-bold text-[#B82E5F] hover:underline flex items-center gap-1 whitespace-nowrap flex-shrink-0"
+            >
+              <span>Ver portfolio</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            {topWorks.map((work) => (
+              <div
+                key={work.id}
+                onClick={() => setCurrentSection('content')}
+                className="bg-white rounded-2xl border border-[#571C31]/10 overflow-hidden hover:border-[#B82E5F]/40 transition-all cursor-pointer group shadow-soft hover:shadow-lifted"
+              >
+                <div className="relative aspect-4/3 overflow-hidden bg-stone-100">
+                  <img
+                    src={work.imageUrl}
+                    alt={work.title}
+                    className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300"
+                  />
+                  <div className="absolute top-2.5 right-2.5 bg-black/60 backdrop-blur-xs text-white text-[11px] font-bold px-2 py-0.5 rounded-lg">
+                    ${work.priceUYU}
+                  </div>
+                </div>
+
+                <div className="p-4 space-y-2">
+                  <h4 className=" text-sm font-bold text-[#181416] truncate">
+                    {work.title}
+                  </h4>
+                  <p className="text-xs text-[#571C31]/70 truncate">
+                    {work.professionalName}
+                  </p>
+
+                  {/* Métricas destacadas */}
+                  <div className="flex items-center justify-between pt-2 border-t border-[#571C31]/10 text-[11px] text-[#571C31]/80">
+                    <span className="flex items-center gap-1">
+                      <Eye className="w-3 h-3 text-[#B82E5F]" />
+                      {work.views.toLocaleString()} vistas
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Bookmark className="w-3 h-3 text-[#B82E5F]" />
+                      {work.saves} guardados
+                    </span>
+                    <span className="flex items-center gap-1 font-bold text-[#B82E5F]">
+                      <CalendarCheck className="w-3 h-3" />
+                      {work.bookings} reservas
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Banner / Tip de Crecimiento */}
       <div className="p-5 rounded-2xl bg-[#571C31] text-[#FFF8F3] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -273,7 +285,7 @@ export const HomeView: React.FC = () => {
               ¿Querés acelerar tus reservas este fin de semana?
             </h4>
             <p className=" text-xs sm:text-sm text-[#F5DCE5]/80 mt-0.5 max-w-xl">
-              Promocioná tu trabajo estrella en Pocitos con Glow Boost desde $200 UYU. Aparece como patrocinado a clientas cercanas con alta intención de reserva.
+              Promocioná tu trabajo estrella con Glow Boost desde $200 UYU. Aparece como patrocinado a clientas cercanas con alta intención de reserva.
             </p>
           </div>
         </div>

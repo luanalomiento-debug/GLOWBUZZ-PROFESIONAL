@@ -28,15 +28,6 @@ import {
   Image as ImageIcon,
 } from 'lucide-react';
 
-const PRESET_BEAUTY_IMAGES = [
-  '/images/ejemplos/pelo-ondas.jpg',
-  '/images/ejemplos/pelo-liso.jpg',
-  '/images/ejemplos/facial-glow.jpg',
-  '/images/ejemplos/facial-peeling.jpg',
-  '/images/ejemplos/botox.jpg',
-  '/images/ejemplos/cejas-lifting.jpg',
-  '/images/ejemplos/cejas-diseno.jpg',
-];
 
 export const ContentView: React.FC = () => {
   const {
@@ -67,7 +58,7 @@ export const ContentView: React.FC = () => {
     priceUYU: 1100,
     description: '',
     tagsText: 'Nail Art, Tendencia, Glow',
-    imageUrl: PRESET_BEAUTY_IMAGES[0],
+    imageUrl: '',
   });
 
   // Filtered works by tab
@@ -87,7 +78,7 @@ export const ContentView: React.FC = () => {
       priceUYU: 1100,
       description: '',
       tagsText: 'Kapping, Minimalista, Nude',
-      imageUrl: PRESET_BEAUTY_IMAGES[Math.floor(Math.random() * PRESET_BEAUTY_IMAGES.length)],
+      imageUrl: '',
     });
     setAddModalOpen(true);
   };
@@ -95,6 +86,10 @@ export const ContentView: React.FC = () => {
   const handleSaveWork = (e: React.FormEvent) => {
     e.preventDefault();
     if (!workForm.title.trim()) return;
+    if (!workForm.imageUrl) {
+      showToast('Falta la foto', 'Subí la foto del trabajo para poder publicarlo.', 'warning');
+      return;
+    }
 
     const selectedService = services.find((s) => s.id === workForm.serviceId);
     const selectedProf = team.find((t) => t.id === workForm.professionalId);
@@ -435,44 +430,28 @@ export const ContentView: React.FC = () => {
             </div>
           </div>
 
-          {/* Foto del trabajo: se sube desde el dispositivo o se elige una de ejemplo */}
+          {/* Foto del trabajo: se sube desde el dispositivo (computadora o carrete del celular) */}
           <div>
             <label className="block text-xs font-semibold text-[#571C31] uppercase tracking-wider mb-1.5">
               Foto del resultado
             </label>
             <div className="flex items-center gap-3">
-              <img
-                src={workForm.imageUrl}
-                alt="Foto elegida"
-                className="w-20 h-20 rounded-xl object-cover border border-[#571C31]/10 flex-shrink-0 bg-stone-100"
-              />
+              <div className="w-20 h-20 rounded-xl border border-[#571C31]/10 bg-stone-100 flex-shrink-0 overflow-hidden flex items-center justify-center text-[#571C31]/30">
+                {workForm.imageUrl ? (
+                  <img src={workForm.imageUrl} alt="Foto elegida" className="w-full h-full object-cover" />
+                ) : (
+                  <ImageIcon className="w-6 h-6" />
+                )}
+              </div>
               <ImageUpload
                 onSelect={(url) => setWorkForm((prev) => ({ ...prev, imageUrl: url }))}
                 className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 border-dashed border-[#B82E5F]/40 hover:border-[#B82E5F] hover:bg-[#F5DCE5]/30 text-sm font-semibold text-[#B82E5F] transition-colors"
               >
                 <Upload className="w-4 h-4" />
-                <span>Subir desde tu dispositivo</span>
+                <span>{workForm.imageUrl ? 'Cambiar foto' : 'Subir desde tu dispositivo'}</span>
               </ImageUpload>
             </div>
-            <p className="text-[11px] text-[#571C31]/60 mt-2">
-              Desde la computadora o el carrete de tu celular. O elegí una foto de ejemplo:
-            </p>
-            <div className="grid grid-cols-4 sm:grid-cols-7 gap-2 mt-2">
-              {PRESET_BEAUTY_IMAGES.map((imgUrl, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  onClick={() => setWorkForm({ ...workForm, imageUrl: imgUrl })}
-                  className={`aspect-square rounded-xl overflow-hidden border-2 transition-all relative ${
-                    workForm.imageUrl === imgUrl
-                      ? 'border-[#B82E5F] ring-2 ring-[#B82E5F]/30'
-                      : 'border-transparent opacity-75 hover:opacity-100'
-                  }`}
-                >
-                  <img src={imgUrl} alt="Foto de ejemplo" className="w-full h-full object-cover" />
-                </button>
-              ))}
-            </div>
+            <p className="text-[11px] text-[#571C31]/60 mt-2">Desde la computadora o el carrete de tu celular.</p>
           </div>
 
           <div>

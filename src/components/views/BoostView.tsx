@@ -5,6 +5,7 @@ import { Button } from '../common/Button';
 import { Badge } from '../common/Badge';
 import { useToast } from '../../context/ToastContext';
 import { PlanLock } from '../common/PlanLock';
+import { Avatar } from '../common/Avatar';
 import { hasPlan } from '../../data/plans';
 import {
   Zap,
@@ -31,7 +32,7 @@ export const BoostView: React.FC = () => {
   const [selectedWorkId, setSelectedWorkId] = useState(portfolio[0]?.id || '');
   const [selectedServiceId, setSelectedServiceId] = useState(services[0]?.id || '');
   const [budget, setBudget] = useState<number>(500);
-  const [locationTarget, setLocationTarget] = useState('Pocitos, Punta Carretas & Buceo (4 km)');
+  const [locationTarget, setLocationTarget] = useState(`${businessProfile.location || 'Tu zona'} y alrededores (4 km)`);
 
   const selectedWork = portfolio.find((w) => w.id === selectedWorkId) || portfolio[0];
   const selectedService = services.find((s) => s.id === selectedServiceId) || services[0];
@@ -276,18 +277,14 @@ export const BoostView: React.FC = () => {
                     ? `$${selectedWork.priceUYU}`
                     : boostType === 'service' && selectedService
                     ? `Desde $${selectedService.priceUYU}`
-                    : 'Pocitos'}
+                    : businessProfile.location}
                 </div>
               </div>
 
               {/* Feed Card Info */}
               <div className="p-3.5 space-y-2">
                 <div className="flex items-center gap-2">
-                  <img
-                    src={businessProfile.avatarUrl}
-                    alt={businessProfile.name}
-                    className="w-6 h-6 rounded-full object-cover border border-[#B82E5F]/30"
-                  />
+                  <Avatar src={businessProfile.avatarUrl} name={businessProfile.name || 'Mi negocio'} className="w-6 h-6 rounded-full text-[9px]" />
                   <div>
                     <p className="text-xs font-bold leading-none text-[#181416]">
                       {businessProfile.name}
