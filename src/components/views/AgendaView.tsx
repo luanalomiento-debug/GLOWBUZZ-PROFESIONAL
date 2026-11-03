@@ -8,6 +8,7 @@ import { Modal } from '../common/Modal';
 import { useToast } from '../../context/ToastContext';
 import { WEEKDAY_NAMES, addDays, formatDayLabel, formatWeekRange, relativeDayLabel, startOfWeek, toDateKey } from '../../utils/date';
 import { PlanLock } from '../common/PlanLock';
+import { BookingDetailModal } from '../common/BookingDetailModal';
 import { hasPlan } from '../../data/plans';
 import {
   Calendar,
@@ -41,7 +42,6 @@ export const AgendaView: React.FC = () => {
     toggleIntegration,
     services,
     team,
-    clients,
     switchPlan,
   } = useApp();
   const { showToast } = useToast();
@@ -86,14 +86,17 @@ export const AgendaView: React.FC = () => {
     note: 'Descanso de equipo / almuerzo',
   });
 
+  // Reserva abierta para ver su detalle y gestionarla
+  const [selectedBookingId, setSelectedBookingId] = useState<string | null>(null);
+
   // Released / cancelled bookings that can be published
   const cancelledBookings = bookings.filter((b) => b.status === 'cancelled');
 
   const handleOpenNewBooking = (date?: string, time?: string) => {
     setBookingForm({
-      clientName: clients[0]?.name || 'Nueva clienta',
-      clientPhone: '+598 99 123 456',
-      clientEmail: 'clienta@gmail.com',
+      clientName: '',
+      clientPhone: '',
+      clientEmail: '',
       serviceId: services[0]?.id || '',
       professionalId: team[0]?.id || '',
       date: date || todayKey,
@@ -171,7 +174,7 @@ export const AgendaView: React.FC = () => {
   const renderBookingCard = (b: Booking) => (
     <div
       key={b.id}
-      onClick={() => handleOpenNewBooking(b.date, b.time)}
+      onClick={() => setSelectedBookingId(b.id)}
       className={`p-2.5 rounded-xl border text-left text-xs transition-all hover:shadow-xs cursor-pointer ${BOOKING_STYLES[b.status]}`}
     >
       <div className="flex items-center justify-between font-bold text-[11px] mb-1">
@@ -799,6 +802,10 @@ export const AgendaView: React.FC = () => {
           </div>
         </form>
       </Modal>
+
+      {selectedBookingId && (
+        <BookingDetailModal bookingId={selectedBookingId} onClose={() => setSelectedBookingId(null)} />
+      )}
     </div>
   );
 };

@@ -1,38 +1,19 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Booking } from '../../types';
 import { Card } from '../common/Card';
 import { Button } from '../common/Button';
 import { Badge } from '../common/Badge';
-import { Modal } from '../common/Modal';
+import { BookingDetailModal } from '../common/BookingDetailModal';
 import { Tabs } from '../common/Tabs';
-import { useToast } from '../../context/ToastContext';
 import {
-  Calendar,
-  Clock,
-  User,
-  Phone,
-  Mail,
-  DollarSign,
-  Sparkles,
   Search,
-  CheckCircle2,
-  XCircle,
-  AlertCircle,
-  Radio,
 } from 'lucide-react';
 
 export const BookingsView: React.FC = () => {
-  const {
-    bookings,
-    updateBookingStatus,
-    cancelBooking,
-    publishReleasedSlot,
-  } = useApp();
-  const { showToast } = useToast();
+  const { bookings } = useApp();
 
   const [filterTab, setFilterTab] = useState<'all' | 'upcoming' | 'completed' | 'cancelled'>('all');
-  const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
+  const [selectedBookingId, setSelectedBookingId] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredBookings = bookings.filter((b) => {
@@ -52,26 +33,6 @@ export const BookingsView: React.FC = () => {
     }
     return true;
   });
-
-  const handleStatusChange = (bookingId: string, status: Booking['status']) => {
-    updateBookingStatus(bookingId, status);
-    showToast('Estado actualizado', `La reserva ahora figura como ${status}.`, 'info');
-    if (selectedBooking) {
-      setSelectedBooking({ ...selectedBooking, status });
-    }
-  };
-
-  const handlePublishSlot = (bookingId: string) => {
-    publishReleasedSlot(bookingId);
-    showToast(
-      'Horario liberado publicado',
-      'El turno cancelado ya está en el feed de GlowBuzz para ser reservado por otra clienta.',
-      'success'
-    );
-    if (selectedBooking) {
-      setSelectedBooking({ ...selectedBooking, releasedSlotPublished: true });
-    }
-  };
 
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
@@ -145,7 +106,7 @@ export const BookingsView: React.FC = () => {
                   return (
                     <tr
                       key={b.id}
-                      onClick={() => setSelectedBooking(b)}
+                      onClick={() => setSelectedBookingId(b.id)}
                       className="hover:bg-[#FFF8F9]/60 transition-colors cursor-pointer"
                     >
                       <td className="py-3.5 px-4 font-bold text-[#181416]">
@@ -173,7 +134,7 @@ export const BookingsView: React.FC = () => {
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
-                            setSelectedBooking(b);
+                            setSelectedBookingId(b.id);
                           }}
                           className="text-[#B82E5F] hover:underline font-bold text-xs"
                         >
@@ -193,133 +154,8 @@ export const BookingsView: React.FC = () => {
         )}
       </Card>
 
-      {/* Modal: Detalle de Reserva */}
-      {selectedBooking && (
-        <Modal
-          isOpen={Boolean(selectedBooking)}
-          onClose={() => setSelectedBooking(null)}
-          title="Detalle de la reserva"
-          subtitle={`Código de referencia: ${selectedBooking.id}`}
-        >
-          <div className="space-y-4">
-            {/* Header info card */}
-            <div className="p-4 rounded-2xl bg-[#FFF8F9] border border-[#571C31]/10 flex items-center justify-between">
-              <div>
-                <p className=" text-base font-bold text-[#181416]">
-                  {selectedBooking.clientName}
-                </p>
-                <div className="flex items-center gap-3 text-xs text-[#571C31]/80 mt-1">
-                  <span className="flex items-center gap-1">
-                    <Phone className="w-3.5 h-3.5" />
-                    {selectedBooking.clientPhone}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Mail className="w-3.5 h-3.5" />
-                    {selectedBooking.clientEmail}
-                  </span>
-                </div>
-              </div>
-
-              <div className="text-right">
-                <span className=" text-xl font-extrabold text-[#571C31]">
-                  ${selectedBooking.priceUYU}
-                </span>
-                <span className="block text-[10px] text-[#571C31]/60">UYU</span>
-              </div>
-            </div>
-
-            {/* Service & Date details */}
-            <div className="grid grid-cols-2 gap-3 text-xs">
-              <div className="p-3.5 rounded-xl border border-[#571C31]/10 bg-white space-y-1">
-                <span className="text-[#571C31]/60 text-[10px] uppercase font-bold block">
-                  Servicio
-                </span>
-                <p className="font-bold text-[#181416] break-words">{selectedBooking.serviceName}</p>
-                <p className="text-[#571C31]/80">{selectedBooking.durationMinutes} minutos</p>
-              </div>
-
-              <div className="p-3.5 rounded-xl border border-[#571C31]/10 bg-white space-y-1">
-                <span className="text-[#571C31]/60 text-[10px] uppercase font-bold block">
-                  Cita
-                </span>
-                <p className="font-bold text-[#181416]">{selectedBooking.date}</p>
-                <p className="text-[#571C31]/80 break-words">{selectedBooking.time} hs · Con {selectedBooking.professionalName}</p>
-              </div>
-            </div>
-
-            {/* Source info */}
-            <div className="p-3.5 rounded-xl border border-[#571C31]/10 bg-white flex items-center justify-between text-xs">
-              <span className="text-[#571C31]/75">Canal de origen en GlowBuzz:</span>
-              <Badge variant="cherry">{selectedBooking.source}</Badge>
-            </div>
-
-            {selectedBooking.notes && (
-              <div className="p-3 rounded-xl bg-white border border-[#571C31]/10 text-xs text-[#571C31]/80 italic">
-                <strong>Nota:</strong> {selectedBooking.notes}
-              </div>
-            )}
-
-            {/* Cancelled slot re-publish banner */}
-            {selectedBooking.status === 'cancelled' && (
-              <div className="p-4 rounded-xl bg-[#FFF8F9] border border-[#B82E5F]/30 space-y-2">
-                <div className="flex items-center gap-2">
-                  <Radio className="w-4 h-4 text-[#B82E5F]" />
-                  <span className="text-xs font-bold text-[#571C31]">
-                    Se liberó este horario en tu estudio
-                  </span>
-                </div>
-                <p className="text-xs text-[#571C31]/75">
-                  Podés volver a ofrecer este turno a clientas en el feed de descubrimientos de GlowBuzz.
-                </p>
-                <Button
-                  variant="primary"
-                  size="sm"
-                  disabled={selectedBooking.releasedSlotPublished}
-                  onClick={() => handlePublishSlot(selectedBooking.id)}
-                  className="w-full mt-2"
-                >
-                  {selectedBooking.releasedSlotPublished
-                    ? 'Publicado en GlowBuzz ✓'
-                    : 'Publicar disponibilidad'}
-                </Button>
-              </div>
-            )}
-
-            {/* Action buttons */}
-            <div className="pt-3 border-t border-[#571C31]/10 flex flex-wrap items-center justify-between gap-2">
-              <div className="flex items-center gap-1.5">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handleStatusChange(selectedBooking.id, 'confirmed')}
-                  disabled={selectedBooking.status === 'confirmed'}
-                >
-                  Confirmar
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handleStatusChange(selectedBooking.id, 'completed')}
-                  disabled={selectedBooking.status === 'completed'}
-                >
-                  Completar
-                </Button>
-                <Button
-                  variant="danger"
-                  size="sm"
-                  onClick={() => handleStatusChange(selectedBooking.id, 'cancelled')}
-                  disabled={selectedBooking.status === 'cancelled'}
-                >
-                  Cancelar cita
-                </Button>
-              </div>
-
-              <Button variant="ghost" size="sm" onClick={() => setSelectedBooking(null)}>
-                Cerrar
-              </Button>
-            </div>
-          </div>
-        </Modal>
+      {selectedBookingId && (
+        <BookingDetailModal bookingId={selectedBookingId} onClose={() => setSelectedBookingId(null)} />
       )}
     </div>
   );

@@ -180,3 +180,8 @@ export const fetchRemoteBookings = async (): Promise<Booking[] | null> => {
   const rows = await sbSelect<BookingRow>('bookings', `business_id=eq.${PUBLISHED_BUSINESS_ID}&order=created_at.desc`);
   return rows ? rows.map(fromBookingRow) : null;
 };
+
+/** Reinicio de la demo: borra de la base las reservas que no son las iniciales. */
+export const resetRemoteBookings = async (keepIds: string[]): Promise<void> => {
+  await sbDelete('bookings', `business_id=eq.${PUBLISHED_BUSINESS_ID}&id=not.in.${inList(keepIds)}`);
+};

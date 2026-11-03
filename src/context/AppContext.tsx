@@ -25,7 +25,7 @@ import {
 } from '../data/initialData';
 import { loadFromStorage, saveToStorage } from '../utils/storage';
 import { PLANS } from '../data/plans';
-import { canPublish, fetchRemoteBookings, publishBusiness } from '../lib/sync';
+import { canPublish, fetchRemoteBookings, publishBusiness, resetRemoteBookings } from '../lib/sync';
 import { useToast } from './ToastContext';
 
 interface AppContextType {
@@ -445,6 +445,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setServices(INITIAL_SERVICES);
     setPortfolio(INITIAL_PORTFOLIO);
     setBookings(INITIAL_BOOKINGS);
+    // Sin esto, las reservas guardadas en la base volverían a aparecer solas.
+    if (canPublish()) void resetRemoteBookings(INITIAL_BOOKINGS.map((b) => b.id));
     setTeam(INITIAL_TEAM);
     setClients(INITIAL_CLIENTS);
     setReviews(INITIAL_REVIEWS);
