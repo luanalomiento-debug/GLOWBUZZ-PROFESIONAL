@@ -38,6 +38,9 @@ export const ClientPreviewModal: React.FC = () => {
 
   if (!previewAsClientModalOpen) return null;
 
+  // Puntaje real: solo si el negocio ya tiene reseñas.
+  const averageRating = reviews.length ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length : 0;
+
   const handleSimulateClientBooking = () => {
     if (!bookingService) return;
     addBooking({
@@ -125,13 +128,19 @@ export const ClientPreviewModal: React.FC = () => {
 
               {/* Rating */}
               <div className="text-right flex-shrink-0">
-                <div className="flex items-center gap-1 font-bold text-sm text-[#181416]">
-                  <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
-                  <span>4.8</span>
-                </div>
-                <span className="text-[10px] text-[#571C31]/60">
-                  127 reseñas
-                </span>
+                {reviews.length > 0 ? (
+                  <>
+                    <div className="flex items-center gap-1 font-bold text-sm text-[#181416]">
+                      <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
+                      <span>{averageRating.toFixed(1)}</span>
+                    </div>
+                    <span className="text-[10px] text-[#571C31]/60">
+                      {reviews.length} {reviews.length === 1 ? 'reseña' : 'reseñas'}
+                    </span>
+                  </>
+                ) : (
+                  <span className="text-[11px] font-bold text-[#B82E5F] bg-[#F5DCE5] px-2 py-0.5 rounded-full">Nuevo</span>
+                )}
               </div>
             </div>
 
@@ -195,7 +204,7 @@ export const ClientPreviewModal: React.FC = () => {
                     : 'border-transparent text-[#571C31]/60'
                 }`}
               >
-                Reseñas (4.8 ★)
+                {reviews.length > 0 ? `Reseñas (${averageRating.toFixed(1)} ★)` : 'Reseñas (0)'}
               </button>
               <button
                 onClick={() => setActiveTab('about')}
@@ -292,6 +301,9 @@ export const ClientPreviewModal: React.FC = () => {
           {/* TAB 3: Reseñas */}
           {activeTab === 'reviews' && (
             <div className="p-4 sm:p-6 space-y-3">
+              {reviews.length === 0 && (
+                <p className="text-xs text-[#571C31]/70 text-center py-6">Todavía no hay reseñas. Aparecen acá cuando tus clientas las dejan.</p>
+              )}
               {reviews.map((rev) => (
                 <div key={rev.id} className="p-4 rounded-2xl bg-white border border-[#571C31]/10 space-y-2">
                   <div className="flex items-center justify-between">

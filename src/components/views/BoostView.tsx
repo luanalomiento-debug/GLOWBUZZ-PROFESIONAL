@@ -25,6 +25,7 @@ export const BoostView: React.FC = () => {
     services,
     boostCampaigns,
     activateBoost,
+    reviews,
   } = useApp();
   const { showToast } = useToast();
 
@@ -305,7 +306,9 @@ export const BoostView: React.FC = () => {
 
                 <div className="pt-2 flex items-center justify-between border-t border-[#571C31]/10">
                   <span className="text-[10px] text-[#571C31]/70">
-                    ★ 4.8 (127 reseñas)
+                    {reviews.length > 0
+                      ? `★ ${(reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1)} (${reviews.length} ${reviews.length === 1 ? 'reseña' : 'reseñas'})`
+                      : 'Nuevo en GlowBuzz'}
                   </span>
                   <button className="px-3 py-1 bg-[#B82E5F] text-white text-[10px] font-bold rounded-lg">
                     Reservar
