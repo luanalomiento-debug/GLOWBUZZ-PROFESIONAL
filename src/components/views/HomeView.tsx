@@ -285,7 +285,7 @@ export const HomeView: React.FC = () => {
               ¿Querés acelerar tus reservas este fin de semana?
             </h4>
             <p className=" text-xs sm:text-sm text-[#F5DCE5]/80 mt-0.5 max-w-xl">
-              Promocioná tu trabajo estrella con Glow Boost desde $200 UYU. Aparece como patrocinado a clientas cercanas con alta intención de reserva.
+              Promocioná tu trabajo estrella con Glow Boost, desde $150 UYU por día. Aparece como patrocinado a clientas cercanas con alta intención de reserva.
             </p>
           </div>
         </div>

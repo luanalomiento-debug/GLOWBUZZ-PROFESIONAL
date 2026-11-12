@@ -24,7 +24,7 @@ export const BoostPublications: React.FC<BoostPublicationsProps> = ({ campaigns,
   if (!canUseBoost) {
     return (
       <PlanLock
-        requiredPlan="boost"
+        requiredPlan="pro"
         title="Tus publicaciones destacadas viven acá"
         description="Con Glow Boost promocionás tus mejores trabajos y ves cuántas clientas los vieron y reservaron."
       />

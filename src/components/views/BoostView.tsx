@@ -6,7 +6,7 @@ import { Badge } from '../common/Badge';
 import { useToast } from '../../context/ToastContext';
 import { PlanLock } from '../common/PlanLock';
 import { Avatar } from '../common/Avatar';
-import { hasPlan } from '../../data/plans';
+import { BOOST_PRICE_PER_DAY, hasPlan } from '../../data/plans';
 import {
   Zap,
   Sparkles,
@@ -32,7 +32,7 @@ export const BoostView: React.FC = () => {
   const [boostType, setBoostType] = useState<'profile' | 'work' | 'service'>('work');
   const [selectedWorkId, setSelectedWorkId] = useState(portfolio[0]?.id || '');
   const [selectedServiceId, setSelectedServiceId] = useState(services[0]?.id || '');
-  const [budget, setBudget] = useState<number>(500);
+  const [budget, setBudget] = useState<number>(7 * BOOST_PRICE_PER_DAY);
   const [locationTarget, setLocationTarget] = useState(`${businessProfile.location || 'Tu zona'} y alrededores (4 km)`);
 
   const selectedWork = portfolio.find((w) => w.id === selectedWorkId) || portfolio[0];
@@ -40,9 +40,9 @@ export const BoostView: React.FC = () => {
 
   // Estimation based on budget
   const estimates = {
-    200: { impressions: '1.900', views: '380', clicks: '42' },
-    500: { impressions: '4.800', views: '950', clicks: '110' },
-    1000: { impressions: '10.500', views: '2.100', clicks: '240' },
+    [3 * BOOST_PRICE_PER_DAY]: { impressions: '1.900', views: '380', clicks: '42' },
+    [7 * BOOST_PRICE_PER_DAY]: { impressions: '4.800', views: '950', clicks: '110' },
+    [10 * BOOST_PRICE_PER_DAY]: { impressions: '10.500', views: '2.100', clicks: '240' },
   }[budget] || { impressions: '4.800', views: '950', clicks: '110' };
 
   const handleActivate = () => {
@@ -85,16 +85,16 @@ export const BoostView: React.FC = () => {
     );
   };
 
-  if (!hasPlan(businessProfile.plan, 'boost')) {
+  if (!hasPlan(businessProfile.plan, 'pro')) {
     return (
       <div className="space-y-6 animate-in fade-in duration-200">
         <div>
           <h2 className="text-2xl font-bold tracking-tight text-[#181416]">Glow Boost</h2>
         </div>
         <PlanLock
-          requiredPlan="boost"
+          requiredPlan="pro"
           title="Promocioná tus trabajos con Glow Boost"
-          description="Destacá tus mejores trabajos, ganá posicionamiento y accedé a las estadísticas y datos que genera la plataforma."
+          description="Destacá tus mejores trabajos y llegá a más clientas. Glow Boost está incluido en Glow Pro y Glow Max; cada campaña se paga aparte según los días que quieras destacarte."
         />
       </div>
     );
@@ -203,10 +203,10 @@ export const BoostView: React.FC = () => {
           {/* 3. Presupuesto */}
           <Card className="space-y-3">
             <label className="block text-xs font-bold text-[#571C31] uppercase tracking-wider">
-              3. Presupuesto de visibilidad (pesos uruguayos)
+              3. Duración de la campaña ($150 por día, IVA incluido)
             </label>
             <div className="grid grid-cols-3 gap-3">
-              {[200, 500, 1000].map((amount) => (
+              {[3, 7, 10].map((days) => days * BOOST_PRICE_PER_DAY).map((amount) => (
                 <button
                   key={amount}
                   type="button"
@@ -221,7 +221,7 @@ export const BoostView: React.FC = () => {
                     ${amount}
                   </span>
                   <span className="text-[10px] text-[#571C31]/60">
-                    {amount === 200 ? '1 fin de semana' : amount === 500 ? '7 días activo' : '15 días impulso'}
+                    {amount / BOOST_PRICE_PER_DAY} días activo
                   </span>
                 </button>
               ))}

@@ -25,7 +25,7 @@ export const StatsView: React.FC = () => {
   const { showToast } = useToast();
 
   const [timeRange, setTimeRange] = useState<'7d' | '30d' | '3m'>('30d');
-  const hasAdvancedStats = hasPlan(businessProfile.plan, 'boost');
+  const hasAdvancedStats = hasPlan(businessProfile.plan, 'pro');
 
   // Cifras reales de la cuenta, en el período elegido.
   const { bookings, portfolio } = useApp();
@@ -293,7 +293,7 @@ export const StatsView: React.FC = () => {
             </div>
             <div>
               <h4 className=" text-base font-bold text-[#181416]">
-                Desbloqueá estadísticas avanzadas con Glow Boost
+                Desbloqueá estadísticas avanzadas con Glow Pro
               </h4>
               <p className="text-xs sm:text-sm text-[#571C31]/75 mt-0.5">
                 Conocé el origen exacto de cada clienta nueva, tasa de recurrencia y clics en cada servicio.
@@ -305,11 +305,11 @@ export const StatsView: React.FC = () => {
             variant="primary"
             size="md"
             onClick={() => {
-              switchPlan('boost');
-              showToast('Plan cambiado a Glow Boost', 'Todas las métricas avanzadas ya están desbloqueadas.', 'success');
+              switchPlan('pro');
+              showToast('Plan cambiado a Glow Pro', 'Todas las métricas avanzadas ya están desbloqueadas.', 'success');
             }}
           >
-            Pasar a Glow Boost
+            Pasar a Glow Pro
           </Button>
         </Card>
       )}

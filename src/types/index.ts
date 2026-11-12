@@ -1,6 +1,6 @@
 export type BusinessType = 'independent' | 'studio';
 
-export type PlanType = 'start' | 'start_plus' | 'boost';
+export type PlanType = 'start' | 'start_plus' | 'pro' | 'max';
 
 export type BillingCycle = 'monthly' | 'annual';
 

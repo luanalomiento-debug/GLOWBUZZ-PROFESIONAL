@@ -504,11 +504,11 @@ export const OnboardingFlow: React.FC = () => {
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-8">
               {PLANS.map((plan) => {
                 const pricing = getPricing(plan, formData.billingCycle);
                 const isSelected = formData.plan === plan.id;
-                const isTop = plan.id === 'boost';
+                const isTop = plan.id === 'max';
                 return (
                   <div
                     key={plan.id}

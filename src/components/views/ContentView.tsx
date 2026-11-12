@@ -168,7 +168,7 @@ export const ContentView: React.FC = () => {
       {activeTab === 'boost' && (
         <BoostPublications
           campaigns={boostCampaigns}
-          canUseBoost={hasPlan(businessProfile.plan, 'boost')}
+          canUseBoost={hasPlan(businessProfile.plan, 'pro')}
           onCreate={() => setCurrentSection('boost')}
         />
       )}

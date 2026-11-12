@@ -24,6 +24,7 @@ import {
   type PersistedState,
 } from '../lib/sync';
 import { useToast } from './ToastContext';
+import { normalizePlan } from '../data/plans';
 import { deriveClients } from '../lib/clients';
 import { LoadingScreen } from '../components/common/LoadingScreen';
 
@@ -153,7 +154,7 @@ export const AppProvider: React.FC<{ user: User; children: React.ReactNode }> = 
       if (cancelled) return;
       if (saved.ok && saved.state) {
         const st = saved.state;
-        if (st.businessProfile) setBusinessProfile({ ...buildEmptyProfile(userId, { email: user.email ?? '' }), ...st.businessProfile, email: user.email ?? st.businessProfile.email });
+        if (st.businessProfile) setBusinessProfile({ ...buildEmptyProfile(userId, { email: user.email ?? '' }), ...st.businessProfile, plan: normalizePlan(st.businessProfile.plan), email: user.email ?? st.businessProfile.email });
         if (st.services) setServices(st.services);
         if (st.portfolio) setPortfolio(st.portfolio);
         if (st.team) setTeam(st.team as TeamMember[]);

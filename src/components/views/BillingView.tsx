@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 
 export const BillingView: React.FC = () => {
-  const { businessProfile, switchPlan, updateProfile } = useApp();
+  const { businessProfile, switchPlan, updateProfile, bookings } = useApp();
   const { showToast } = useToast();
 
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
@@ -32,6 +32,10 @@ export const BillingView: React.FC = () => {
   });
 
   const currentPlan = getPlan(businessProfile.plan);
+
+  // Retorno real: reservas confirmadas o completadas y lo que suman.
+  const paidBookings = bookings.filter((b) => b.status === 'confirmed' || b.status === 'completed');
+  const generated = paidBookings.reduce((sum, b) => sum + b.priceUYU, 0);
   const currentPricing = getPricing(currentPlan, businessProfile.billingCycle);
 
   // Frecuencia que se está comparando; solo cambia la suscripción al confirmar en una tarjeta
@@ -42,7 +46,7 @@ export const BillingView: React.FC = () => {
     switchPlan(targetPlan);
     updateProfile({ billingCycle: viewCycle });
     showToast(
-      targetPlan === businessProfile.plan
+      targetPlan === currentPlan.id
         ? `Pago ${viewCycle === 'annual' ? 'anual' : 'mensual'} activado`
         : `Plan cambiado a ${target.name}`,
       viewCycle === 'annual'
@@ -114,12 +118,20 @@ export const BillingView: React.FC = () => {
               <span className="text-[10px] font-bold uppercase tracking-wider text-[#571C31]/75 block">
                 Retorno de inversión medido
               </span>
-              <p className=" text-base sm:text-lg font-bold text-[#181416] mt-0.5">
-                GlowBuzz ya te generó 7 reservas por un valor estimado de $12.400 UYU.
-              </p>
-              <p className=" text-xs text-[#571C31]/75 mt-0.5">
-                El costo mensual de tu plan ({formatPrice(currentPricing.perMonth)}) se pagó {(12400 / currentPricing.perMonth).toFixed(1)} veces con clientas nuevas.
-              </p>
+              {paidBookings.length > 0 ? (
+                <>
+                  <p className=" text-base sm:text-lg font-bold text-[#181416] mt-0.5">
+                    GlowBuzz ya te generó {paidBookings.length} {paidBookings.length === 1 ? 'reserva' : 'reservas'} por un valor de {formatPrice(generated)} UYU.
+                  </p>
+                  <p className=" text-xs text-[#571C31]/75 mt-0.5">
+                    El costo mensual de tu plan ({formatPrice(currentPricing.perMonth)}) se pagó {(generated / currentPricing.perMonth).toFixed(1)} veces con clientas nuevas.
+                  </p>
+                </>
+              ) : (
+                <p className=" text-sm text-[#571C31]/75 mt-0.5">
+                  Todavía no hay reservas confirmadas. Cuando las clientas reserven y las confirmes, acá ves cuánto suman frente al costo de tu plan.
+                </p>
+              )}
             </div>
           </div>
         </div>
@@ -158,12 +170,12 @@ export const BillingView: React.FC = () => {
           <BillingCycleToggle value={viewCycle} onChange={setViewCycle} />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
           {PLANS.map((plan) => {
-            const isCurrentPlan = plan.id === businessProfile.plan;
+            const isCurrentPlan = plan.id === currentPlan.id;
             const isCurrent = isCurrentPlan && viewCycle === businessProfile.billingCycle;
             const pricing = getPricing(plan, viewCycle);
-            const isTop = plan.id === 'boost';
+            const isTop = plan.id === 'max';
             return (
               <Card
                 key={plan.id}
