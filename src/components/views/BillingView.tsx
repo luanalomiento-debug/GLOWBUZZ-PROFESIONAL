@@ -25,10 +25,10 @@ export const BillingView: React.FC = () => {
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
   const [cardForm, setCardForm] = useState({
-    number: '•••• •••• •••• 4242',
-    name: 'Paula Silva',
-    expiry: '12/28',
-    cvv: '•••',
+    number: '',
+    name: '',
+    expiry: '',
+    cvv: '',
   });
 
   const currentPlan = getPlan(businessProfile.plan);
@@ -58,7 +58,12 @@ export const BillingView: React.FC = () => {
 
   const handleSavePaymentMethod = (e: React.FormEvent) => {
     e.preventDefault();
-    showToast('Método de pago guardado', 'La tarjeta Visa terminada en 4242 quedó configurada.', 'success');
+    const digits = cardForm.number.replace(/\D/g, '');
+    if (digits.length < 12 || !cardForm.expiry.trim() || !cardForm.cvv.trim()) {
+      showToast('Faltan datos', 'Completá número, vencimiento y CVV de la tarjeta.', 'error');
+      return;
+    }
+    showToast('Método de pago guardado', `La tarjeta terminada en ${digits.slice(-4)} quedó configurada.`, 'success');
     setPaymentModalOpen(false);
   };
 
@@ -264,6 +269,9 @@ export const BillingView: React.FC = () => {
             <input
               type="text"
               value={cardForm.number}
+              placeholder="0000 0000 0000 0000"
+              inputMode="numeric"
+              autoComplete="off"
               onChange={(e) => setCardForm({ ...cardForm, number: e.target.value })}
               className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-sm"
             />
@@ -277,6 +285,8 @@ export const BillingView: React.FC = () => {
               <input
                 type="text"
                 value={cardForm.expiry}
+                placeholder="MM/AA"
+                autoComplete="off"
                 onChange={(e) => setCardForm({ ...cardForm, expiry: e.target.value })}
                 className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-sm"
               />
@@ -288,6 +298,8 @@ export const BillingView: React.FC = () => {
               <input
                 type="password"
                 value={cardForm.cvv}
+                placeholder="•••"
+                autoComplete="off"
                 onChange={(e) => setCardForm({ ...cardForm, cvv: e.target.value })}
                 className="w-full px-3 py-2 rounded-xl border border-[#571C31]/20 bg-white text-sm"
               />

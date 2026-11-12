@@ -45,13 +45,8 @@ export const PLANS: PlanInfo[] = [
     name: 'Glow Max',
     price: 2990,
     tagline: 'Para profesionales con clientela consolidada y muchas clientas que gestionar.',
-    features: [
-      'Todo lo de Glow Pro',
-      'Recordatorios y confirmaciones de turnos',
-      'Ficha e historial de cada clienta',
-      'Aviso para que vuelva a reservar según su frecuencia',
-    ],
-    unlocks: 'Se desbloqueó Glow Max con las automatizaciones de gestión.',
+    features: ['Todo lo de Glow Pro', 'Automatizaciones'],
+    unlocks: 'Se desbloqueó Glow Max con sus automatizaciones.',
   },
 ];
 
