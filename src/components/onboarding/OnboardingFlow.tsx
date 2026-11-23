@@ -81,22 +81,23 @@ export const OnboardingFlow: React.FC = () => {
 
   const totalSteps = formData.businessType === 'studio' ? 7 : 6;
 
-  const handleNext = () => {
+  /** Guarda lo cargado y pasa al paso siguiente. `data` permite guardar un valor recién elegido, que todavía no está en `formData`. */
+  const advance = (data: typeof formData) => {
     // Save state progressively
     updateProfile({
-      ownerName: formData.ownerName,
-      ownerLastName: formData.ownerLastName,
-      email: formData.email,
-      phone: formData.phone,
-      name: formData.name,
-      businessType: formData.businessType,
-      categories: formData.categories,
-      location: formData.location,
-      modality: formData.modality,
-      teamSize: formData.teamSize,
-      currentAgendaTool: formData.currentAgendaTool,
-      plan: formData.plan,
-      billingCycle: formData.billingCycle,
+      ownerName: data.ownerName,
+      ownerLastName: data.ownerLastName,
+      email: data.email,
+      phone: data.phone,
+      name: data.name,
+      businessType: data.businessType,
+      categories: data.categories,
+      location: data.location,
+      modality: data.modality,
+      teamSize: data.teamSize,
+      currentAgendaTool: data.currentAgendaTool,
+      plan: data.plan,
+      billingCycle: data.billingCycle,
     });
 
     if (onboardingStep < totalSteps) {
@@ -106,6 +107,8 @@ export const OnboardingFlow: React.FC = () => {
       showToast('¡Tu GlowBuzz está listo!', 'Bienvenida a tu panel de negocios.', 'success');
     }
   };
+
+  const handleNext = () => advance(formData);
 
   const handleBack = () => {
     if (onboardingStep > FIRST_STEP) {
@@ -572,8 +575,10 @@ export const OnboardingFlow: React.FC = () => {
                         className="w-full"
                         onClick={(e) => {
                           e.stopPropagation();
-                          setFormData({ ...formData, plan: plan.id });
-                          handleNext();
+                          // El plan elegido se guarda directo: el estado del formulario todavía no lo tiene.
+                          const chosen = { ...formData, plan: plan.id };
+                          setFormData(chosen);
+                          advance(chosen);
                         }}
                       >
                         Probar gratis

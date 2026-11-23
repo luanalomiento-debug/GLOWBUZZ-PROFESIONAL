@@ -127,6 +127,29 @@ export const AppProvider: React.FC<{ user: User; children: React.ReactNode }> = 
   const [onboardingStep, setOnboardingStep] = useState<number>(3);
   const [previewAsClientModalOpen, setPreviewAsClientModalOpen] = useState<boolean>(false);
 
+  // --- Botón "atrás" del navegador y deslizar hacia el costado en el celular ---
+  // Cada cambio de sección o de paso del alta suma una entrada al historial; al volver se restaura.
+  useEffect(() => {
+    const current = { gb: 1, section: currentSection, step: onboardingStep };
+    const saved = window.history.state as { gb?: number; section?: DashboardSection; step?: number } | null;
+    if (!saved || saved.gb !== 1) {
+      window.history.replaceState(current, '');
+    } else if (saved.section !== currentSection || saved.step !== onboardingStep) {
+      window.history.pushState(current, '');
+    }
+  }, [currentSection, onboardingStep]);
+
+  useEffect(() => {
+    const onPop = (event: PopStateEvent) => {
+      const saved = event.state as { gb?: number; section?: DashboardSection; step?: number } | null;
+      if (!saved || saved.gb !== 1) return;
+      if (saved.section) setCurrentSection(saved.section);
+      if (typeof saved.step === 'number') setOnboardingStep(saved.step);
+    };
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, []);
+
   // --- Datos de la cuenta: copia local + Supabase ---
   const { showToast } = useToast();
   const [hydrated, setHydrated] = useState(false);
